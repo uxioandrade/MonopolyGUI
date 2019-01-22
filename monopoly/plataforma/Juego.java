@@ -41,12 +41,10 @@ public class Juego implements Comando{
     public Juego(){
 
         this.turnosJugadores = new ArrayList<>();
-
-        consola=new ConsolaNormal();
         Valor.crearGrupos();//creamos los grupos almacenados en valor
         this.tablero = new Tablero();
         this.operacion = new Operacion(this.tablero);
-
+        consola=new ConsolaNormal();
         //this.operacion.crearJugadores();//antes de empezar el menu de partida creamos los jugadores
 
         //this.tablero.imprimirTablero();
@@ -231,6 +229,10 @@ public class Juego implements Comando{
 
     public Dados getDados() {
         return this.dados;
+    }
+
+    public static ConsolaNormal getConsola() {
+        return consola;
     }
 
     public ArrayList<String> getTurnosJugadores() {
@@ -427,7 +429,7 @@ public class Juego implements Comando{
             jugadorActual = tablero.getJugadores().get(turnosJugadores.get(this.turno % turnosJugadores.size()));
             this.countTiradas = 0;
             this.vecesDobles = 0;
-            this.panelTexto.addTexto("El jugador actual es " + jugadorActual.getNombre());
+            consola.anhadirTexto("El jugador actual es " + jugadorActual.getNombre());
             jugadorActual.listarTratosPendientes();
         } else {
             throw new ExcepcionesDinamicaTurno("No se puede finalizar el turno sin haber tirado los dados");

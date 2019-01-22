@@ -29,19 +29,25 @@ public class GestionMenu implements ActionListener {
                 this.interfazGrafica.getJuego().lanzar();
                 this.interfazGrafica.getPanelTablero().actualizarFicha(posInicial,this.interfazGrafica.getJuego().getJugadorActual());
             } catch (ExcepcionMonopoly ex) {
-                System.out.println(ex.getMensaje());
+                this.interfazGrafica.getPanelTexto().addTexto(ex.getMensaje());
             }
         }else if(evento.getSource().equals(this.interfazGrafica.getPanelMenu().getBotonAcabar())){
             try{
                 this.interfazGrafica.getJuego().acabar();
             }catch (ExcepcionMonopoly ex) {
-                System.out.println(ex.getMensaje());
+                this.interfazGrafica.getPanelTexto().addTexto(ex.getMensaje());
             }
         }else if(evento.getSource().equals(this.interfazGrafica.getPanelMenu().getBotonEstadisticas())){
             try{
                 JOptionPane.showMessageDialog(this.interfazGrafica,this.interfazGrafica.getJuego().estadisticasGlobales());
             }catch (Exception ex){
-                System.out.println(ex.getMessage());
+                this.interfazGrafica.getPanelTexto().addTexto(ex.getMessage());
+            }
+        }else if(evento.getSource().equals(this.interfazGrafica.getPanelMenu().getBotonComprar())){
+            try{
+                this.interfazGrafica.getJuego().comprar();
+            }catch(ExcepcionMonopoly ex){
+                this.interfazGrafica.getPanelTexto().addTexto(ex.getMensaje());
             }
         }
     }

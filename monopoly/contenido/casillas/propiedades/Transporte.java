@@ -54,7 +54,7 @@ public final class Transporte extends Propiedades { //Las clases hoja de una jer
                 "Uso Transporte Actual: " +  Valor.df2.format(((Transporte) this).alquiler(1)) + "€\n" +
                 "Uso Transporte Básico: " +  Valor.df2.format(Valor.getDineroVuelta() * 0.25) + "€\n" +
                 "Hipoteca: " +  Valor.df2.format(((Transporte) this).getHipoteca()) + "€\n";
-        if(super.getPropietario().getNombre().equals("Banca"))
+        if(!super.getPropietario().getNombre().equals("Banca"))
             aux += "Propietario: " + super.getPropietario().getNombre() + "\n";
         if(super.getHipotecado())
             aux += "Transporte hipotecado, paga " +  Valor.df2.format(1.1*super.getHipoteca()) + " para deshipotecar" + "\n";

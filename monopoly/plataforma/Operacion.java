@@ -119,10 +119,8 @@ public class Operacion {
             ((Coche)jugador.getAvatar()).setPoderComprar(false);
         }
 
-        Juego.consola.imprimir("Operación realizada con éxito");
-        Juego.consola.imprimir("\t" + jugador.getAvatar().getCasilla().getNombre() + " se ha anadido a tu lista de propiedades");
-        Juego.consola.imprimir("\tTu saldo actual es de: " + jugador.getDinero() + "€");
-        Juego.consola.imprimir("\tEl jugador " + jugador.getNombre() + " compra la casilla " + jugador.getAvatar().getCasilla().getNombre() + " por " + comprable.getPrecio() + "€.");
+        this.tablero.getPanelTexto().addTexto("Operación realizada con éxito");
+        this.tablero.getPanelTexto().addTexto(  jugador.getAvatar().getCasilla().getNombre() + " se ha anadido a tu lista de propiedades" + "\n" + "Tu saldo actual es de: " + Valor.df2.format(jugador.getDinero()) + "€" + "\n" + "El jugador " + jugador.getNombre() + " compra la casilla " + jugador.getAvatar().getCasilla().getNombre() + " por " + Valor.df2.format(comprable.getPrecio()) + "€.");
     }
 
     public void edificar(Jugador jugador, String tipo) throws ExcepcionDineroVoluntario, ExcepcionRestriccionEdificar {
@@ -151,13 +149,13 @@ public class Operacion {
                 ((Solar) propiedad).getConstrucciones().remove(((Solar) propiedad).getConstrucciones(tipo).remove(0));
             }
             if(i == 0)
-                Juego.consola.imprimir(vendedor.getNombre() + " no ha vendido " + tipo + " en " + propiedad.getNombre() + " porque no ha construido");
+                this.tablero.getPanelTexto().addTexto(vendedor.getNombre() + " no ha vendido " + tipo + " en " + propiedad.getNombre() + " porque no ha construido");
             else if(i==num)
-                Juego.consola.imprimir(vendedor.getNombre() + " ha vendido " + num + " " + tipo + " en " + propiedad.getNombre() +
-                        ", recibiendo " + total + "€. En la propiedad queda" + ((Solar) propiedad).getConstrucciones(tipo).size() + " " + tipo + ".");
+                this.tablero.getPanelTexto().addTexto(vendedor.getNombre() + " ha vendido " + num + " " + tipo + " en " + propiedad.getNombre() +
+                        ", recibiendo " + Valor.df2.format(total) + "€. En la propiedad queda" + ((Solar) propiedad).getConstrucciones(tipo).size() + " " + tipo + ".");
             else
-                Juego.consola.imprimir(vendedor.getNombre() + " solamente ha podido vender " + i + " " + tipo + " en " + propiedad.getNombre() +
-                    ", recibiendo " + total + "€. ");
+                this.tablero.getPanelTexto().addTexto(vendedor.getNombre() + " solamente ha podido vender " + i + " " + tipo + " en " + propiedad.getNombre() +
+                    ", recibiendo " + Valor.df2.format(total) + "€. ");
 
         }else{
             throw new ExcepcionRestriccionEdificar("EL jugador "+ vendedor.getNombre() + " no posee la casilla "+propiedad.getNombre());
@@ -184,7 +182,7 @@ public class Operacion {
         }
         jugActual.modificarDinero(comprable.getHipoteca());
         comprable.setHipotecado(true);
-        Juego.consola.imprimir("El jugador " + jugActual.getNombre() + " ha hipotecado la propiedad " + comprable.getNombre()+ " recibiendo así "+ comprable.getHipoteca()+"$");
+        Juego.consola.imprimir("El jugador " + jugActual.getNombre() + " ha hipotecado la propiedad " + comprable.getNombre()+ " recibiendo así "+ Valor.df2.format(comprable.getHipoteca())+"$");
 
     }
 

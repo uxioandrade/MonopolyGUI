@@ -77,6 +77,6 @@ public class PanelMenu extends JPanel{
 		this.botonEstadisticas.addActionListener(new GestionMenu(this.interfaz));
 		this.botonAcabar.addActionListener(new GestionMenu(this.interfaz));
 		this.botonVender.addActionListener(new GestionMenu(this.interfaz));
-		this.botonEstadisticas.addActionListener(new GestionMenu(this.interfaz));
+		//this.botonHipotecar.addActionListener(new GestionMenu(this.interfaz));
 	}
 }

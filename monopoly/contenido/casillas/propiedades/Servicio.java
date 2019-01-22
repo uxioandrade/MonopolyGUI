@@ -47,7 +47,7 @@ public final class Servicio extends Propiedades { //Las clases hoja de una jerar
                 "Precio: " +  Valor.df2.format(((Servicio) this).getPrecio()) + "\n" +
                 "Uso Servicio: " + ((Servicio) this).alquiler(1)+" x suma de los dados" + "\n" +
                 "Hipoteca: " +  Valor.df2.format(((Servicio) this).getHipoteca()) + "\n";
-        if(super.getPropietario().getNombre().equals("Banca"))
+        if(!super.getPropietario().getNombre().equals("Banca"))
             aux += "Propietario: " + super.getPropietario().getNombre() + "\n";
         if(super.getHipotecado())
             aux += "Servicio hipotecado, paga " +  Valor.df2.format(1.1*super.getHipoteca()) + " para deshipotecar" + "\n";

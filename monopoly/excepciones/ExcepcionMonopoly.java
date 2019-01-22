@@ -7,7 +7,7 @@ public abstract class ExcepcionMonopoly extends Exception{ //La clase raíz de u
     private final String mensaje;
 
     public ExcepcionMonopoly(String mensaje) {
-        this.mensaje = Valor.ANSI_ROJO + mensaje + "\033[0;1m";
+        this.mensaje =  mensaje;
     }
 
     public String getMensaje() {

@@ -1,4 +1,5 @@
 package monopoly.plataforma;
+import interfazgrafica.PanelTexto;
 import monopoly.contenido.*;
 import monopoly.contenido.avatares.Avatar;
 import monopoly.contenido.casillas.Casilla;
@@ -24,6 +25,7 @@ public class Tablero {
     private ArrayList<ArrayList<Edificios>> edificios;
     private Jugador banca;
     private int vueltas;
+    private PanelTexto panelTexto;
 
     public Tablero(){
         this.jugadores = new HashMap<>();
@@ -65,6 +67,10 @@ public class Tablero {
         return this.vueltas;
     }
 
+    public void setPanelTexto(PanelTexto panelTexto){
+        this.panelTexto = panelTexto;
+    }
+
     public void setVueltas(int vueltas){
         this.vueltas = vueltas;
     }
@@ -100,6 +106,10 @@ public class Tablero {
             return this.edificios.get(tipo);
         else
             return null;
+    }
+
+    public PanelTexto getPanelTexto(){
+        return this.panelTexto;
     }
 
     public ArrayList<ArrayList<Edificios>> getEdificios(){

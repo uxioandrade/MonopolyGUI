@@ -15,6 +15,7 @@ import monopoly.plataforma.Tablero;
 import monopoly.plataforma.Valor;
 import java.text.DecimalFormat;
 
+import monopoly.contenido.casillas.Casilla;
 
 public final class Solar extends Propiedades { //Las clases hoja de una jerarquía deberían ser finales
 
@@ -156,7 +157,7 @@ public final class Solar extends Propiedades { //Las clases hoja de una jerarqu�
                                 Casa nuevaCasa = new Casa(Valor.MULTIPLICADOR_INICIAL_CASA * this.getPrecio(), this);
                                 tablero.anhadirEdificio(nuevaCasa);
                                 this.anhadirEdificio(nuevaCasa);
-                                Juego.consola.imprimir("Se ha edificado una casa en " + this.getNombre() + ". La fortuna de " +  this.getPropietario().getNombre() +"\n" +
+                                Juego.consola.anhadirTexto("Se ha edificado una casa en " + this.getNombre() + ". La fortuna de " +  this.getPropietario().getNombre() +"\n" +
                                         "se reduce en " + Valor.MULTIPLICADOR_INICIAL_CASA * this.getPrecio() + "€.");
                             } else
                                 throw new ExcepcionDineroVoluntario("El jugador " +  this.getPropietario().getNombre() + " no dispone de dinero suficiente para edificar una casa");
@@ -221,7 +222,7 @@ public final class Solar extends Propiedades { //Las clases hoja de una jerarqu�
                                 PistaDeporte nuevaPista = new PistaDeporte(Valor.MULTIPLICADOR_INICIAL_PISTA*this.getPrecio(), this);
                                 this.anhadirEdificio(nuevaPista);
                                 tablero.anhadirEdificio(nuevaPista);
-                                Juego.consola.imprimir("Se ha edificado una piscina en " + this.getNombre() + ". La fortuna de " +  this.getPropietario().getNombre() +"\n" +
+                                Juego.consola.anhadirTexto("Se ha edificado una piscina en " + this.getNombre() + ". La fortuna de " +  this.getPropietario().getNombre() +"\n" +
                                         "se reduce en " + Valor.MULTIPLICADOR_INICIAL_PISTA * this.getPrecio() + "€.");
                             }else{
                                 throw new ExcepcionRestriccionEdificar("Tienes que tener un mínimo de 2 hoteles para construir una pista de deporte");
@@ -259,7 +260,7 @@ public final class Solar extends Propiedades { //Las clases hoja de una jerarqu�
              "Alquiler piscina: " +  Valor.df2.format(25*((Solar) this).getPrecio()*0.1) + "€\n" +
              "Alquiler pista de deporte: " +  Valor.df2.format(25*((Solar) this).getPrecio()*0.1) + "€\n" +
              "Hipoteca: " +  Valor.df2.format(((Solar) this).getHipoteca()) + "€\n";
-        if(super.getPropietario().getNombre().equals("Banca"))
+        if(!super.getPropietario().getNombre().equals("Banca"))
             aux += "Propietario: " + super.getPropietario().getNombre() + "\n";
         if(super.getHipotecado())
             aux += "Solar hipotecado, paga " + Valor.df2.format(1.1*super.getHipoteca()) + " para deshipotecar" + "\n";

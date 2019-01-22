@@ -47,14 +47,5 @@ public class PanelInfo extends JPanel{
 		this.panelTexto.setTexto(boton.getCasilla().toString());
 	}
 	
-	public void cargarJugadoresIniciales() throws IOException {
-		GridBagConstraints c = new GridBagConstraints();
-		ArrayList<String> nombres = LoginPanel.getNombres();
-		
-		for(Integer k=0; k<nombres.size(); k++) {
-			jugadores.add(new JButton(nombres.get(k)));
-			jugadores.get(k).setAlignmentX(Component.CENTER_ALIGNMENT);
-			this.add(jugadores.get(k));
-		}
-	}
+
 }

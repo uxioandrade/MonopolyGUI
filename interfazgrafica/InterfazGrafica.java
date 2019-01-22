@@ -17,6 +17,7 @@ public class InterfazGrafica extends JFrame{
 	private PanelInfo info;
 	private PanelMenu menu;
 	private PanelBotones botones;
+	private PanelJugadores panelJugadores;
 	private PanelTexto texto;
 	private ArrayList<Jugador> jugadores;
 	private ArrayList<BufferedImage> fichas;
@@ -81,6 +82,13 @@ public class InterfazGrafica extends JFrame{
 		c.gridy = 0;
 		this.add(texto, c);
 		this.juego.setPanelTexto(texto);
+		this.juego.getTablero().setPanelTexto(texto);
+		this.juego.getConsola().setPanelTexto(texto);
+
+		this.panelJugadores = new PanelJugadores(this);
+		c.gridx = 500;
+		c.gridy = 2000;
+		this.add(this.panelJugadores,c);
 	}
 	
 	public PanelTablero getPanelTablero() {
@@ -94,7 +102,11 @@ public class InterfazGrafica extends JFrame{
 	public PanelMenu getPanelMenu() {
 		return menu;
 	}
-	
+
+	public PanelTexto getPanelTexto(){
+		return this.texto;
+	}
+
 	public PanelBotones getPanelBotones() {
 		return botones;
 	}
@@ -105,6 +117,10 @@ public class InterfazGrafica extends JFrame{
 
 	public Juego getJuego() {
 		return juego;
+	}
+
+	public PanelJugadores getPanelJugadores(){
+		return this.panelJugadores;
 	}
 
 	public static BufferedImage resize(BufferedImage img, int h, int w) {
@@ -128,7 +144,7 @@ public class InterfazGrafica extends JFrame{
 			this.juego.getTurnosJugadores().add(jugadorIntroducir.getNombre());
 		}
 		this.juego.setJugadorActual(this.juego.getTablero().getJugadores().get(this.juego.getTurnosJugadores().get(0)));
-		info.cargarJugadoresIniciales();
+		this.panelJugadores.cargarJugadoresIniciales();
 	}
 
 }

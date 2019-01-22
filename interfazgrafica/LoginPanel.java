@@ -105,7 +105,20 @@ public class LoginPanel extends JFrame{
 					}
 				}
 				for(int i=0; i<nJugadores; i++) {
-					nombres.add(fields.get(i).getText());
+				    String aux;
+				    if(fields.get(i).getText().length() >= 15)
+				        aux = fields.get(i).getText().substring(0,14);
+                    else
+                        aux = fields.get(i).getText();
+                    int isEqual = 0;
+                    for(String s: nombres){
+                        if(aux.equals(s))
+                            isEqual++;
+                    }
+                    if(isEqual > 0)
+                        aux = aux + isEqual;
+
+                    nombres.add(aux);
 				}
 				((JButton) e.getSource()).getParent().setVisible(false);
 				try {

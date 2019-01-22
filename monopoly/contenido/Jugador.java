@@ -274,13 +274,13 @@ public class Jugador {
     public void imprimirEstadisticas(){
 
         String aux = "{" +
-                "\ndineroInvertido: " + this.getDineroInvertido() +
-                "\npagoDeAlquileres: " + this.getPagoAlquileres() +
-                "\npagoImpuestos: " + this.getPagoImpuestos() +
-                "\ncobroDeAlquileres: " + this.getCobroAlquileres() +
-                "\npasarPorCasillaDeSalida:" + this.getPasarPorCasilla() +
-                "\npremiosInversionesOBote:" + this.getPremiosInversionesOBote() +
-                "\nvecesEnLaCarcel: " + this.getVecesCarcel() + "\n}";
+                "\nDinero Invertido: " + this.getDineroInvertido() +
+                "\nPago de Alquileres: " + this.getPagoAlquileres() +
+                "\nPago Impuestos: " + this.getPagoImpuestos() +
+                "\nCobro de Alquileres: " + this.getCobroAlquileres() +
+                "\nPasar por Casillas Salida:" + this.getPasarPorCasilla() +
+                "\nPremios Inversiones o Botes:" + this.getPremiosInversionesOBote() +
+                "\nVeces en la Cárcel: " + this.getVecesCarcel() + "\n}";
         Juego.consola.imprimir(aux);
     }
 
@@ -343,6 +343,15 @@ public class Jugador {
                 "Total de Piscinas: " + piscinas + "\n" +
                 "Total de Pistas de Deporte: "+ pistas+"\n";
         aux += "\n}\n";
+        aux += "Estadísticas de jugador\n";
+        aux +=  "{" +
+                "\nDinero Invertido: " + this.getDineroInvertido() +
+                "\nPago de Alquileres: " + this.getPagoAlquileres() +
+                "\nPago Impuestos: " + this.getPagoImpuestos() +
+                "\nCobro de Alquileres: " + this.getCobroAlquileres() +
+                "\nPasar por Casillas Salida:" + this.getPasarPorCasilla() +
+                "\nPremios Inversiones o Botes:" + this.getPremiosInversionesOBote() +
+                "\nVeces en la Cárcel: " + this.getVecesCarcel() + "\n}";
         return aux;
     }
 }
