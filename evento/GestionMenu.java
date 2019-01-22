@@ -11,6 +11,8 @@ import monopoly.excepciones.dinamicas.*;
 import monopoly.excepciones.dinero.*;
 import monopoly.excepciones.restricciones.*;
 
+import javax.swing.*;
+
 public class GestionMenu implements ActionListener {
 
     private InterfazGrafica interfazGrafica;
@@ -34,6 +36,12 @@ public class GestionMenu implements ActionListener {
                 this.interfazGrafica.getJuego().acabar();
             }catch (ExcepcionMonopoly ex) {
                 System.out.println(ex.getMensaje());
+            }
+        }else if(evento.getSource().equals(this.interfazGrafica.getPanelMenu().getBotonEstadisticas())){
+            try{
+                JOptionPane.showMessageDialog(this.interfazGrafica,this.interfazGrafica.getJuego().estadisticasGlobales());
+            }catch (Exception ex){
+                System.out.println(ex.getMessage());
             }
         }
     }

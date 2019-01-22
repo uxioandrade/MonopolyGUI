@@ -514,17 +514,12 @@ public class Juego implements Comando{
         }
     }
 
-    public void estadisticas(String partes[]) throws ExcepcionNumeroPartesComando{
-        if(partes.length==1)
-            tablero.obtenerEstadisticas();
-        else if(partes.length==2){
-            if(turnosJugadores.contains(partes[1])){
-                tablero.getJugadores().get(partes[1]).imprimirEstadisticas();
-            }else
-                this.panelTexto.addTexto("El jugador introducido no existe");
-        }
-        else
-            throw new ExcepcionNumeroPartesComando("Comando incorrecto");
+    public String estadisticasGlobales(){
+        return tablero.obtenerEstadisticas();
+    }
+
+    public void estadisticasJugadores(Jugador jugador){
+        jugador.imprimirEstadisticas();
     }
 
     public void trato(String partes[]) throws ExcepcionNumeroPartesComando, ExcepcionRestriccionPropiedades, ExcepcionDineroVoluntario{

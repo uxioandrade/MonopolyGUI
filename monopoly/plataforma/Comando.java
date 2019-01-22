@@ -26,7 +26,7 @@ public interface Comando {
     public void jugador(String partes[]) throws ExcepcionNumeroPartesComando;
     public void ver(String partes[]) throws ExcepcionNumeroPartesComando;
     public void cambiar(String partes[]) throws ExcepcionNumeroPartesComando, ExcepcionDinamicaModoMovimiento;
-    public void estadisticas(String partes[]) throws ExcepcionNumeroPartesComando;
+    public String estadisticasGlobales();
     public void trato(String partes[]) throws ExcepcionNumeroPartesComando , ExcepcionRestriccionPropiedades, ExcepcionDineroVoluntario;
     public void aceptarTrato(String partes[]) throws ExcepcionNumeroPartesComando, ExcepcionRestriccionPropiedades, ExcepcionDineroVoluntario;
     public void borrarTrato(String partes[]) throws ExcepcionNumeroPartesComando, ExcepcionRestriccionPropiedades;

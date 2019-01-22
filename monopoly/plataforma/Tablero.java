@@ -9,6 +9,7 @@ import monopoly.contenido.casillas.propiedades.Solar;
 import monopoly.contenido.edificios.Hotel;
 import monopoly.contenido.edificios.Piscina;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -364,14 +365,14 @@ public class Tablero {
         return aux + "]";
     }
 
-    public void obtenerEstadisticas(){
+    public String obtenerEstadisticas(){
         String aux = "{\n" +
-                "casillaMasRentable: " + this.getCasillaMasRentable() + ",\n" +
-                "grupoMasRentable: " + this.getGrupoMasRentable() + ",\n" +
-                "casillaMasFrecuentada: " + this.getCasillaMasFrecuentada() + ",\n" +
-                "jugadorMasVueltas: " + this.getJugadorMasVueltas() + ",\n" +
-                "jugadorMasVecesDados: " + this.getMaxVecesDados() + ",\n" +
-                "jugadorEnCabeza: " + this.getJugadorCabeza() + "\n}";
-        Juego.consola.imprimir(aux);
+                "Casilla más rentable: " + this.getCasillaMasRentable() + ",\n" +
+                "Grupo Más Rentable: " + this.getGrupoMasRentable() + ",\n" +
+                "Casilla Más Frecuentada: " + this.getCasillaMasFrecuentada() + ",\n" +
+                "Jugador Más Vueltas: " + this.getJugadorMasVueltas() + ",\n" +
+                "Jugador Más Veces Dados: " + this.getMaxVecesDados() + ",\n" +
+                "Jugador En Cabeza: " + this.getJugadorCabeza() + "\n}";
+        return aux;
     }
 }
