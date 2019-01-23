@@ -51,7 +51,7 @@ public class LoginPanel extends JFrame{
 		fotoETSE.setIcon(new ImageIcon(img));
 		fotoETSE.setAlignmentX(Component.CENTER_ALIGNMENT);
 		this.add(fotoETSE);
-		
+
 		introduzca = new JLabel("Introduzca el número de jugadores");
 		this.add(introduzca);
 		for(Integer j=2; j<7; j++) {
