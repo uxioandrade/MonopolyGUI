@@ -49,7 +49,7 @@ public final class CartaMovimientoCaja extends CartaCaja{ //Las clases hoja de u
         //Se resta el alquiler del jugador que ha caído en el servicio
         jugador.modificarDinero(-cantidad);
         jugador.modificarPagoAlquileres(cantidad);
-        Juego.consola.imprimir("Se han pagado " + cantidad + "€ de alquiler.");
+        Juego.consola.anhadirTexto("Se han pagado " + cantidad + "€ de alquiler.");
         //Se aumenta el dinero del propietario
         Propiedades casillaComprable;
         casillaComprable = (Propiedades) jugador.getAvatar().getCasilla();
@@ -64,7 +64,7 @@ public final class CartaMovimientoCaja extends CartaCaja{ //Las clases hoja de u
         jugador.modificarDinero(Valor.getDineroVuelta());
         jugador.modificarPasarPorCasilla(Valor.getDineroVuelta());
         jugador.getAvatar().sumarNumTirada();
-        Juego.consola.imprimir("El jugador " + jugador.getNombre() + " recibe " + Valor.getDineroVuelta() + "€ por haber cruzado la salida.");
+        Juego.consola.anhadirTexto("El jugador " + jugador.getNombre() + " recibe " + Valor.getDineroVuelta() + "€ por haber cruzado la salida.");
         //Se recorren los avatares para comprobar si es necesario actualizar el dinero de pasar por la casilla de salida
         Iterator<Avatar> avatar_i = tablero.getAvatares().values().iterator();
         while(avatar_i.hasNext()) {
@@ -101,9 +101,9 @@ public final class CartaMovimientoCaja extends CartaCaja{ //Las clases hoja de u
         }
 
         if(accionFinanciera)
-            Juego.consola.imprimir(super.getDescripcion() + " " + Valor.getDineroVuelta() + "€.");
+            Juego.consola.anhadirTexto(super.getDescripcion() + " " + Valor.getDineroVuelta() + "€.");
         else
-            Juego.consola.imprimir(super.getDescripcion());
+            Juego.consola.anhadirTexto(super.getDescripcion());
 
         Propiedades casillaComprable;
         Operacion operacion = new Operacion(tablero);
@@ -125,7 +125,7 @@ public final class CartaMovimientoCaja extends CartaCaja{ //Las clases hoja de u
                     if (jugador.getDinero() >= cantidadDoble) {
                         cobrarAccion(jugador, tablero, cantidadDoble);
                     } else {
-                        Juego.consola.imprimir("No dispones de capital suficiente para efectuar esta operación. Prueba a hipotecar tus propiedades, a negociar o declararte en bancarrota");
+                        Juego.consola.anhadirTexto("No dispones de capital suficiente para efectuar esta operación. Prueba a hipotecar tus propiedades, a negociar o declararte en bancarrota");
                         if (operacion.menuHipotecar(jugador, tablero, casillaComprable.alquiler(1) * 2)) {
                             cobrarAccion(jugador, tablero, cantidadDoble);
                         }

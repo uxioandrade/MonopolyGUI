@@ -246,21 +246,21 @@ public class Tablero {
         Iterator<Jugador> jug_i = this.jugadores.values().iterator();
         while(jug_i.hasNext()) {
             Jugador jug = jug_i.next();
-            Juego.consola.imprimir(jug.toString());
+            Juego.consola.anhadirTexto(jug.toString());
         }
     }
     public void listarAvatares(){
         Iterator<Avatar> ava_i = this.avatares.values().iterator();
         while(ava_i.hasNext()) {
             Avatar ava = ava_i.next();
-            Juego.consola.imprimir(ava.toString());
+            Juego.consola.anhadirTexto(ava.toString());
         }
     }
 
     public void listarCasillasEdificadas(){
         for(int i =0;i<4;i++){
             for(int j = 0;j < this.edificios.get(i).size();j++){
-                Juego.consola.imprimir("{\n" + "id: " +this.edificios.get(i).get(j).getNombre()+ ",\npropietario: "
+                Juego.consola.anhadirTexto("{\n" + "id: " +this.edificios.get(i).get(j).getNombre()+ ",\npropietario: "
                         + this.edificios.get(i).get(j).getComprable().getPropietario().getNombre() + ",\ncasilla: "
                         + this.edificios.get(i).get(j).getComprable().getNombre() + ",\ngrupo: "
                         + this.edificios.get(i).get(j).getComprable().getGrupo().getNombre() + ",\ncoste: "
@@ -272,7 +272,7 @@ public class Tablero {
     public void listarPropiedades(){
         for(Propiedades cas: Valor.getComprables()){
             if(cas.getPropietario().getNombre().equals("Banca") && cas.getPrecio()>0){
-                Juego.consola.imprimir(cas.toString());
+                Juego.consola.anhadirTexto(cas.toString());
             }
         }
     }

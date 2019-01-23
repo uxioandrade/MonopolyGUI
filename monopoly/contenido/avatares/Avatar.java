@@ -170,7 +170,7 @@ public abstract class Avatar {  //La clase raíz de una jerarquía no se deberí
                 this.jugador.modificarDinero(Valor.getDineroVuelta());
                 this.jugador.modificarPasarPorCasilla(Valor.getDineroVuelta());
                 this.numVueltas++;
-                Juego.consola.imprimir("El jugador " + this.jugador.getNombre() + " recibe " + Valor.getDineroVuelta() + "€ por haber cruzado la salida.");
+                Juego.consola.anhadirTexto("El jugador " + this.jugador.getNombre() + " recibe " + Valor.getDineroVuelta() + "€ por haber cruzado la salida.");
                 //Se recorren los avatares para comprobar si es necesario actualizar el dinero de pasar por la casilla de salida
                 Iterator<Avatar> avatar_i = this.tablero.getAvatares().values().iterator();
                 while(avatar_i.hasNext()) {

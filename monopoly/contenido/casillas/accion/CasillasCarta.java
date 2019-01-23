@@ -34,7 +34,7 @@ public final class CasillasCarta extends Accion { //Las clases hoja de una jerar
             boolean valido = false;
             int num = 0;
             while(!valido) {
-               String n = JOptionPane.showInputDialog(null,"Indique un número del 1 al " + this.cartas.size() + " para escoger carta",JOptionPane.INFORMATION_MESSAGE);
+                String n = JOptionPane.showInputDialog(null,"Indique un número del 1 al " + this.cartas.size() + " para escoger carta",JOptionPane.INFORMATION_MESSAGE);
                 if(n.charAt(0) - 47 > 1 && n.charAt(0) - 47 <= this.cartas.size()) {
                     valido = true;
                     num = Integer.parseInt(n);

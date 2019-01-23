@@ -30,15 +30,15 @@ public final class Coche extends Avatar{  //Las clases hoja de una jerarquía de
             if (valor > 4) {
                 if (super.numTiradas == 1) {
                     super.numTiradas = 4;
-                    Juego.consola.imprimir("El coche aún puede realizar " + (super.numTiradas - 1) + " tiradas este turno");
+                    Juego.consola.anhadirTexto("El coche aún puede realizar " + (super.numTiradas - 1) + " tiradas este turno");
                 }else if (super.numTiradas == 2){
                     super.numTiradas = 0;
-                    Juego.consola.imprimir("El coche ha acabado sus tiradas en este turno");
+                    Juego.consola.anhadirTexto("El coche ha acabado sus tiradas en este turno");
                 }else{
                     super.numTiradas--;
-                    Juego.consola.imprimir("El coche aún puede realizar " + (super.numTiradas - 1) + " tiradas este turno");
+                    Juego.consola.anhadirTexto("El coche aún puede realizar " + (super.numTiradas - 1) + " tiradas este turno");
                 }
-                Juego.consola.imprimir("El avatar " + this.getId() + " avanza " + valor + " posiciones, desde " + this.getCasilla().getNombre() + " hasta " + Valor.casillas.get((this.getCasilla().getPosicion() + valor) % 40).getNombre());
+                Juego.consola.anhadirTexto("El avatar " + this.getId() + " avanza " + valor + " posiciones, desde " + this.getCasilla().getNombre() + " hasta " + Valor.casillas.get((this.getCasilla().getPosicion() + valor) % 40).getNombre());
                 this.moverEnBasico(valor);
                 this.getCasilla().accionCaer(this.getJugador(), valor, operacion);
             } else {
@@ -46,14 +46,14 @@ public final class Coche extends Avatar{  //Las clases hoja de una jerarquía de
                     this.retrocederCasillas(valor);
                     this.getCasilla().accionCaer(this.getJugador(), valor, operacion);
                     super.numTiradas = -2;
-                    Juego.consola.imprimir("El coche ha obtenido un valor menor o igual de 4, retrocede " + valor + " casillas y estará 2 turnos sin poder tirar");
+                    Juego.consola.anhadirTexto("El coche ha obtenido un valor menor o igual de 4, retrocede " + valor + " casillas y estará 2 turnos sin poder tirar");
                 } else {
                     super.numTiradas = 0;
-                    Juego.consola.imprimir("El valor obtenido ha sido menor de 4, el coche no puede tirar más veces");
+                    Juego.consola.anhadirTexto("El valor obtenido ha sido menor de 4, el coche no puede tirar más veces");
                 }
             }
         }else
-            Juego.consola.imprimir(this.getJugador().getNombre() + " sigue sin poder tirar");
+            Juego.consola.anhadirTexto(this.getJugador().getNombre() + " sigue sin poder tirar");
     }
 
     public boolean getPoderComprar(){

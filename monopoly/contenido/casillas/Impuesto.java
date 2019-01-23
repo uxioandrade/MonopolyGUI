@@ -25,11 +25,11 @@ public final class Impuesto extends Casilla { //Las clases hoja de una jerarquí
     }
 
     public void pagarImpuesto(Jugador jugador, Operacion operacion) throws ExcepcionDineroDeuda {
-        Juego.consola.imprimir(jugador.getNombre() + ",debes pagar un impuesto de " + apagar + " debido a " + jugador.getAvatar().getCasilla().getNombre());
+        Juego.consola.anhadirTexto(jugador.getNombre() + ",debes pagar un impuesto de " + apagar + " debido a " + jugador.getAvatar().getCasilla().getNombre());
         //Comprueba que el jugador tenga dinero suficiente para pagar
         if (apagar <= jugador.getDinero()) {
             jugador.modificarDinero(-apagar);
-            Juego.consola.imprimir("Se han pagado " + apagar + "€ de impuesto");
+            Juego.consola.anhadirTexto("Se han pagado " + apagar + "€ de impuesto");
             if(jugador.getAvatar() instanceof Esfinge && jugador.getAvatar().getModoAvanzado())
                 ((Esfinge)jugador.getAvatar()).modificarHistorialImpuestos(apagar);
             if(jugador.getAvatar() instanceof Sombrero && jugador.getAvatar().getModoAvanzado())

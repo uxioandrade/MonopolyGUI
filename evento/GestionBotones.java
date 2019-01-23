@@ -17,7 +17,7 @@ public class GestionBotones implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent evento){
-        if(evento.getActionCommand().equals("Salir")){
+        if(evento.getSource().equals(botones.getBotonSalir())){
             int confirm = JOptionPane.showConfirmDialog(this.botones.getInterfaz(), "¿Desea acabar la partida?", "Salir", JOptionPane.YES_NO_OPTION);
             if(confirm > 0)
                 this.botones.getInterfaz().setVisible(false);

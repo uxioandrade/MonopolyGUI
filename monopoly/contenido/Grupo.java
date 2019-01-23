@@ -85,19 +85,19 @@ public class Grupo {
             aux += "alquiler: " + s.alquiler(1) + "\n},\n";
         }
         int tamanho=this.getCasillas().size();
-        Juego.consola.imprimir(aux);
+        Juego.consola.anhadirTexto(aux);
         if(this.getPistaDeportesGrupo().size()<tamanho)
-            Juego.consola.imprimir("Aun se pueden construir "+(tamanho-this.getPistaDeportesGrupo().size())+" Pista de Deporte");
-        else Juego.consola.imprimir("Ya no se pueden construir más pistas de deporte.");
+            Juego.consola.anhadirTexto("Aun se pueden construir "+(tamanho-this.getPistaDeportesGrupo().size())+" Pista de Deporte");
+        else Juego.consola.anhadirTexto("Ya no se pueden construir más pistas de deporte.");
         if(this.getPiscinasGrupo().size()<tamanho)
-            Juego.consola.imprimir("Aun se pueden construir "+(tamanho-this.getPiscinasGrupo().size())+" Piscinas");
-        else Juego.consola.imprimir("Ya no se pueden construir más piscinas.");
+            Juego.consola.anhadirTexto("Aun se pueden construir "+(tamanho-this.getPiscinasGrupo().size())+" Piscinas");
+        else Juego.consola.anhadirTexto("Ya no se pueden construir más piscinas.");
         if(this.getHotlesGrupo().size()<tamanho)
-            Juego.consola.imprimir("Aun se pueden construir "+(tamanho-this.getHotlesGrupo().size())+" Hoteles");
-        else Juego.consola.imprimir("Ya no se pueden construir más hoteles.");
+            Juego.consola.anhadirTexto("Aun se pueden construir "+(tamanho-this.getHotlesGrupo().size())+" Hoteles");
+        else Juego.consola.anhadirTexto("Ya no se pueden construir más hoteles.");
         if(this.getCasasGrupo().size()<tamanho || this.getHotlesGrupo().size()<tamanho)
-            Juego.consola.imprimir("Aun se pueden construir casas");
-        else Juego.consola.imprimir("Ya no se pueden construir más casas.");
+            Juego.consola.anhadirTexto("Aun se pueden construir casas");
+        else Juego.consola.anhadirTexto("Ya no se pueden construir más casas.");
     }
     public ArrayList<Edificios> getEdificiosGrupo(){
         ArrayList<Edificios> edificios =new ArrayList<>();

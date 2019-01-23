@@ -23,13 +23,13 @@ public final class Pelota extends Avatar{ //Las clases hoja de una jerarquía de
 
     private void accionRebote(int valor) throws ExcepcionRestriccionHipotecar, ExcepcionDineroDeuda, ExcepcionRestriccionEdificar, ExcepcionDineroVoluntario, ExcepcionRestriccionComprar {
         Operacion operacion = new Operacion(this.getTablero());
-        Juego.consola.imprimir("El jugador " + this.getJugador().getNombre() + " ha rebotado a " + this.getCasilla().getNombre());
+        Juego.consola.anhadirTexto("El jugador " + this.getJugador().getNombre() + " ha rebotado a " + this.getCasilla().getNombre());
         super.getTablero().imprimirTablero();
         this.getCasilla().accionCaer(this.getJugador(),valor, operacion);
         if(this.getCasilla() instanceof Propiedades){
             Propiedades comprable = (Propiedades) this.getCasilla();
             if(comprable.getPropietario().getNombre().equals("Banca")){
-                Juego.consola.imprimir("Desea comprar la propiedad " + this.getCasilla().getNombre() + " ? (Si/No)");
+                Juego.consola.anhadirTexto("Desea comprar la propiedad " + this.getCasilla().getNombre() + " ? (Si/No)");
                 //System.out.print("$> ");
                 //Scanner scanner = new Scanner(System.in);
                 //String orden = scanner.nextLine();
@@ -38,7 +38,7 @@ public final class Pelota extends Avatar{ //Las clases hoja de una jerarquía de
                     if (this.getJugador().getDinero() >= comprable.getPrecio()) {
                         operacion.comprar(this.getJugador());
                     }else{
-                       Juego.consola.imprimir("No tienes dinero suficiente para adquirir esta propiedad");
+                       Juego.consola.anhadirTexto("No tienes dinero suficiente para adquirir esta propiedad");
                     }
                 }
             }
@@ -77,7 +77,7 @@ public final class Pelota extends Avatar{ //Las clases hoja de una jerarquía de
                 this.accionRebote(valor);
             }
         }
-        Juego.consola.imprimir("La pelota ha dejado de rebotar. Volviendo al menú principal");
+        Juego.consola.anhadirTexto("La pelota ha dejado de rebotar. Volviendo al menú principal");
     }
     public String getTipo(){ return "Pelota";}
 }

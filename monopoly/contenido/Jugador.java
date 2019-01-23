@@ -281,18 +281,18 @@ public class Jugador {
                 "\nPasar por Casillas Salida:" + this.getPasarPorCasilla() +
                 "\nPremios Inversiones o Botes:" + this.getPremiosInversionesOBote() +
                 "\nVeces en la Cárcel: " + this.getVecesCarcel() + "\n}";
-        Juego.consola.imprimir(aux);
+        Juego.consola.anhadirTexto(aux);
     }
 
     public void listarTratosPendientes(){
         for(Trato t: this.tratosPendientes){
-            Juego.consola.imprimir("trato" + t.getId() + ":{\n" + t + "\n},\n");
+            Juego.consola.anhadirTexto("trato" + t.getId() + ":{\n" + t + "\n},\n");
         }
     }
 
     public void listarTratosPropuestos(){
         for(Trato t: this.tratosPropuestos){
-            Juego.consola.imprimir("trato" + t.getId() + ":{\n" + t + "\n},\n");
+            Juego.consola.anhadirTexto("trato" + t.getId() + ":{\n" + t + "\n},\n");
         }
     }
 

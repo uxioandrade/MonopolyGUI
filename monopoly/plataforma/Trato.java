@@ -25,7 +25,7 @@ public class Trato {
         this.id = Valor.getTratos();
         Valor.incrementarTratos();
         this.descripcion = descripcion;
-        Juego.consola.imprimir(this.receptor.getNombre() + ", ¿te doy " + ofertada.getNombre() + " y tú me das " + recibida.getNombre() + "?");
+        Juego.consola.anhadirTexto(this.receptor.getNombre() + ", ¿te doy " + ofertada.getNombre() + " y tú me das " + recibida.getNombre() + "?");
     }
 
     public Trato(Jugador ofertor, double cantidadOfertada,Propiedades propiedadRecibida,String descripcion){ //Cantidad x propiedad
@@ -38,7 +38,7 @@ public class Trato {
         this.id = Valor.getTratos();
         Valor.incrementarTratos();
         this.descripcion = descripcion;
-        Juego.consola.imprimir(this.receptor.getNombre() + ", ¿te doy " + cantidadOfertada + "€ y tú me das " + propiedadRecibida.getNombre() + "?");
+        Juego.consola.anhadirTexto(this.receptor.getNombre() + ", ¿te doy " + cantidadOfertada + "€ y tú me das " + propiedadRecibida.getNombre() + "?");
     }
     public Trato(double cantidadRecibida,Jugador receptor, Propiedades propiedadOfertada,String descripcion){ //Propiedad x cantidad
         cantidadRecibida = cantidadRecibida*-1;
@@ -51,7 +51,7 @@ public class Trato {
         this.id = Valor.getTratos();
         Valor.incrementarTratos();
         this.descripcion = descripcion;
-        Juego.consola.imprimir(this.receptor.getNombre() + ", ¿te doy " + propiedadOfertada.getNombre() + " y tú me das " + cantidadRecibida*-1 + "€?");
+        Juego.consola.anhadirTexto(this.receptor.getNombre() + ", ¿te doy " + propiedadOfertada.getNombre() + " y tú me das " + cantidadRecibida*-1 + "€?");
     }
 
     public Trato(Propiedades propiedadOfertada, double cantidad, Propiedades propiedadRecibida,String descripcion){
@@ -65,7 +65,7 @@ public class Trato {
         this.id = Valor.getTratos();
         Valor.incrementarTratos();
         this.descripcion = descripcion;
-        Juego.consola.imprimir(this.receptor.getNombre() + ", ¿te doy " + propiedadOfertada.getNombre() + " y tú me das " + propiedadRecibida.getNombre() + " y " + cantidad + "€?");
+        Juego.consola.anhadirTexto(this.receptor.getNombre() + ", ¿te doy " + propiedadOfertada.getNombre() + " y tú me das " + propiedadRecibida.getNombre() + " y " + cantidad + "€?");
     }
 
     public Trato(Propiedades propiedadOfertada, Propiedades propiedadRecibida, Propiedades propiedadNoAlquiler, int turnos,String descripcion){
@@ -82,7 +82,7 @@ public class Trato {
             this.turnos = turnos;
         propiedadNoAlquiler.anhadirJugadorExcluido(this.ofertor,this.turnos);
         this.descripcion = descripcion;
-        Juego.consola.imprimir(this.receptor.getNombre() + ", ¿te doy " + propiedadOfertada.getNombre() + " y tú me das " + propiedadRecibida.getNombre() + " y no pago alquiler en " + propiedadNoAlquiler.getNombre()  + "?");
+        Juego.consola.anhadirTexto(this.receptor.getNombre() + ", ¿te doy " + propiedadOfertada.getNombre() + " y tú me das " + propiedadRecibida.getNombre() + " y no pago alquiler en " + propiedadNoAlquiler.getNombre()  + "?");
     }
 
     public Jugador getOfertor() {
@@ -116,7 +116,7 @@ public class Trato {
        }
        if(this.receptor.getPropiedades().contains(this.propiedadesOfertadas.get(0)))
            throw new ExcepcionDineroVoluntario("El trato no puede ser aceptado: " + this.propiedadesOfertadas.get(1).getNombre() + " no pertence a " + this.receptor.getNombre());
-       Juego.consola.imprimir("Se ha aceptado trato" + this.getId() + " aceptado:\n" + this.descripcion);
+       Juego.consola.anhadirTexto("Se ha aceptado trato" + this.getId() + " aceptado:\n" + this.descripcion);
        this.swapPropiedades();
        this.receptor.modificarDinero(cantidad);
        this.ofertor.modificarDinero(-cantidad);
@@ -127,7 +127,7 @@ public class Trato {
     public void eliminar(){
         this.receptor.borrarTratoPendiente(this); //Dentro de este arraylist ya se borra el ofertor
         this.ofertor.borrarTratosPropuesto(this);
-        Juego.consola.imprimir("Se ha eliminado el trato" + this.id + ".");
+        Juego.consola.anhadirTexto("Se ha eliminado el trato" + this.id + ".");
     }
 
     @Override

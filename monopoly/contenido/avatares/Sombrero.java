@@ -92,7 +92,7 @@ public final class Sombrero extends Avatar{ //Las clases hoja de una jerarquía 
                 this.deshacerHistorial();
             }
             super.numTiradas = 0;
-            Juego.consola.imprimir("El sombrero ya ha acabado sus tiradas este turno");
+            Juego.consola.anhadirTexto("El sombrero ya ha acabado sus tiradas este turno");
         }
     }
 
@@ -106,7 +106,7 @@ public final class Sombrero extends Avatar{ //Las clases hoja de una jerarquía 
         this.jugador.modificarDinero(Valor.getDineroVuelta());
         this.jugador.modificarPasarPorCasilla(Valor.getDineroVuelta());
         this.numVueltas++;
-        Juego.consola.imprimir("El jugador " + this.jugador.getNombre() + " recibe " + Valor.getDineroVuelta() + "€ por haber cruzado la salida.");
+        Juego.consola.anhadirTexto("El jugador " + this.jugador.getNombre() + " recibe " + Valor.getDineroVuelta() + "€ por haber cruzado la salida.");
         //Se recorren los avatares para comprobar si es necesario actualizar el dinero de pasar por la casilla de salida
         Iterator<Avatar> avatar_i = this.tablero.getAvatares().values().iterator();
         while(avatar_i.hasNext()) {
@@ -153,45 +153,45 @@ public final class Sombrero extends Avatar{ //Las clases hoja de una jerarquía 
     }
 
     private void deshacerHistorial(){
-        Juego.consola.imprimir("Se desharán las acciones realizadas en la tirada anterior:");
+        Juego.consola.anhadirTexto("Se desharán las acciones realizadas en la tirada anterior:");
         if(this.historialAlquileres>0) {
             super.getJugador().modificarDinero(this.historialAlquileres);
             super.getJugador().modificarPagoAlquileres(-this.historialAlquileres);
-            Juego.consola.imprimir("Se ha deshecho la accion pagar alquiler.");
-            Juego.consola.imprimir("Recuperas "+this.historialAlquileres+ ", tu fortuna aumenta a "+super.getJugador().getDinero());
+            Juego.consola.anhadirTexto("Se ha deshecho la accion pagar alquiler.");
+            Juego.consola.anhadirTexto("Recuperas "+this.historialAlquileres+ ", tu fortuna aumenta a "+super.getJugador().getDinero());
         }
         if(this.historialSalida>0) {
             super.getJugador().modificarDinero(-this.historialSalida);
             super.getJugador().modificarPasarPorCasilla(-this.historialSalida);
-            Juego.consola.imprimir("Se ha deshecho la accion pasar por la casilla de salida.");
-            Juego.consola.imprimir("Pierdes "+ this.historialSalida+ ", tu fortuna se reduce a "+super.getJugador().getDinero());
+            Juego.consola.anhadirTexto("Se ha deshecho la accion pasar por la casilla de salida.");
+            Juego.consola.anhadirTexto("Pierdes "+ this.historialSalida+ ", tu fortuna se reduce a "+super.getJugador().getDinero());
         }
         if(this.historialImpuestos>0) {
             super.getJugador().modificarDinero(this.historialImpuestos);
             super.getJugador().modificarPagoImpuestos(-this.historialImpuestos);
-            Juego.consola.imprimir("Se ha deshecho la accion pagar impuesto.");
-            Juego.consola.imprimir("Recuperas "+this.historialImpuestos+ ", tu fortuna aumenta a "+super.getJugador().getDinero());
+            Juego.consola.anhadirTexto("Se ha deshecho la accion pagar impuesto.");
+            Juego.consola.anhadirTexto("Recuperas "+this.historialImpuestos+ ", tu fortuna aumenta a "+super.getJugador().getDinero());
         }
         if(this.historialCompradas.size() >= 1){
             for(Propiedades p: this.historialCompradas) {
                 super.getJugador().borrarPropiedad(p);
-                Juego.consola.imprimir("Se ha retirado la casilla " +  p.getNombre());
+                Juego.consola.anhadirTexto("Se ha retirado la casilla " +  p.getNombre());
             }
             super.getJugador().modificarDinero(this.historialCompras);
-            Juego.consola.imprimir("Se han devuelto "  + this.historialCompras + "€.");
+            Juego.consola.anhadirTexto("Se han devuelto "  + this.historialCompras + "€.");
         }
 
         if(this.historialPremios != 0){
             if(this.historialPremios > 0) {
                 super.getJugador().modificarDinero(-this.historialPremios);
                 super.getJugador().modificarPremiosInversionesOBote(-this.historialPremios);
-                Juego.consola.imprimir("Se ha deshecho la accion pagar premio.");
-                Juego.consola.imprimir("Pierdes " + this.historialPremios + ", tu fortuna disminuie en " + super.getJugador().getDinero());
+                Juego.consola.anhadirTexto("Se ha deshecho la accion pagar premio.");
+                Juego.consola.anhadirTexto("Pierdes " + this.historialPremios + ", tu fortuna disminuie en " + super.getJugador().getDinero());
             }else{
                 super.getJugador().modificarDinero(-this.historialPremios);
                 super.getJugador().modificarPremiosInversionesOBote(-this.historialPremios);
-                Juego.consola.imprimir("Se ha deshecho la accion cobrar premio.");
-                Juego.consola.imprimir("Recuperas " + this.historialPremios + ", tu fortuna aumenta a " + super.getJugador().getDinero());
+                Juego.consola.anhadirTexto("Se ha deshecho la accion cobrar premio.");
+                Juego.consola.anhadirTexto("Recuperas " + this.historialPremios + ", tu fortuna aumenta a " + super.getJugador().getDinero());
 
             }
         }

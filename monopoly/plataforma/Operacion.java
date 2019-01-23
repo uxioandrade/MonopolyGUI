@@ -182,7 +182,7 @@ public class Operacion {
         }
         jugActual.modificarDinero(comprable.getHipoteca());
         comprable.setHipotecado(true);
-        Juego.consola.imprimir("El jugador " + jugActual.getNombre() + " ha hipotecado la propiedad " + comprable.getNombre()+ " recibiendo así "+ Valor.df2.format(comprable.getHipoteca())+"$");
+        Juego.consola.anhadirTexto("El jugador " + jugActual.getNombre() + " ha hipotecado la propiedad " + comprable.getNombre()+ " recibiendo así "+ Valor.df2.format(comprable.getHipoteca())+"$");
 
     }
 
@@ -197,7 +197,7 @@ public class Operacion {
             if(jugActual.getDinero() >= comprable.getHipoteca()*1.1) {
                 jugActual.modificarDinero(-1.1 * comprable.getHipoteca());
                 comprable.setHipotecado(false);
-                Juego.consola.imprimir("El jugador " + jugActual.getNombre() + " ha deshipotecado la propiedad " + comprable.getNombre() + ", aportando un capital de " + 1.1 * comprable.getHipoteca() + "€.");
+                Juego.consola.anhadirTexto("El jugador " + jugActual.getNombre() + " ha deshipotecado la propiedad " + comprable.getNombre() + ", aportando un capital de " + 1.1 * comprable.getHipoteca() + "€.");
             }else
                throw new ExcepcionDineroVoluntario("El jugador " + jugActual.getNombre() + " no tiene dinero suficiente para deshipotecar la propiedad " + comprable.getNombre());
         } else {
@@ -206,7 +206,7 @@ public class Operacion {
     }
 
     public boolean menuHipotecar(Jugador jugador,Tablero tablero, double deuda) throws ExcepcionRestriccionHipotecar, ExcepcionRestriccionEdificar{ //Devuelve true si el jugador ya ha afrontado su deuda
-        Juego.consola.imprimir(jugador.getNombre() + " entró en el menú hipotecar");
+        Juego.consola.anhadirTexto(jugador.getNombre() + " entró en el menú hipotecar");
         Operacion operacion = new Operacion(tablero);
         while(true) {
             String orden = Juego.consola.leer("$>");
@@ -223,10 +223,10 @@ public class Operacion {
                         else if (this.tablero.getCasillas().get(auxCasilla + partes[partes.length - 1]) != null) {//si existe la casilla
                             operacion.hipotecar(this.tablero.getCasillas().get(auxCasilla + partes[partes.length - 1]), jugador);
                             if (jugador.getDinero() >= deuda) {
-                                Juego.consola.imprimir("El jugador " + jugador.getNombre() + " ya tiene dinero suficiente para afrontar su deuda");
+                                Juego.consola.anhadirTexto("El jugador " + jugador.getNombre() + " ya tiene dinero suficiente para afrontar su deuda");
                                 return true;
                             } else {
-                                Juego.consola.imprimir("El jugador " + jugador.getNombre() + " aún no tiene dinero suficiente");
+                                Juego.consola.anhadirTexto("El jugador " + jugador.getNombre() + " aún no tiene dinero suficiente");
                             }
                         } else throw new ExcepcionRestriccionHipotecar("La casilla que quieres hipotecar no existe");
                         break;
@@ -243,7 +243,7 @@ public class Operacion {
                         break;
                     case "listar":
                         for (Propiedades c : jugador.getPropiedades()) {
-                            Juego.consola.imprimir(c.toString());
+                            Juego.consola.anhadirTexto(c.toString());
                         }
                         break;
                     case "bancarrota":
@@ -269,7 +269,7 @@ public class Operacion {
                         return false;
                 }
             }catch(ExcepcionRestriccionHipotecar | ExcepcionNumeroPartesComando ex2){
-                Juego.consola.imprimir(ex2.getMensaje());
+                Juego.consola.anhadirTexto(ex2.getMensaje());
             }
         }
     }
@@ -281,7 +281,7 @@ public class Operacion {
             if(jugador.getDinero()>Valor.getDineroSalirCarcel()){
                 jugador.getAvatar().setEncarcelado(0);
                 jugador.modificarDinero(-Valor.getDineroSalirCarcel());
-                Juego.consola.imprimir(jugador.getNombre() + " paga " + Valor.getDineroSalirCarcel() +"€ y sale de la cárcel. Puede lanzar los dados");
+                Juego.consola.anhadirTexto(jugador.getNombre() + " paga " + Valor.getDineroSalirCarcel() +"€ y sale de la cárcel. Puede lanzar los dados");
             }else {
                 throw new ExcepcionDineroVoluntario(jugador.getNombre() + " no tiene dinero suficiente para salir de la cárcel");
             }
@@ -290,7 +290,7 @@ public class Operacion {
             if(jugador.getDinero() >= Valor.getDineroSalirCarcel()) {
                 jugador.getAvatar().setEncarcelado(0);
                 jugador.modificarDinero(-Valor.getDineroSalirCarcel());
-                Juego.consola.imprimir("El jugador " + jugador.getNombre() + " paga " + Valor.getDineroSalirCarcel() + "€ y sale de la cárcel.");
+                Juego.consola.anhadirTexto("El jugador " + jugador.getNombre() + " paga " + Valor.getDineroSalirCarcel() + "€ y sale de la cárcel.");
             }else{
                 if(this.menuHipotecar(jugador,this.tablero,Valor.getDineroSalirCarcel()))
                     salirCarcel(jugador);
@@ -306,7 +306,7 @@ public class Operacion {
         //Modifica el estado del jugador
         jugador.getAvatar().setEncarcelado(1);
         jugador.anhadirVecesCarcel();
-        Juego.consola.imprimir(jugador.getNombre() + " va a la cárcel.");
+        Juego.consola.anhadirTexto(jugador.getNombre() + " va a la cárcel.");
     }
 
 }

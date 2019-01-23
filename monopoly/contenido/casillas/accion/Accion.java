@@ -26,7 +26,7 @@ public class Accion extends Casilla {
             ((Esfinge)jugador.getAvatar()).modificarHistorialPremios(Valor.getDineroAcumulado());
         if(jugador.getAvatar() instanceof Sombrero && jugador.getAvatar().getModoAvanzado())
             ((Sombrero)jugador.getAvatar()).modificarHistorialPremios(Valor.getDineroAcumulado());
-        Juego.consola.imprimir("El jugador " + jugador.getNombre() + "recibe " + Valor.getDineroAcumulado() + "€, el bote de la banca");
+        Juego.consola.anhadirTexto("El jugador " + jugador.getNombre() + "recibe " + Valor.getDineroAcumulado() + "€, el bote de la banca");
         Valor.setDineroAcumulado(0);
     }
     @Override
