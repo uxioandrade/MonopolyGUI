@@ -1,4 +1,5 @@
 import java.io.IOException;
+
 import interfazgrafica.InterfazGrafica;
 import interfazgrafica.LoginPanel;
 import monopoly.plataforma.Juego;

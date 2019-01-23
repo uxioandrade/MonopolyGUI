@@ -2,7 +2,6 @@ package interfazgrafica;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 import monopoly.contenido.Jugador;
@@ -32,6 +31,7 @@ public class InterfazGrafica extends JFrame{
 	static final Integer ficha_H = 18;
 
 	public InterfazGrafica(Juego juego) throws IOException {
+		this.setBackground(Color.cyan);
 		this.setLayout(new GridBagLayout());
 		this.setSize(new Dimension(1300, 1000));
 		fichas = new ArrayList<BufferedImage>();
