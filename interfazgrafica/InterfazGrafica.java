@@ -22,6 +22,8 @@ public class InterfazGrafica extends JFrame{
 	private ArrayList<Jugador> jugadores;
 	private ArrayList<BufferedImage> fichas;
 	private Juego juego;
+	private PanelHipotecar panelHipotecar;
+	private PanelEdificar panelEdificar;
 
 	static final Integer MAX_CASILLAS = 40;
 	static final Integer MAX_FICHAS = 6;
@@ -89,6 +91,18 @@ public class InterfazGrafica extends JFrame{
 		c.gridx = 500;
 		c.gridy = 2000;
 		this.add(this.panelJugadores,c);
+
+		this.panelHipotecar = new PanelHipotecar(this,this.juego.getJugadorActual());
+		this.panelHipotecar.setVisible(false);
+		c.gridx=200;
+		c.gridy=200;
+		this.add(this.panelHipotecar,c);
+
+		this.panelEdificar = new PanelEdificar(this);
+		this.panelEdificar.setVisible(false);
+		c.gridx=200;
+		c.gridy=200;
+		this.add(this.panelEdificar,c);
 	}
 	
 	public PanelTablero getPanelTablero() {
@@ -102,6 +116,12 @@ public class InterfazGrafica extends JFrame{
 	public PanelMenu getPanelMenu() {
 		return menu;
 	}
+
+	public PanelEdificar getPanelEdificar(){
+		return this.panelEdificar;
+	}
+
+	public PanelHipotecar getPanelHipotecar(){return this.panelHipotecar;}
 
 	public PanelTexto getPanelTexto(){
 		return this.texto;

@@ -266,12 +266,8 @@ public class Juego implements Comando{
         this.operacion.comprar(jugadorActual);
     }
 
-    public void edificar(String[] partes) throws ExcepcionNumeroPartesComando, ExcepcionDineroVoluntario, ExcepcionRestriccionEdificar{
-        if(partes.length ==2){
-            operacion.edificar(jugadorActual,partes[1]);
-        }else{
-            throw new ExcepcionNumeroPartesComando("Comando incorrecto");
-        }
+    public void edificar(String tipo) throws ExcepcionDineroVoluntario, ExcepcionRestriccionEdificar{
+            operacion.edificar(jugadorActual,tipo);
     }
 
     public void vender(String[] partes) throws ExcepcionNumeroPartesComando , ExcepcionRestriccionEdificar{
@@ -287,27 +283,16 @@ public class Juego implements Comando{
         }
     }
 
-    public void hipotecar(String[] partes) throws ExcepcionNumeroPartesComando, ExcepcionRestriccionHipotecar{
-        String auxCasilla = "";
-        auxCasilla = "";
-        for(int i = 1; i < partes.length - 1;i++) {
-            auxCasilla += partes[i] + " ";
-        }
-        if(partes.length<2 || partes.length >4) throw new ExcepcionNumeroPartesComando("Comando incorrecto");
-        else if(tablero.getCasillas().get(auxCasilla + partes[partes.length-1])!=null)//si existe la casilla
-            operacion.hipotecar(tablero.getCasillas().get(auxCasilla + partes[partes.length-1]),jugadorActual);
-        else throw new ExcepcionRestriccionHipotecar("La casilla que quieres hipotecar no existe :(");
+    public void hipotecar(String casilla) throws ExcepcionRestriccionHipotecar{
+        if(this.tablero.getCasillas().get(casilla)!=null)
+            operacion.hipotecar(tablero.getCasillas().get(casilla),jugadorActual);
+        else throw new ExcepcionRestriccionHipotecar("La casilla que quieres hipotecar no existe");
     }
 
-    public void deshipotecar(String[] partes) throws ExcepcionNumeroPartesComando, ExcepcionRestriccionHipotecar, ExcepcionDineroVoluntario{
-        String auxCasilla = "";
-        for (int i = 1; i < partes.length - 1; i++) {
-            auxCasilla += partes[i] + " ";
-        }
-        if (partes.length < 2 || partes.length > 4) throw new ExcepcionNumeroPartesComando("Comando incorrecto");
-        else if (tablero.getCasillas().get(auxCasilla + partes[partes.length - 1]) != null)//si existe la casilla
-            operacion.desHipotecar(tablero.getCasillas().get(auxCasilla + partes[partes.length - 1]), jugadorActual);
-        else this.panelTexto.addTexto("La casilla que quieres hipotecar no existe :(");
+    public void deshipotecar(String casilla) throws ExcepcionRestriccionHipotecar, ExcepcionDineroVoluntario{
+        if (tablero.getCasillas().get(casilla) != null)//si existe la casilla
+            operacion.desHipotecar(tablero.getCasillas().get(casilla), jugadorActual);
+        else this.panelTexto.addTexto("La casilla que quieres hipotecar no existe");
     }
 
     public void lanzar() throws ExcepcionesDinamicaTurno, ExcepcionDineroDeuda, ExcepcionesDinamicaEncarcelamiento, ExcepcionRestriccionHipotecar, ExcepcionRestriccionEdificar, ExcepcionDineroVoluntario, ExcepcionRestriccionComprar {
@@ -497,22 +482,18 @@ public class Juego implements Comando{
             throw new ExcepcionNumeroPartesComando("Comando incorrecto");
     }
 
-    public void cambiar(String partes[]) throws ExcepcionDinamicaModoMovimiento, ExcepcionNumeroPartesComando{
-        if(partes.length==2 && partes[1].equals("modo")){
-            if(this.countTiradas==0) {
-                if(jugadorActual.getAvatar().getEncarcelado() == 0) {
-                    tablero.cambiarModo(jugadorActual);
-                    if (jugadorActual.getAvatar().getModoAvanzado())
-                        this.panelTexto.addTexto("El jugador " + jugadorActual.getNombre() + " está ahora en modo avanzado de tipo " + jugadorActual.getAvatar().getTipo());
-                    else
-                        this.panelTexto.addTexto("El jugador " + jugadorActual.getNombre() + " ya no está en modo avanzado");
-                }else
-                    throw new ExcepcionDinamicaModoMovimiento("El modo de movimiento no puede ser cambiado en la cárcel");
-            }else{
-                throw new ExcepcionDinamicaModoMovimiento("El modo de movimiento debe ser cambiado antes de tirar los dados");
-            }
+    public void cambiar() throws ExcepcionDinamicaModoMovimiento{
+        if(this.countTiradas==0) {
+            if(jugadorActual.getAvatar().getEncarcelado() == 0) {
+                tablero.cambiarModo(jugadorActual);
+                if (jugadorActual.getAvatar().getModoAvanzado())
+                    this.panelTexto.addTexto("El jugador " + jugadorActual.getNombre() + " está ahora en modo avanzado de tipo " + jugadorActual.getAvatar().getTipo());
+                else
+                    this.panelTexto.addTexto("El jugador " + jugadorActual.getNombre() + " ya no está en modo avanzado");
+            }else
+                throw new ExcepcionDinamicaModoMovimiento("El modo de movimiento no puede ser cambiado en la cárcel");
         }else{
-            throw new ExcepcionNumeroPartesComando("Comando incorrecto");
+            throw new ExcepcionDinamicaModoMovimiento("El modo de movimiento debe ser cambiado antes de tirar los dados");
         }
     }
 

@@ -1,15 +1,14 @@
 package evento;
 
 import interfazgrafica.InterfazGrafica;
-import interfazgrafica.PanelMenu;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import monopoly.contenido.Jugador;
+import monopoly.contenido.casillas.Casilla;
+import monopoly.contenido.casillas.propiedades.Solar;
 import monopoly.excepciones.*;
-import monopoly.excepciones.dinamicas.*;
-import monopoly.excepciones.dinero.*;
-import monopoly.excepciones.restricciones.*;
 
 import javax.swing.*;
 
@@ -48,6 +47,46 @@ public class GestionMenu implements ActionListener {
                 this.interfazGrafica.getJuego().comprar();
             }catch(ExcepcionMonopoly ex){
                 this.interfazGrafica.getPanelTexto().addTexto(ex.getMensaje());
+            }
+        }else if(evento.getSource().equals(this.interfazGrafica.getPanelMenu().getBotonHipotecar())){
+            try{
+                this.interfazGrafica.getPanelHipotecar().setVisible(true);
+                this.interfazGrafica.getPanelHipotecar().resetHipotecar();
+                }catch(Exception ex){
+                this.interfazGrafica.getPanelTexto().addTexto(ex.getMessage());
+            }
+        }else if(evento.getSource().equals(this.interfazGrafica.getPanelMenu().getBotonEdificar())){
+            try {
+                Jugador jugadorActual = this.interfazGrafica.getJuego().getJugadorActual();
+                Casilla casillaActual = jugadorActual.getAvatar().getCasilla();
+                if (!(casillaActual instanceof Solar)) {
+                    this.interfazGrafica.getPanelTexto().addTexto("No se puede edificar en esta casilla");
+                    return;
+                }
+                Solar solarActual = (Solar) casillaActual;
+                if (!jugadorActual.getPropiedades().contains(solarActual)){
+                    this.interfazGrafica.getPanelTexto().addTexto("El jugador actual no posee la casilla " + casillaActual.getNombre());
+                    return;
+                }
+                if(!(solarActual.frecuenciaVisita(jugadorActual.getAvatar()) > 2 || solarActual.getPropietario().poseeGrupoCompleto(solarActual.getGrupo()))){
+                    this.interfazGrafica.getPanelTexto().addTexto("El jugador no verifica las condiciones para edificar");
+                    return;
+                }
+                this.interfazGrafica.getPanelTexto().setVisible(false);
+                this.interfazGrafica.getPanelMenu().setVisible(false);
+                this.interfazGrafica.getPanelBotones().setVisible(false);
+                this.interfazGrafica.getPanelJugadores().setVisible(false);
+                this.interfazGrafica.getPanelInfo().setVisible(false);
+                this.interfazGrafica.getPanelTablero().setVisible(false);
+                this.interfazGrafica.getPanelEdificar().setVisible(true);
+            }catch(Exception ex){
+                this.interfazGrafica.getPanelTexto().addTexto(ex.getMessage());
+            }
+        }else if(evento.getSource().equals(this.interfazGrafica.getPanelMenu().getBotonCambiarModo())){
+            try{
+                this.interfazGrafica.getJuego().cambiar();
+            }catch(Exception ex){
+                this.interfazGrafica.getPanelTexto().addTexto(ex.getMessage());
             }
         }
     }
