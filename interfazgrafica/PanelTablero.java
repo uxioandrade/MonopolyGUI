@@ -10,10 +10,8 @@ import java.awt.Image;
 
 import monopoly.contenido.Jugador;
 
-import javax.swing.ImageIcon;
+import javax.swing.*;
 import javax.imageio.ImageIO;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 import monopoly.plataforma.Valor;
 
@@ -49,6 +47,7 @@ public class PanelTablero extends JPanel{
 			c.gridy = 0;
 			this.add(casillas.get(i), c);
 		}
+
 		for(i=0; i<10; i++) { // Primera columna
 			index = 11+i;
 			casillas.add(new BotonCasilla("/resources/"+index.toString()+".jpg",Valor.casillas.get(index)));

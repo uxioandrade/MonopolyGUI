@@ -2,7 +2,6 @@ package interfazgrafica;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 import monopoly.contenido.Jugador;
@@ -25,6 +24,7 @@ public class InterfazGrafica extends JFrame{
 	private Juego juego;
 	private PanelHipotecar panelHipotecar;
 	private PanelEdificar panelEdificar;
+	private  PanelVender panelVender;
 	private PanelTratos panelTratos;
 
 	static final Integer MAX_CASILLAS = 40;
@@ -33,6 +33,7 @@ public class InterfazGrafica extends JFrame{
 	static final Integer ficha_H = 18;
 
 	public InterfazGrafica(Juego juego) throws IOException {
+		this.setBackground(Color.cyan);
 		this.setLayout(new GridBagLayout());
 		this.setSize(new Dimension(1300, 1000));
 		fichas = new ArrayList<BufferedImage>();
@@ -100,6 +101,12 @@ public class InterfazGrafica extends JFrame{
 		c.gridy=0;
 		this.add(this.panelHipotecar,c);
 
+		this.panelVender = new PanelVender(this,this.juego.getJugadorActual());
+		this.panelVender.setVisible(false);
+		c.gridx=200;
+		c.gridy=200;
+		this.add(this.panelVender,c);
+
 		this.panelEdificar = new PanelEdificar(this);
 		this.panelEdificar.setVisible(false);
 		c.gridx=1500;
@@ -130,6 +137,8 @@ public class InterfazGrafica extends JFrame{
 	}
 
 	public PanelHipotecar getPanelHipotecar(){return this.panelHipotecar;}
+
+	public PanelVender getPanelVender(){ return this.panelVender;}
 
 	public PanelTexto getPanelTexto(){
 		return this.texto;

@@ -680,4 +680,8 @@ public class Juego implements Comando{
             return;
         }
     }
+
+    public Operacion getOperacion() {
+        return operacion;
+    }
 }

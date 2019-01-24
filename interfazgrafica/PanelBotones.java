@@ -3,8 +3,9 @@ package interfazgrafica;
 import evento.GestionBotones;
 
 import java.awt.*;
-import javax.swing.JButton;
-import javax.swing.JPanel;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+import javax.swing.*;
 
 @SuppressWarnings("serial")
 public class PanelBotones extends JPanel{
@@ -21,13 +22,32 @@ public class PanelBotones extends JPanel{
 	}
 
 	private void initComponents(){
-		botonSalir = new JButton("Salir");
-		botonOtro = new JButton("Otro");
+		botonSalir = new JButton();
+		setButtonImage(this.botonSalir,"/resources/salir.png/","SALIR");
+
+		botonOtro = new JButton();
+		setButtonImage(this.botonOtro,"/resources/otro.png/","otro");
 	}
 
 	private void setUp() {
 		this.add(botonSalir);
 		this.add(botonOtro);
+	}
+	public void setButtonImage(JButton boton, String path, String nombre){
+		try {
+			BufferedImage img = ImageIO.read(getClass().getResource(path));
+			img = InterfazGrafica.resize( img,45,90);
+			//boton.setIcon(new ImageIcon((Image) img));
+			boton.setOpaque(false);
+			boton.setContentAreaFilled(false);
+			boton.setBorderPainted(false);
+			boton.setIcon(new ImageIcon(img));
+			//boton.setMaximumSize(new Dimension(45,85));
+		} catch (Exception ex) {
+			//System.out.println(ex);
+			boton = new JButton(nombre);
+			boton.setMaximumSize(new Dimension(40,80));
+		}
 	}
 
 	public JButton getBotonSalir(){
