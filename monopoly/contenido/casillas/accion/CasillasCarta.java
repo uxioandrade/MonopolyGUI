@@ -40,7 +40,6 @@ public final class CasillasCarta extends Accion { //Las clases hoja de una jerar
                     num = Integer.parseInt(n);
                 }
             }
-                System.out.println("num" + num);
                 return num;
     }
 
