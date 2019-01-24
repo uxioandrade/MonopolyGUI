@@ -46,6 +46,11 @@ public final class Transporte extends Propiedades { //Las clases hoja de una jer
             super.getPropietario().modificarCobroAlquileres(this.alquiler(tirada));
             super.sumarRentabilidad(this.alquiler(tirada));
         } else {
+            try {
+                operacion.menuHipotecar(jugador,operacion.getTablero(),this.alquiler(tirada));
+            }catch(Exception ex){
+                Juego.consola.anhadirTexto(ex.getMessage());
+            }
            throw new ExcepcionDineroDeuda("No dispones de capital suficiente para efectuar esta operación. Prueba a hipotecar tus propiedades, a negociar o declararte en bancarrota");
         }
     }

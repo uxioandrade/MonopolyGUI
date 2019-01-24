@@ -227,12 +227,27 @@ public class Operacion {
         Juego.consola.anhadirTexto("El jugador " + jugador.getNombre() + " no tiene dinero suficiente");
         Juego.consola.anhadirTexto("Serás declarado en banca rota y eliminado de la partida");
 
-        this.interfazGrafica.getPanelTablero().setVisible(false);
-        this.interfazGrafica.getPanelJugadores().setVisible(false);
-        this.interfazGrafica.getPanelBotones().setVisible(false);
-        this.interfazGrafica.getPanelInfo().setVisible(false);
-        this.interfazGrafica.getPanelMenu().setVisible(false);
-        this.interfazGrafica.getPanelBancarrota().setVisible(true);
+        Propiedades comprable;
+        for (Propiedades cas : this.interfazGrafica.getJuego().getJugadorActual().getPropiedades()) {
+            if (cas instanceof Solar) {
+                for (Edificios ed : ((Solar) cas).getConstrucciones()) {
+                    this.interfazGrafica.getJuego().getTablero().borrarEdificio(ed);
+                    ((Solar) cas).getConstrucciones().remove(ed);
+                }
+            }
+            cas.setPropietario(this.interfazGrafica.getJuego().getTablero().getBanca());
+            cas.setHipotecado(false);
+        }
+        this.interfazGrafica.getPanelTablero().getCasillas().get(this.interfazGrafica.getJuego().getJugadorActual().getAvatar().getCasilla().getPosicion()).deleteFicha(this.interfazGrafica.getJuego().getTurnosJugadores().indexOf(this.interfazGrafica.getJuego().getJugadorActual()));
+        this.interfazGrafica.getJuego().getTablero().getAvatares().remove(this.interfazGrafica.getJuego().getJugadorActual().getAvatar().getId());
+        this.interfazGrafica.getJuego().getTablero().getJugadores().remove(this.interfazGrafica.getJuego().getJugadorActual().getNombre());
+
+        this.interfazGrafica.getJuego().getTurnosJugadores().remove(this.interfazGrafica.getJuego().getJugadorActual().getNombre());
+
+        if (this.interfazGrafica.getJuego().getTurnosJugadores().size() == 1) {
+            this.interfazGrafica.getPanelTexto().addTexto("Partida acabada!\n Enhorabuena " + this.interfazGrafica.getJuego().getTurnosJugadores().get(0) + ", eres el ganador!!!!");
+            System.exit(0);
+        }
         /*
         Juego.consola.anhadirTexto(jugador.getNombre() + " entró en el menú hipotecar");
         Operacion operacion = new Operacion(tablero, valor);
@@ -302,10 +317,7 @@ public class Operacion {
             }
         }
         */
-        while(this.getInterfazGrafica().getJuego().getJugadorActual().getDinero() < 100){
-            return false;
-        }
-        return false;
+        return true;
     }
 
     public void salirCarcel(Jugador jugador) throws ExcepcionRestriccionHipotecar, ExcepcionRestriccionEdificar, ExcepcionDineroVoluntario, ExcepcionesDinamicaEncarcelamiento {

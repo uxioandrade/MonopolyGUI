@@ -137,6 +137,11 @@ public final class Solar extends Propiedades { //Las clases hoja de una jerarqu√
             super.sumarRentabilidad(this.alquiler(tirada));
             this.grupo.sumarRentabilidad(this.alquiler(tirada));
         } else {
+            try {
+                operacion.menuHipotecar(jugador,operacion.getTablero(),this.alquiler(tirada));
+            }catch(Exception ex){
+                Juego.consola.anhadirTexto(ex.getMessage());
+            }
             throw new ExcepcionDineroDeuda("No dispones de capital suficiente para efectuar esta operaci√≥n. Prueba a hipotecar tus propiedades, a negociar o declararte en bancarrota");
         }
     }

@@ -37,6 +37,11 @@ public final class Impuesto extends Casilla { //Las clases hoja de una jerarquí
             Valor.actualizarDineroAcumulado(apagar);
             jugador.modificarPagoImpuestos(apagar);
         } else {
+            try {
+                operacion.menuHipotecar(jugador,operacion.getTablero(),apagar);
+            }catch(Exception ex){
+                Juego.consola.anhadirTexto(ex.getMessage());
+            }
             throw new ExcepcionDineroDeuda("No dispones de capital suficiente para efectuar esta operación. Prueba a hipotecar tus propiedades, a negociar o declararte en bancarrota");
         }
     }
