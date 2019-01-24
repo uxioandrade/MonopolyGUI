@@ -18,6 +18,8 @@ import monopoly.excepciones.restricciones.ExcepcionRestriccionComprar;
 import monopoly.excepciones.restricciones.ExcepcionRestriccionEdificar;
 import monopoly.excepciones.restricciones.ExcepcionRestriccionHipotecar;
 
+import javax.swing.*;
+
 public class Operacion {
     private Tablero tablero;
 
@@ -206,6 +208,24 @@ public class Operacion {
     }
 
     public boolean menuHipotecar(Jugador jugador,Tablero tablero, double deuda) throws ExcepcionRestriccionHipotecar, ExcepcionRestriccionEdificar{ //Devuelve true si el jugador ya ha afrontado su deuda
+        Juego.consola.anhadirTexto("El jugador " + jugador.getNombre() + " no tiene dinero suficiente");
+        Juego.consola.anhadirTexto("Serás declarado en banca rota y eliminado de la partida");
+        Propiedades comprable;
+        for (Propiedades cas : jugador.getPropiedades()) {
+            if (cas instanceof Solar) {
+                for (Edificios ed : ((Solar) cas).getConstrucciones()) {
+                    this.tablero.borrarEdificio(ed);
+                    ((Solar) cas).getConstrucciones().remove(ed);
+                }
+            }
+            cas.setPropietario(this.tablero.getBanca());
+            cas.setHipotecado(false);
+        }
+        Valor.casillas.get(jugador.getAvatar().getCasilla().getPosicion()).quitarAvatar(jugador.getAvatar());
+        this.tablero.getAvatares().remove(jugador.getAvatar().getId());
+        this.tablero.getJugadores().remove(jugador.getNombre());
+        return false;
+        /*
         Juego.consola.anhadirTexto(jugador.getNombre() + " entró en el menú hipotecar");
         Operacion operacion = new Operacion(tablero);
         while(true) {
@@ -261,17 +281,19 @@ public class Operacion {
                         Valor.casillas.get(jugador.getAvatar().getCasilla().getPosicion()).quitarAvatar(jugador.getAvatar());
                         this.tablero.getAvatares().remove(jugador.getAvatar().getId());
                         this.tablero.getJugadores().remove(jugador.getNombre());
-                       /* Juego.turnosJugadores.remove(jugador.getNombre());
-                        if (Juego.turnosJugadores.size() == 1) {
-                            Juego.consola.imprimir("Partida acabada!\n Enhorabuena " + Juego.turnosJugadores.get(0) + ", eres el ganador!!!!");
-                            System.exit(0);
-                        }*/
+
+                       // Juego.turnosJugadores.remove(jugador.getNombre());
+                      //  if (Juego.turnosJugadores.size() == 1) {
+                      //      Juego.consola.imprimir("Partida acabada!\n Enhorabuena " + Juego.turnosJugadores.get(0) + ", eres el ganador!!!!");
+                       //     System.exit(0);
+                      //  }
                         return false;
                 }
             }catch(ExcepcionRestriccionHipotecar | ExcepcionNumeroPartesComando ex2){
                 Juego.consola.anhadirTexto(ex2.getMensaje());
             }
         }
+        */
     }
 
     public void salirCarcel(Jugador jugador) throws ExcepcionRestriccionHipotecar, ExcepcionRestriccionEdificar, ExcepcionDineroVoluntario, ExcepcionesDinamicaEncarcelamiento {
