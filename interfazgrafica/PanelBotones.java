@@ -10,11 +10,11 @@ import javax.swing.JPanel;
 public class PanelBotones extends JPanel{
 	private InterfazGrafica interfaz;
 	private JButton botonSalir;
-	private JButton botonOtro;
+	private JButton botonSalirCarcel;
 
 	public PanelBotones(InterfazGrafica interfaz) {
 		this.interfaz = interfaz;
-		this.setLayout(new GridLayout(0,1));
+		this.setLayout(new GridLayout(2,1));
 		this.initComponents();
 		this.setUp();
 		this.addEventHandlers();
@@ -22,20 +22,20 @@ public class PanelBotones extends JPanel{
 
 	private void initComponents(){
 		botonSalir = new JButton("Salir");
-		botonOtro = new JButton("Otro");
+		botonSalirCarcel = new JButton("Salir Carcel");
 	}
 
 	private void setUp() {
 		this.add(botonSalir);
-		this.add(botonOtro);
+		this.add(botonSalirCarcel);
 	}
 
 	public JButton getBotonSalir(){
 		return this.botonSalir;
 	}
 
-	public JButton getBotonOtro(){
-		return this.botonOtro;
+	public JButton getBotonSalirCarcel(){
+		return this.botonSalirCarcel;
 	}
 
 	public InterfazGrafica getInterfaz(){
@@ -43,6 +43,7 @@ public class PanelBotones extends JPanel{
 	}
 
 	private void addEventHandlers() {
-		this.botonSalir.addActionListener(new GestionBotones(this.interfaz.getPanelBotones()));
+		this.botonSalir.addActionListener(new GestionBotones(this));
+		this.botonSalirCarcel.addActionListener(new GestionBotones(this));
 	}
 }

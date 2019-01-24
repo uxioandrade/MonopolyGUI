@@ -27,6 +27,8 @@ public class Valor {
     private static HashMap<String,Grupo> grupos;
     private static double dineroAcumulado;
 
+    private Integer[] biyeccion;
+
     //Colores
     public static final String ANSI_NEGRO = "\u001b[30m";
     public static final String ANSI_DARK_GREY = "\u001b[37m";
@@ -181,7 +183,9 @@ public class Valor {
     public void reordenarCasillas(int[] permutacionCasillas) {
     	casillas = new ArrayList<Casilla>();
     	Casilla[] aux = new Casilla[40];
+    	this.biyeccion = new Integer[40];
     	for(int i=0; i<40; i++) {
+    		this.biyeccion[permutacionCasillas[i]-1] = i;
     		switch(i) {
     			case 0:
     				salida = new Especiales("Salida", permutacionCasillas[i]-1, this);
@@ -416,4 +420,8 @@ public class Valor {
         precioServicio = dineroVuelta*0.75;
         setValoresEspeciales();
     }
+
+	public Integer[] getBiyeccion() {
+		return biyeccion;
+	}
 }
