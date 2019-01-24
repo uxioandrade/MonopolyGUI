@@ -136,5 +136,9 @@ public final class CartaMovimientoCaja extends CartaCaja{ //Las clases hoja de u
             jugador.getAvatar().getCasilla().accionCaer(jugador,1, operacion);
         }
     }
+
+    public void setPosicion(int pos){
+        this.posicion = pos;
+    }
 }
 

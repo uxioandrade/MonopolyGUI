@@ -136,5 +136,10 @@ public final class CartaMovimientoSuerte extends CartaSuerte{ //Las clases hoja 
             jugador.getAvatar().getCasilla().accionCaer(jugador,1, operacion);
         }
     }
+
+    public void setPosicion(int pos){
+        this.posicion = pos;
+    }
+
 }
 

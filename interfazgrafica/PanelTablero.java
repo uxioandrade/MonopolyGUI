@@ -85,9 +85,10 @@ public class PanelTablero extends JPanel{
 		Integer nJugadores = LoginPanel.getNJugadores();
 		
 		for(int k=0; k<nJugadores; k++) {
-			casillas.get(0).addFicha(interfaz.getFichas().get(k), k);
+			casillas.get(valor.getPosicionSalida()).addFicha(interfaz.getFichas().get(k), k);
 		}
-		casillas.get(0).actualizarCasilla();
+		casillas.get(valor.getPosicionSalida()).actualizarCasilla();
+		this.valor.setPosiscionCartas();
 
 	}
 

@@ -27,6 +27,8 @@ public class Valor {
     private static HashMap<String,Grupo> grupos;
     private static double dineroAcumulado;
 
+    private int posicionSalida;
+
     private Integer[] biyeccion;
 
     //Colores
@@ -190,6 +192,7 @@ public class Valor {
     			case 0:
     				salida = new Especiales("Salida", permutacionCasillas[i]-1, this);
     				aux[permutacionCasillas[i]-1] = salida;
+    				this.posicionSalida = permutacionCasillas[i]-1;
     				break;
     			case 1:
     				aux[permutacionCasillas[i]-1] = new Solar("Bag End", permutacionCasillas[i]-1);
@@ -420,6 +423,22 @@ public class Valor {
         precioServicio = dineroVuelta*0.75;
         setValoresEspeciales();
     }
+
+    public void setPosiscionCartas(){
+    	for(Carta c: this.cartasCajaComunidad){
+    		if(c instanceof CartaMovimientoCaja)
+			((CartaMovimientoCaja)c).setPosicion(this.biyeccion[((CartaMovimientoCaja)c).getPosicion()]);
+		}
+
+		for(Carta c: this.cartasSuerte){
+			if(c instanceof CartaMovimientoSuerte)
+				((CartaMovimientoSuerte)c).setPosicion(this.biyeccion[((CartaMovimientoSuerte)c).getPosicion()]);
+		}
+	}
+
+    public int getPosicionSalida(){
+    	return this.posicionSalida;
+	}
 
 	public Integer[] getBiyeccion() {
 		return biyeccion;
