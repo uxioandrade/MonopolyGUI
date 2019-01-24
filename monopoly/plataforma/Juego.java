@@ -665,4 +665,8 @@ public class Juego implements Comando{
             throw new ExcepcionNumeroPartesComando("Comando incorrecto");
         }
     }
+
+    public Operacion getOperacion() {
+        return operacion;
+    }
 }

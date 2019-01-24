@@ -27,7 +27,7 @@ public class PanelMenu extends JPanel{
 
 	public PanelMenu(InterfazGrafica interfaz) {
 		this.interfaz = interfaz;
-		this.setLayout(new GridLayout(2, 4));
+		this.setLayout(new GridLayout(3, 3));
 		this.setUp();
 		this.addEventHandlers();
 	}
@@ -65,6 +65,9 @@ public class PanelMenu extends JPanel{
 		botonTratos = new JButton();
 		setButtonImage(botonTratos,"/resources/trato.png","TRATO");
 
+		botonVender= new JButton();
+		setButtonImage(botonVender,"/resources/vender.png","VENDER");
+
 		this.add(botonComprar);
 		this.add(botonHipotecar);
 		this.add(botonAcabar);
@@ -73,6 +76,7 @@ public class PanelMenu extends JPanel{
 		this.add(botonEstadisticas);
 		this.add(botonTratos);
 		this.add(botonCambiarModo);
+		this.add(botonVender);
 	}
 
 	private void setButtonImage(JButton boton, String path, String nombre){
@@ -132,6 +136,7 @@ public class PanelMenu extends JPanel{
 
 	private void addEventHandlers(){
 		this.botonComprar.addActionListener(new GestionMenu(this.interfaz));
+		this.botonVender.addActionListener(new GestionMenu(this.interfaz));
 		this.botonLanzar.addActionListener(new GestionMenu(this.interfaz));
 		this.botonHipotecar.addActionListener(new GestionMenu(this.interfaz));
 		this.botonEstadisticas.addActionListener(new GestionMenu(this.interfaz));

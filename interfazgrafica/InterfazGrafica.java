@@ -24,6 +24,7 @@ public class InterfazGrafica extends JFrame{
 	private Juego juego;
 	private PanelHipotecar panelHipotecar;
 	private PanelEdificar panelEdificar;
+	private  PanelVender panelVender;
 
 	static final Integer MAX_CASILLAS = 40;
 	static final Integer MAX_FICHAS = 6;
@@ -99,6 +100,12 @@ public class InterfazGrafica extends JFrame{
 		c.gridy=200;
 		this.add(this.panelHipotecar,c);
 
+		this.panelVender = new PanelVender(this,this.juego.getJugadorActual());
+		this.panelVender.setVisible(false);
+		c.gridx=200;
+		c.gridy=200;
+		this.add(this.panelVender,c);
+
 		this.panelEdificar = new PanelEdificar(this);
 		this.panelEdificar.setVisible(false);
 		c.gridx=200;
@@ -123,6 +130,8 @@ public class InterfazGrafica extends JFrame{
 	}
 
 	public PanelHipotecar getPanelHipotecar(){return this.panelHipotecar;}
+
+	public PanelVender getPanelVender(){ return this.panelVender;}
 
 	public PanelTexto getPanelTexto(){
 		return this.texto;
