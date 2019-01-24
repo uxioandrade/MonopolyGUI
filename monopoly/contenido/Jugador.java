@@ -313,7 +313,7 @@ public class Jugador {
         ArrayList<Propiedades> hipotecados = new ArrayList<>();
         String aux = "{\n" +
                 "Nombre: " + this.nombre + "\n" +
-                "Avatar: " + this.avatar.getId() + "\n" +
+                //"Avatar: " + this.avatar.getId() + "\n" +
                 "Tipo: " + this.avatar.getTipo() + "\n" +
                 "Dinero Actual: " + this.dinero + "\n" +
                 "Propiedades: {";
@@ -326,12 +326,12 @@ public class Jugador {
                         hoteles += ((Solar) prop).getConstrucciones("hotel").size();
                         piscinas += ((Solar) prop).getConstrucciones("piscina").size();
                         pistas += ((Solar) prop).getConstrucciones("pista").size();
-                        aux += "\t[" + prop.getNombre() +
+                        aux += prop.getNombre(); /*+
                                 ". casas: " + ((Solar) prop).getConstrucciones("casa").size() +
                                 ", hoteles: " + ((Solar) prop).getConstrucciones("hotel").size() +
                                 ", piscinas: " + ((Solar) prop).getConstrucciones("piscina").size() +
                                 ", pistas: " + ((Solar) prop).getConstrucciones("pista").size() +
-                                "]\n";
+                                "]\n";*/
                     } else {
                         aux += "\t" + prop.getNombre() + "\n";
                     }
