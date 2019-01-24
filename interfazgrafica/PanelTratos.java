@@ -191,10 +191,10 @@ public class PanelTratos extends JPanel {
 
     public void eliminarTrato(){
         int pos = jListaTratosPropuestos.getSelectedIndex();
-        if(modeloListaPropuestos.get(pos).contains("No"))
-            return;
         if(pos > -1){
             try{
+                if(modeloListaPropuestos.get(pos).contains("No"))
+                    return;
                 this.interfaz.getJuego().borrarTrato(modeloListaPropuestos.get(pos));
                 this.modeloListaPropuestos.remove(pos);
             }catch(Exception ex){
@@ -205,9 +205,9 @@ public class PanelTratos extends JPanel {
 
     public void aceptarTrato(){
         int pos = jListaTratos.getSelectedIndex();
-        if(modeloLista.get(pos).contains("No"))
-            return;
         if(pos > -1){
+            if(modeloLista.get(pos).contains("No"))
+                return;
             try{
                 this.interfaz.getJuego().aceptarTrato(modeloLista.get(pos));
                 this.modeloLista.remove(pos);
@@ -228,6 +228,7 @@ public class PanelTratos extends JPanel {
         this.tratosPropuestos = this.interfaz.getJuego().getJugadorActual().getTratosPropuestos();
         modeloLista = new DefaultListModel<>();
         modeloListaPropuestos = new DefaultListModel<>();
+
         for(Trato t: this.interfaz.getJuego().getJugadorActual().getTratosPropuestos()){
             modeloListaPropuestos.addElement("trato" + t.getId());
         }
@@ -237,6 +238,7 @@ public class PanelTratos extends JPanel {
             this.modeloListaPropuestos.addElement("No hay tratos propuestos");
             jListaTratosPropuestos.setModel(modeloListaPropuestos);
         }
+
         for(Trato t: this.interfaz.getJuego().getJugadorActual().getTratosPendientes()){
             modeloLista.addElement("trato" + t.getId());
         }

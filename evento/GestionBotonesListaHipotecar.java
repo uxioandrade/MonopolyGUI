@@ -22,12 +22,14 @@ public class GestionBotonesListaHipotecar implements ActionListener {
             panelHipotecar.hipotecarElemento();
         }else if(evento.getSource().equals(this.panelHipotecar.getBotonSalirHipotecar())){
             this.interfazGrafica.getPanelInfo().setVisible(true);
-            this.interfazGrafica.getPanelTexto().setVisible(true);
+            //this.interfazGrafica.getPanelTexto().setVisible(true);
             this.interfazGrafica.getPanelMenu().setVisible(true);
             this.interfazGrafica.getPanelTablero().setVisible(true);
             this.interfazGrafica.getPanelBotones().setVisible(true);
             this.interfazGrafica.getPanelJugadores().setVisible(true);
             this.panelHipotecar.setVisible(false);
+        }else if(evento.getSource().equals(this.panelHipotecar.getBotonDeshipotecar())){
+            panelHipotecar.desHipotecarElemento();
         }
     }
 

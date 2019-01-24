@@ -290,10 +290,12 @@ public class Jugador {
         Juego.consola.anhadirTexto(aux);
     }
 
-    public void listarTratosPendientes(){
+    public String listarTratosPendientes(){
+        String aux = "";
         for(Trato t: this.tratosPendientes){
-            Juego.consola.anhadirTexto("trato" + t.getId() + ":{\n" + t + "\n},\n");
+            aux += "trato" + t.getId() + ":{\n" + t + "\n},\n";
         }
+        return aux;
     }
 
     public void listarTratosPropuestos(){
