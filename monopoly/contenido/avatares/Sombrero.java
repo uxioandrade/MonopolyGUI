@@ -29,8 +29,8 @@ public final class Sombrero extends Avatar{ //Las clases hoja de una jerarquía 
 
     public String getTipo(){ return "Sombrero";}
 
-    public Sombrero(Jugador jug, Tablero tablero,BufferedImage ficha){
-        super(jug,tablero, ficha);
+    public Sombrero(Jugador jug, Tablero tablero,BufferedImage ficha, Valor valor, Casilla salida){
+        super(jug,tablero, ficha, valor, salida);
         this.historialCompradas = new ArrayList<>();
         super.numTiradas = 3;
     }
@@ -82,7 +82,7 @@ public final class Sombrero extends Avatar{ //Las clases hoja de una jerarquía 
     }
 
     public void moverEnAvanzado(int valor) throws ExcepcionRestriccionHipotecar, ExcepcionDineroDeuda, ExcepcionRestriccionEdificar, ExcepcionDineroVoluntario, ExcepcionRestriccionComprar {
-        Operacion operacion = new Operacion(super.getTablero());
+        Operacion operacion = new Operacion(super.getTablero(), super.valor);
         if(valor > 4){
             this.resetHistorial();
             this.moverZigZag(valor);
@@ -98,15 +98,15 @@ public final class Sombrero extends Avatar{ //Las clases hoja de una jerarquía 
 
     private void moverACasilla(int valor){
         this.getCasilla().quitarAvatar(this);
-        this.setCasilla(Valor.casillas.get(valor));
+        this.setCasilla(casillasAux.get(valor));
         this.getCasilla().anhadirAvatar(this);
     }
 
     private void actualizarVueltaAvanzado(){
-        this.jugador.modificarDinero(Valor.getDineroVuelta());
-        this.jugador.modificarPasarPorCasilla(Valor.getDineroVuelta());
+        this.jugador.modificarDinero(valor.getDineroVuelta());
+        this.jugador.modificarPasarPorCasilla(valor.getDineroVuelta());
         this.numVueltas++;
-        Juego.consola.anhadirTexto("El jugador " + this.jugador.getNombre() + " recibe " + Valor.getDineroVuelta() + "€ por haber cruzado la salida.");
+        Juego.consola.anhadirTexto("El jugador " + this.jugador.getNombre() + " recibe " + valor.getDineroVuelta() + "€ por haber cruzado la salida.");
         //Se recorren los avatares para comprobar si es necesario actualizar el dinero de pasar por la casilla de salida
         Iterator<Avatar> avatar_i = this.tablero.getAvatares().values().iterator();
         while(avatar_i.hasNext()) {
@@ -116,8 +116,8 @@ public final class Sombrero extends Avatar{ //Las clases hoja de una jerarquía 
             }
         }
         this.tablero.modificarVueltas(4);
-        Valor.actualizarVuelta();
-        this.historialSalida += Valor.getDineroVuelta();
+        valor.actualizarVuelta();
+        this.historialSalida += valor.getDineroVuelta();
     }
 
     private void moverZigZag(int valor) {

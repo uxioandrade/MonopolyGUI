@@ -1,6 +1,7 @@
 package monopoly.plataforma;
 
 import interfazgrafica.PanelTexto;
+
 import monopoly.contenido.*;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class Juego implements Comando{
 
     public static ConsolaNormal consola;
     private Tablero tablero;
+    private Valor valor;
     private Dados dados;
     private int countTiradas;
     private int vecesDobles;
@@ -38,12 +40,12 @@ public class Juego implements Comando{
     private ArrayList<String> turnosJugadores;//ArrayList que guarda el orden de los jugadores (0-primero)...
     //Tiene acceso a paquete
 
-    public Juego(){
-
+    public Juego(Valor valor){
+    	//Posible edicion de mapa
+    	this.valor = valor;
         this.turnosJugadores = new ArrayList<>();
-        Valor.crearGrupos();//creamos los grupos almacenados en valor
-        this.tablero = new Tablero();
-        this.operacion = new Operacion(this.tablero);
+        this.tablero = new Tablero(valor);
+        this.operacion = new Operacion(this.tablero, valor);
         consola=new ConsolaNormal();
         //this.operacion.crearJugadores();//antes de empezar el menu de partida creamos los jugadores
 
@@ -342,8 +344,10 @@ public class Juego implements Comando{
                     } else {
                         if(jugadorActual.getAvatar() instanceof Pelota && jugadorActual.getAvatar().getModoAvanzado() && tirada <= 4){
                             consola.anhadirTexto("El avatar " + jugadorActual.getAvatar().getId() + " retrocede " + tirada + " posiciones");
-                        }else
-                            this.panelTexto.addTexto("El avatar " + jugadorActual.getAvatar().getId() + " avanza " + tirada + " posiciones, desde " + jugadorActual.getAvatar().getCasilla().getNombre() + " hasta " + Valor.casillas.get((jugadorActual.getAvatar().getCasilla().getPosicion() + tirada) % 40).getNombre());
+                        }else {
+                        	ArrayList<Casilla> casillasAux = valor.getCasillas();
+                        	this.panelTexto.addTexto("El avatar " + jugadorActual.getAvatar().getId() + " avanza " + tirada + " posiciones, desde " + jugadorActual.getAvatar().getCasilla().getNombre() + " hasta " + casillasAux.get((jugadorActual.getAvatar().getCasilla().getPosicion() + tirada) % 40).getNombre());
+                        }
                         jugadorActual.getAvatar().moverCasilla(tirada);
                         if(!(jugadorActual.getAvatar() instanceof Pelota && jugadorActual.getAvatar().getModoAvanzado()))
                             jugadorActual.getAvatar().getCasilla().accionCaer(jugadorActual, tirada, operacion);
@@ -408,7 +412,7 @@ public class Juego implements Comando{
              }else if((jugadorActual.getAvatar() instanceof Esfinge || jugadorActual.getAvatar() instanceof Sombrero) && jugadorActual.getAvatar().getModoAvanzado()){
                 jugadorActual.getAvatar().setNumTiradas(3);
             }
-            for(Propiedades p: Valor.getComprables()){
+            for(Propiedades p: valor.getComprables()){
                p.reducirTurnosTratos(jugadorActual);
             }
             jugadorActual = tablero.getJugadores().get(turnosJugadores.get(this.turno % turnosJugadores.size()));
@@ -505,83 +509,59 @@ public class Juego implements Comando{
         jugador.imprimirEstadisticas();
     }
 
-    public void trato(String el1,String el2, String el3, String jugadorPropuesto,int caso) throws ExcepcionNumeroPartesComando, ExcepcionRestriccionPropiedades, ExcepcionDineroVoluntario{
-        if(!this.tablero.getJugadores().containsKey(jugadorPropuesto))
-            throw new ExcepcionNumeroPartesComando("El jugador " + jugadorPropuesto + " no existe");
-        if(this.jugadorActual.getNombre().equals(jugadorPropuesto))
-            throw new ExcepcionDineroVoluntario("Un jugador no puede ofrecerse un trato a si mismo");
-        switch (caso){
-            case 1:
-                if (!tablero.getCasillas().containsKey(el1))
-                    throw new ExcepcionRestriccionPropiedades("La propiedad " + el1 + " no se puede proponer para un trato");
-                if (!tablero.getCasillas().containsKey(el2))
-                    throw new ExcepcionRestriccionPropiedades("La propiedad " + el2 + " no se puede proponer para un trato");
-                if (jugadorActual.getPropiedades().contains((Propiedades) tablero.getCasillas().get(el1))) {
-                    if (!((Propiedades) tablero.getCasillas().get(el2)).perteneceAJugador(tablero.getJugadores().get(jugadorPropuesto)))
-                        throw new ExcepcionRestriccionPropiedades("La propiedad " + el2 + " no se puede proponer para un trato");
-                    Trato trato = new Trato((Propiedades) tablero.getCasillas().get(el1), (Propiedades) tablero.getCasillas().get(el2), "cambiar");
-                }else {
-                    if (!((Propiedades) tablero.getCasillas().get(el1)).perteneceAJugador(jugadorActual))
-                        throw new ExcepcionRestriccionPropiedades("La propiedad " + el1 + " no se puede proponer para un trato");
-                    Trato trato = new Trato((Propiedades) tablero.getCasillas().get(el2), (Propiedades) tablero.getCasillas().get(el1), "cambiar");
+    public void trato(String partes[]) throws ExcepcionNumeroPartesComando, ExcepcionRestriccionPropiedades, ExcepcionDineroVoluntario{
+        String parte1 = "",parte2 = "",parte3 = "";
+        String descripcion = partes[2];
+        int turnos=0;
+        boolean aux1 = false;
+        boolean aux2 = false;
+        boolean parentesis = false;
+        boolean skip = false;
+        int count = 2;
+        if(partes.length >= 5 && partes[2].equals("cambiar")){
+            partes[3] = partes[3].substring(1);
+            for(int i = 3; i < partes.length; i++){
+                descripcion += " " + partes[i];
+                if(!aux1) {
+                    parte1 += " " + partes[i];
+                    if (partes[i].contains(",")) {
+                        parte1 = parte1.substring(1, parte1.length()-1);
+                        aux1 = true;
+                    }
+                }else if(!aux2){
+                   if(!partes[i].equals("y")){
+                       parte2 += " " + partes[i];
+                       if(partes[i].contains(")")) {
+                           parte2 = parte2.substring(0, parte2.length()-1);
+                           parentesis = true;
+                       }
+                   }else
+                        aux2 = true;
+                }else if(parentesis){
+                    count--;
+                    if(count == 0){
+                        parte3 = partes[i].substring(1);
+                        if(parte3.contains(",")){
+                            parte3 = parte3.substring(0, parte3.length()-1);
+                            turnos = Integer.parseInt(partes[i+1].substring(0,partes[i+1].length()-1));
+                            count = 10;
+                        }
+                    }else if(count < 0){
+                        parte3 += " " + partes[i];
+                        if (partes[i].contains(",")) {
+                            parte3 = parte3.substring(1, parte3.length()-1);
+                            turnos = Integer.parseInt(partes[i+1].substring(0,partes[i+1].length()-1));
+                            parentesis = false;
+                        }
+                    }
+                }else if(aux2){
+                    parte3 = partes[i].substring(0,partes[i].length()-1);
                 }
-                    break;
-            case 2:
-                if(!tablero.getCasillas().containsKey(el1) || !((Propiedades) tablero.getCasillas().get(el1)).perteneceAJugador(jugadorActual))
-                    throw new ExcepcionRestriccionPropiedades("La propiedad " + el1 + " no se puede proponer para un trato");
-                if(el2.charAt(0) <= 47 || el2.charAt(0) >= 58)
-                    throw new ExcepcionRestriccionPropiedades(el1 + " no es un número válido");
-                Trato trato = new Trato(Integer.parseInt(el2),tablero.getJugadores().get(jugadorPropuesto), (Propiedades) tablero.getCasillas().get(el1),"cambiar");
-                break;
-            case 3:
-                //Caso dinero x propiedad
-                if(!tablero.getCasillas().containsKey(el2) || !((Propiedades) tablero.getCasillas().get(el2)).perteneceAJugador(tablero.getJugadores().get(jugadorPropuesto)))
-                    throw new ExcepcionRestriccionPropiedades("La propiedad " + el2 + " no se puede proponer para un trato");
-                if(el1.charAt(0) <= 47 || el1.charAt(0) >= 58)
-                    throw new ExcepcionRestriccionPropiedades(el1 + " no es un número válido");
-                if(jugadorActual.getDinero() < Integer.parseInt(el1))
-                    throw new ExcepcionDineroVoluntario("El jugador no posee el dinero suficiente para proponer ese trato");
-                Trato trato2 = new Trato(jugadorActual,Integer.parseInt(el1), (Propiedades) tablero.getCasillas().get(el2),"cambiar");
-                break;
-            case 4:
-                if(!tablero.getCasillas().containsKey(el1))
-                    throw new ExcepcionRestriccionPropiedades("La propiedad " + el1 + " no se puede proponer para un trato");
-                if(!tablero.getCasillas().containsKey(el2))
-                    throw new ExcepcionRestriccionPropiedades("La propiedad " + el2 + " no se puede proponer para un trato");
-                if(!((Propiedades) tablero.getCasillas().get(el1)).perteneceAJugador(jugadorActual))
-                    throw new ExcepcionRestriccionPropiedades("La propiedad " + el1 + " no se puede proponer para un trato");
-                if(!((Propiedades) tablero.getCasillas().get(el2)).perteneceAJugador(tablero.getJugadores().get(jugadorPropuesto)))
-                    throw new ExcepcionRestriccionPropiedades("La propiedad " + el2 + " no se puede proponer para un trato");
-                if(el3.charAt(0) <= 47 || el3.charAt(0) >= 58)
-                    throw new ExcepcionRestriccionPropiedades(el3 + " no es un número válido");
-                Trato trato3 = new Trato((Propiedades) tablero.getCasillas().get(el1),Integer.parseInt(el3),(Propiedades) tablero.getCasillas().get(el2),"cambiar");
-                break;
-            case 5:
-                if(!tablero.getCasillas().containsKey(el1) || !((Propiedades) tablero.getCasillas().get(el1)).perteneceAJugador(jugadorActual))
-                    throw new ExcepcionRestriccionPropiedades("La propiedad " + el1 + " no se puede proponer para un trato");
-                if(el2.charAt(0) <= 47 || el2.charAt(0) >= 58)
-                    throw new ExcepcionRestriccionPropiedades(el2 + " no es un número válido");
-                if(!tablero.getCasillas().containsKey(el3) || !((Propiedades) tablero.getCasillas().get(el3)).perteneceAJugador(this.tablero.getJugadores().get(jugadorPropuesto)))
-                    throw new ExcepcionRestriccionPropiedades("La propiedad " + el3 + " no se puede proponer para un trato");
-                Trato trato4 = new Trato((Propiedades) tablero.getCasillas().get(el1),Integer.parseInt(el2),(Propiedades) tablero.getCasillas().get(el3),"cambiar");
-                    break;
-            case 6:
-                if(!tablero.getCasillas().containsKey(el1))
-                    throw new ExcepcionRestriccionPropiedades("La propiedad " + el1 + " no se puede proponer para un trato");
-                if(!tablero.getCasillas().containsKey(el2))
-                    throw new ExcepcionRestriccionPropiedades("La propiedad " + el2 + " no se puede proponer para un trato");
-                if(!tablero.getCasillas().containsKey(el3))
-                    throw new ExcepcionRestriccionPropiedades("La propiedad " + el3 + " no se puede proponer para un trato");
-                if(!((Propiedades) tablero.getCasillas().get(el1)).perteneceAJugador(jugadorActual))
-                    throw new ExcepcionRestriccionPropiedades("La propiedad " + el1 + " no se puede proponer para un trato");
-                if(!((Propiedades) tablero.getCasillas().get(el2)).perteneceAJugador(tablero.getJugadores().get(jugadorPropuesto)))
-                    throw new ExcepcionRestriccionPropiedades("La propiedad " + el2 + " no se puede proponer para un trato");
-                if(!((Propiedades) tablero.getCasillas().get(el3)).perteneceAJugador(tablero.getJugadores().get(jugadorPropuesto)))
-                    throw new ExcepcionRestriccionPropiedades("La propiedad " + el3 + " no se puede proponer para un trato");
-                Trato trato6 = new Trato((Propiedades) tablero.getCasillas().get(el1),(Propiedades) tablero.getCasillas().get(el2),(Propiedades) tablero.getCasillas().get(el3),4,"cambiar");
-                break;
-        }
-            /*if(parentesis){
+            }
+            if(parte2.contains(" "))
+                parte2 = parte2.substring(1);
+
+            if(parentesis){
                 if(parte3.equals("")) {
                     if (parte2.charAt(0) >= 48 && parte2.charAt(0) <= 57) {
                         //Caso propiedad x dinero
@@ -659,29 +639,34 @@ public class Juego implements Comando{
             }
         }else{
             throw new ExcepcionNumeroPartesComando("Comando incorrecto");
-        }*/
-    }
-
-    public void aceptarTrato(String trato) throws ExcepcionNumeroPartesComando, ExcepcionRestriccionPropiedades, ExcepcionDineroVoluntario{
-        int idTrato = Integer.parseInt(trato.substring(5,6));
-        for (Trato t : jugadorActual.getTratosPendientes()) {
-            if (t.getId() == idTrato)
-                t.aceptar();
-            return;
-        }
-        throw new ExcepcionRestriccionPropiedades("El jugador " + jugadorActual.getNombre() + " no tiene ese trato pendiente");
-    }
-
-        public void borrarTrato(String trato){
-        int idTrato = Integer.parseInt(trato.substring(5,6));
-        for(Trato t: jugadorActual.getTratosPropuestos()){
-            if(t.getId() == idTrato)
-                t.eliminar();
-            return;
         }
     }
 
-    public Operacion getOperacion() {
-        return operacion;
+    public void aceptarTrato(String partes[]) throws ExcepcionNumeroPartesComando, ExcepcionRestriccionPropiedades, ExcepcionDineroVoluntario{
+        if(partes.length == 2) {
+            int idTrato = Integer.parseInt(partes[1].substring(5));
+            for (Trato t : jugadorActual.getTratosPendientes()) {
+                if (t.getId() == idTrato)
+                    t.aceptar();
+                return;
+            }
+            throw new ExcepcionRestriccionPropiedades("El jugador " + jugadorActual.getNombre() + " no tiene ese trato pendiente");
+        }else{
+            throw new ExcepcionNumeroPartesComando("Comando incorrecto");
+        }
+    }
+
+        public void borrarTrato(String partes[]) throws ExcepcionNumeroPartesComando, ExcepcionRestriccionPropiedades{
+        if(partes.length == 2) {
+            int idTrato = Integer.parseInt(partes[1].substring(5));
+            for(Trato t: jugadorActual.getTratosPendientes()){
+                if(t.getId() == idTrato)
+                    t.eliminar();
+                return;
+            }
+             throw new ExcepcionRestriccionPropiedades("El jugador " + jugadorActual.getNombre() + " no tiene ese trato pendiente");
+        }else{
+            throw new ExcepcionNumeroPartesComando("Comando incorrecto");
+        }
     }
 }

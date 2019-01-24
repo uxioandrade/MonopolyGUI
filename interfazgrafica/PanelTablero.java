@@ -9,9 +9,12 @@ import java.awt.Graphics;
 import java.awt.Image;
 
 import monopoly.contenido.Jugador;
+import monopoly.contenido.casillas.Casilla;
 
-import javax.swing.*;
+import javax.swing.ImageIcon;
 import javax.imageio.ImageIO;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import monopoly.plataforma.Valor;
 
@@ -24,11 +27,14 @@ public class PanelTablero extends JPanel{
 	
 	private ArrayList<BotonCasilla> casillas;
 	private ArrayList<JLabel> nombreJugadores;
-
+	private int[] permutacionCasillas;
 	private Image backgroundImg;
+	private Valor valor;
 	
-	public PanelTablero(InterfazGrafica interfaz) throws IOException {
+	public PanelTablero(InterfazGrafica interfaz, int[] permutacionCasillas, Valor valor) throws IOException {
 		this.interfaz = interfaz;
+		this.valor = valor;
+		this.permutacionCasillas = permutacionCasillas;
 		this.backgroundImg = new ImageIcon("/resources/lotrMap.png").getImage();
 		this.setLayout(new GridBagLayout());
 		this.setUp();
@@ -40,31 +46,31 @@ public class PanelTablero extends JPanel{
 		GridBagConstraints c = new GridBagConstraints();
 
 		casillas = new ArrayList<BotonCasilla>();
+		ArrayList<Casilla> casillasAux = valor.getCasillas();
 		
 		for(i=0; i<11; i++) { // Primera fila
-			casillas.add(new BotonCasilla("/resources/"+i.toString()+".jpg",Valor.casillas.get(i)));
+			casillas.add(new BotonCasilla("/resources/"+(permutacionCasillas[i]-1)+".jpg",casillasAux.get(i)));
 			c.gridx = 200*i;
 			c.gridy = 0;
 			this.add(casillas.get(i), c);
 		}
-
 		for(i=0; i<10; i++) { // Primera columna
 			index = 11+i;
-			casillas.add(new BotonCasilla("/resources/"+index.toString()+".jpg",Valor.casillas.get(index)));
+			casillas.add(new BotonCasilla("/resources/"+(permutacionCasillas[index]-1)+".jpg",casillasAux.get(index)));
 			c.gridx = 2000;
 			c.gridy = 200*(i+1);
 			this.add(casillas.get(index), c);
 		}
 		for(i=0; i<10; i++) { // Segunda fila
 			index = 21+i;
-			casillas.add(new BotonCasilla("/resources/"+index.toString()+".jpg",Valor.casillas.get(index)));
+			casillas.add(new BotonCasilla("/resources/"+(permutacionCasillas[index]-1)+".jpg",casillasAux.get(index)));
 			c.gridx = 2000 - 200*(i+1);
 			c.gridy = 2000;
 			this.add(casillas.get(index), c);
 		}
 		for(i=0; i<9; i++) { // Segunda columna
 			index = 31+i;
-			casillas.add(new BotonCasilla("/resources/"+index.toString()+".jpg",Valor.casillas.get(index)));
+			casillas.add(new BotonCasilla("/resources/"+(permutacionCasillas[index]-1)+".jpg",casillasAux.get(index)));
 			c.gridx = 0;
 			c.gridy = 2000 - 200*(i+1);
 			this.add(casillas.get(index), c);

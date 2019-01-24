@@ -22,8 +22,8 @@ public final class CartaMovimientoSuerte extends CartaSuerte{ //Las clases hoja 
     private boolean accionFinanciera;
     private int alquiler; //0 si no hay alquiler, 1 si hay alquiler y 2 si hay que pagar el doble del alquiler
 
-    public CartaMovimientoSuerte(int posicion, boolean accionFinanciera, int alquiler, String descripcion){
-        super(descripcion);
+    public CartaMovimientoSuerte(int posicion, boolean accionFinanciera, int alquiler, String descripcion, Valor valor){
+        super(descripcion, valor);
         if(posicion >= -2 && posicion <= 39)
             this.posicion = posicion;
         this.accionFinanciera = accionFinanciera;
@@ -61,10 +61,10 @@ public final class CartaMovimientoSuerte extends CartaSuerte{ //Las clases hoja 
     }
 
     private void actualizarVueltaAvanzado(Jugador jugador, Tablero tablero){
-        jugador.modificarDinero(Valor.getDineroVuelta());
-        jugador.modificarPasarPorCasilla(Valor.getDineroVuelta());
+        jugador.modificarDinero(valor.getDineroVuelta());
+        jugador.modificarPasarPorCasilla(valor.getDineroVuelta());
         jugador.getAvatar().sumarNumTirada();
-        Juego.consola.anhadirTexto("El jugador " + jugador.getNombre() + " recibe " + Valor.getDineroVuelta() + "€ por haber cruzado la salida.");
+        Juego.consola.anhadirTexto("El jugador " + jugador.getNombre() + " recibe " + valor.getDineroVuelta() + "€ por haber cruzado la salida.");
         //Se recorren los avatares para comprobar si es necesario actualizar el dinero de pasar por la casilla de salida
         Iterator<Avatar> avatar_i = tablero.getAvatares().values().iterator();
         while(avatar_i.hasNext()) {
@@ -74,11 +74,11 @@ public final class CartaMovimientoSuerte extends CartaSuerte{ //Las clases hoja 
             }
         }
         tablero.modificarVueltas(4);
-        Valor.actualizarVuelta();
+        valor.actualizarVuelta();
         if(jugador.getAvatar() instanceof Esfinge && jugador.getAvatar().getModoAvanzado())
-            ((Esfinge)jugador.getAvatar()).modificarHistorialSalida(Valor.getDineroVuelta());
+            ((Esfinge)jugador.getAvatar()).modificarHistorialSalida(valor.getDineroVuelta());
         if(jugador.getAvatar() instanceof Sombrero && jugador.getAvatar().getModoAvanzado())
-            ((Sombrero)jugador.getAvatar()).modificarHistorialSalida(Valor.getDineroVuelta());
+            ((Sombrero)jugador.getAvatar()).modificarHistorialSalida(valor.getDineroVuelta());
     }
 
     public void accionCarta(Jugador jugador, Tablero tablero) throws ExcepcionDineroDeuda, ExcepcionNumeroPartesComando, ExcepcionRestriccionHipotecar, ExcepcionRestriccionEdificar {
@@ -101,17 +101,17 @@ public final class CartaMovimientoSuerte extends CartaSuerte{ //Las clases hoja 
         }
 
         if(accionFinanciera)
-            Juego.consola.anhadirTexto(super.getDescripcion() + " " + Valor.getDineroVuelta() + "€.");
+            Juego.consola.anhadirTexto(super.getDescripcion() + " " + valor.getDineroVuelta() + "€.");
         else
             Juego.consola.anhadirTexto(super.getDescripcion());
 
         Propiedades casillaComprable;
-        Operacion operacion = new Operacion(tablero);
+        Operacion operacion = new Operacion(tablero, valor);
         //Siempre se cae en una casilla que tiene un alquiler asociado
         if(this.accionFinanciera && this.posicion <= jugador.getAvatar().getCasilla().getPosicion()) {
             this.actualizarVueltaAvanzado(jugador,operacion.getTablero());
         }
-        jugador.getAvatar().setCasilla(Valor.casillas.get(this.posicion));
+        jugador.getAvatar().setCasilla(casillasAux.get(this.posicion));
         if(jugador.getAvatar().getCasilla() instanceof Propiedades) {
             casillaComprable = (Propiedades) jugador.getAvatar().getCasilla();
             switch (alquiler) {

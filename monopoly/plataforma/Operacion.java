@@ -20,10 +20,16 @@ import monopoly.excepciones.restricciones.ExcepcionRestriccionHipotecar;
 
 public class Operacion {
     private Tablero tablero;
+    private Valor valor;
+    private ArrayList<Casilla> casillasAux;
 
-    public Operacion(Tablero tablero) {
+    public Operacion(Tablero tablero, Valor valor) {
         if (tablero != null) {
             this.tablero = tablero;
+        }
+        if(valor != null) {
+        	this.valor = valor;
+        	casillasAux = valor.getCasillas();
         }
     }
 
@@ -207,7 +213,7 @@ public class Operacion {
 
     public boolean menuHipotecar(Jugador jugador,Tablero tablero, double deuda) throws ExcepcionRestriccionHipotecar, ExcepcionRestriccionEdificar{ //Devuelve true si el jugador ya ha afrontado su deuda
         Juego.consola.anhadirTexto(jugador.getNombre() + " entró en el menú hipotecar");
-        Operacion operacion = new Operacion(tablero);
+        Operacion operacion = new Operacion(tablero, valor);
         while(true) {
             String orden = Juego.consola.leer("$>");
             String[] partes = orden.split(" ");
@@ -258,7 +264,7 @@ public class Operacion {
                             cas.setPropietario(this.tablero.getBanca());
                             cas.setHipotecado(false);
                         }
-                        Valor.casillas.get(jugador.getAvatar().getCasilla().getPosicion()).quitarAvatar(jugador.getAvatar());
+                        casillasAux.get(jugador.getAvatar().getCasilla().getPosicion()).quitarAvatar(jugador.getAvatar());
                         this.tablero.getAvatares().remove(jugador.getAvatar().getId());
                         this.tablero.getJugadores().remove(jugador.getNombre());
                        /* Juego.turnosJugadores.remove(jugador.getNombre());
@@ -278,21 +284,21 @@ public class Operacion {
         //Comprueba que el jugador esté en la cárcel
         if(jugador.getAvatar().getEncarcelado()>0 && jugador.getAvatar().getEncarcelado()<3){
             //Comprueba que el jugador tenga dinero para pagar la fianza
-            if(jugador.getDinero()>Valor.getDineroSalirCarcel()){
+            if(jugador.getDinero()>valor.getDineroSalirCarcel()){
                 jugador.getAvatar().setEncarcelado(0);
-                jugador.modificarDinero(-Valor.getDineroSalirCarcel());
-                Juego.consola.anhadirTexto(jugador.getNombre() + " paga " + Valor.getDineroSalirCarcel() +"€ y sale de la cárcel. Puede lanzar los dados");
+                jugador.modificarDinero(-valor.getDineroSalirCarcel());
+                Juego.consola.anhadirTexto(jugador.getNombre() + " paga " + valor.getDineroSalirCarcel() +"€ y sale de la cárcel. Puede lanzar los dados");
             }else {
                 throw new ExcepcionDineroVoluntario(jugador.getNombre() + " no tiene dinero suficiente para salir de la cárcel");
             }
         //Caso en el que el jugador ya superó los 3 turnos en la cárcel
         }else if(jugador.getAvatar().getEncarcelado() >= 4){
-            if(jugador.getDinero() >= Valor.getDineroSalirCarcel()) {
+            if(jugador.getDinero() >= valor.getDineroSalirCarcel()) {
                 jugador.getAvatar().setEncarcelado(0);
-                jugador.modificarDinero(-Valor.getDineroSalirCarcel());
-                Juego.consola.anhadirTexto("El jugador " + jugador.getNombre() + " paga " + Valor.getDineroSalirCarcel() + "€ y sale de la cárcel.");
+                jugador.modificarDinero(-valor.getDineroSalirCarcel());
+                Juego.consola.anhadirTexto("El jugador " + jugador.getNombre() + " paga " + valor.getDineroSalirCarcel() + "€ y sale de la cárcel.");
             }else{
-                if(this.menuHipotecar(jugador,this.tablero,Valor.getDineroSalirCarcel()))
+                if(this.menuHipotecar(jugador,this.tablero,valor.getDineroSalirCarcel()))
                     salirCarcel(jugador);
             }
         }else{
@@ -302,7 +308,7 @@ public class Operacion {
 
     public void irCarcel(Jugador jugador) {
         //Modifica la posicion del jugador
-        jugador.getAvatar().setCasilla(Valor.casillas.get(10));
+        jugador.getAvatar().setCasilla(casillasAux.get(10));
         //Modifica el estado del jugador
         jugador.getAvatar().setEncarcelado(1);
         jugador.anhadirVecesCarcel();

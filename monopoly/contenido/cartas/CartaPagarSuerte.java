@@ -22,8 +22,8 @@ public final class CartaPagarSuerte extends CartaSuerte{ //Las clases hoja de un
     private double cantidad; //Positivo => Pagar , Negativo => Cobrar
     private boolean banca; //True => Banca, False => Todos los jugadores
 
-    public CartaPagarSuerte(double cantidad, boolean banca, String descripcion){
-        super(descripcion);
+    public CartaPagarSuerte(double cantidad, boolean banca, String descripcion, Valor valor){
+        super(descripcion, valor);
         this.cantidad = cantidad;
         this.banca = banca;
     }
@@ -71,7 +71,7 @@ public final class CartaPagarSuerte extends CartaSuerte{ //Las clases hoja de un
         public void accionCarta(Jugador jugador, Tablero tablero) throws ExcepcionRestriccionHipotecar, ExcepcionNumeroPartesComando, ExcepcionDineroDeuda, ExcepcionRestriccionEdificar {
         Juego.consola.anhadirTexto(super.getDescripcion());
         double cantidadTotal = this.getCantidad(jugador,tablero);
-        Operacion operacion = new Operacion(tablero);
+        Operacion operacion = new Operacion(tablero, valor);
         if(jugador.getDinero() >= cantidadTotal){
             cobrarAccion(jugador,tablero,cantidadTotal);
         }else{
