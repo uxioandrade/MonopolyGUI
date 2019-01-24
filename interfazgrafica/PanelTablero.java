@@ -2,21 +2,19 @@ package interfazgrafica;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.awt.Graphics;
 import java.awt.Image;
 
+import evento.GestionSalirCarcel;
 import monopoly.contenido.Jugador;
 
 import javax.swing.*;
-import javax.imageio.ImageIO;
 
 import monopoly.plataforma.Valor;
 
 import evento.GestionInfo;
-import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 
 @SuppressWarnings("serial")
 public class PanelTablero extends JPanel{
@@ -24,6 +22,7 @@ public class PanelTablero extends JPanel{
 	
 	private ArrayList<BotonCasilla> casillas;
 	private ArrayList<JLabel> nombreJugadores;
+	private JButton salirCarcel;
 
 	private Image backgroundImg;
 	
@@ -36,6 +35,8 @@ public class PanelTablero extends JPanel{
 	}
 	
 	private void setUp() throws IOException {
+		salirCarcel = new JButton("Salir Carcel");
+		this.add(salirCarcel);
 		Integer i, index;
 		GridBagConstraints c = new GridBagConstraints();
 
@@ -76,6 +77,7 @@ public class PanelTablero extends JPanel{
 		for(BotonCasilla bc: casillas) {
 			bc.addActionListener(new GestionInfo(this.interfaz.getPanelInfo()));
 		}
+		salirCarcel.addActionListener(new GestionSalirCarcel(this.interfaz));
 	}
 	
 	public void cargarFichasIniciales(){

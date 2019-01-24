@@ -26,7 +26,6 @@ public class InterfazGrafica extends JFrame{
 	private PanelEdificar panelEdificar;
 	private  PanelVender panelVender;
 	private PanelTratos panelTratos;
-
 	static final Integer MAX_CASILLAS = 40;
 	static final Integer MAX_FICHAS = 6;
 	static final Integer ficha_W = 20;
@@ -60,14 +59,14 @@ public class InterfazGrafica extends JFrame{
 		//c.gridheight = 2;
 		//c.gridwidth = 1;
 		this.add(info, c);
-		
+
 		panelTablero = new PanelTablero(this);
 		c.gridx = 500;
 		c.gridy = 0;
 		//c.gridheight = 2;
 		//c.gridwidth = 2;
 		this.add(panelTablero, c);
-		
+
 		menu = new PanelMenu(this);
 		c.gridx = 0;
 		c.gridy = 2000;
