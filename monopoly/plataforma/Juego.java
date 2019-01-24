@@ -421,7 +421,7 @@ public class Juego implements Comando{
             consola.anhadirTexto("El jugador actual es " + jugadorActual.getNombre());
             jugadorActual.listarTratosPendientes();
         } else {
-            throw new ExcepcionesDinamicaTurno("No se puede finalizar el turno sin haber tirado los dados");
+            throw new ExcepcionesDinamicaTurno("No se puede finalizar el turno si hay tiradas pendientes");
         }
     }
 

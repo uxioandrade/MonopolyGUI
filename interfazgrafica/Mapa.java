@@ -53,6 +53,7 @@ public class Mapa {
     public void setValorGrupo(ArrayList<Double> valorGrupo){
         this.valorGrupo=valorGrupo;
     }
+
     public void imprimir(String nombre){
         FileWriter fw = null;
         PrintWriter pw=null;

@@ -48,32 +48,32 @@ public class Valor {
     public static DecimalFormat df2 = new DecimalFormat(".##");
     
     public final ArrayList<Carta> cartasSuerte = new ArrayList<>(Arrays.asList(
-            new CartaMovimientoCaja(25,true,0,"Ve a la EstaciÃ³n 3 y coge un avioÌ�n. Si pasas por la casilla de Salida, cobra ", this),
+            new CartaMovimientoCaja(25,true,0,"Ve a la Estacion 3 y coge un avion. Si pasas por la casilla de Salida, cobra ", this),
             new CartaMovimientoCaja(31,false,1,"Decides hacer un viaje de placer. Avanza hasta Pelennor Fields", this),
-            new CartaPagarCaja(-500,true,"Vendes tu billete de avioÌ�n para Argonath en una subasta por Internet. Cobra 500â‚¬.", this),
+            new CartaPagarCaja(-500,true,"Vendes tu billete de avion para Argonath en una subasta por Internet. Cobra 500.", this),
             new CartaMovimientoCaja(26,true,1,"Ve a Isengard Caverns. Si pasas por la casilla de Salida, cobra ", this),
-            new CartaMovimientoCaja(30,false,0,"Los acreedores te persiguen por impago. Ve a la caÌ�rcel. Ve directamente sin pasar por la casilla de salida y sin cobrar", this),
-            new CartaPagarCaja(-10000,true,"Â¡Has ganado el bote de la loteriÌ�a! Recibe 10000â‚¬.", this),
-            new CartaPagarCaja(150,true,"Paga 150â‚¬ por la matrÃ­cula del colegio privado", this),
-            new CartaPagarCaja(0,true,"El aumento del impuesto sobre bienes inmbuebles afecta a todas tus propiedades. Paga 40â‚¬ por casa, 115â‚¬ por hotel, 200â‚¬ por piscina y 75â‚¬ por pista de deportes", this),
+            new CartaMovimientoCaja(30,false,0,"Los acreedores te persiguen por impago. Ve a la carcel. Ve directamente sin pasar por la casilla de salida y sin cobrar", this),
+            new CartaPagarCaja(-10000,true,"¡Has ganado el bote de la loteria! Recibe 10000 ", this),
+            new CartaPagarCaja(150,true,"Paga 150 por la matricula del colegio privado", this),
+            new CartaPagarCaja(0,true,"El aumento del impuesto sobre bienes inmbuebles afecta a todas tus propiedades. Paga 40 por casa, 115 por hotel, 200 por piscina y 75 por pista de deportes", this),
             new CartaMovimientoCaja(32,true,1,"Ve a Osgiliath. Si pasas por la casilla de Salida, cobra ", this),
-            new CartaPagarCaja(250,false,"Has sido elegido presidente de la junta directiva. Paga a cada jugador 250â‚¬", this),
-            new CartaMovimientoCaja(-1,false,1,"!Hora punta de trÃ¡fico! Retrocede tres casillas", this),
-            new CartaPagarCaja(150,true,"Te multan por usar el mÃ³vil mientras conduces. Paga 150â‚¬", this),
-            new CartaPagarCaja(-1500,true,"Beneficio por la venta de tus acciones. Recibes 1500â‚¬", this),
-            new CartaMovimientoCaja(-2,false,2,"Avanza hasta la casilla de transporte mÃ¡s cercana. Si no tiene dueÃ±o, puedes comprÃ¡rsela a la banca. Si tiene dueÃ±o, paga el doble de la operaciÃ³n indicada", this)
+            new CartaPagarCaja(250,false,"Has sido elegido presidente de la junta directiva. Paga a cada jugador 250", this),
+            new CartaMovimientoCaja(-1,false,1,"!Hora punta de trafico! Retrocede tres casillas", this),
+            new CartaPagarCaja(150,true,"Te multan por usar el movil mientras conduces. Paga 150", this),
+            new CartaPagarCaja(-1500,true,"Beneficio por la venta de tus acciones. Recibes 1500", this),
+            new CartaMovimientoCaja(-2,false,2,"Avanza hasta la casilla de transporte mas cercana. Si no tiene duenho, puedes comprarsela a la banca. Si tiene dueno, paga el doble de la operacion indicada", this)
     ));
 
     public final ArrayList<Carta> cartasCajaComunidad = new ArrayList<>(Arrays.asList(
             new CartaPagarSuerte(500,true,"Paga 500 por un fin de semana en un balneario de 5 estrellas", this),
-            new CartaMovimientoSuerte(30,false,0,"Te investigan por fraude de identidad. Ve a la CÃ¡rcel. Ve directamente sin pasar por la casilla de Salida y sin cobrar los ", this),
-            new CartaMovimientoSuerte(0,true,0,"ColÃ³cate en la casilla de Salida. Cobra ", this),
-            new CartaPagarSuerte(-2000,true,"Tu compaÃ±Ã­a de Internet obtiene beneficios. Recibe 2000â‚¬.", this),
-            new CartaPagarSuerte(1000,true,"Paga 1000â‚¬ por invitar a todos tus amigos a un viaje a Gondor", this),
-            new CartaPagarSuerte(-500,true,"DevoluciÃ³n de Hacienda. Cobra 500â‚¬", this),
-            new CartaMovimientoSuerte(1,false,1,"Retrocede hasta Bag End para comprar antigÃ¼edades exÃ³ticas", this),
-            new CartaPagarSuerte(200,false,"Alquilas a todos tus amigos una villa en The Shire durante una semana. Paga 200â‚¬ a cada jugador.", this),
-            new CartaPagarSuerte(-1000,true,"Recibe 1000â‚¬ de beneficios por alquilar los servicios de tu jet privado.", this),
+            new CartaMovimientoSuerte(30,false,0,"Te investigan por fraude de identidad. Ve a la Carcel. Ve directamente sin pasar por la casilla de Salida y sin cobrar los ", this),
+            new CartaMovimientoSuerte(0,true,0,"Colocate en la casilla de Salida. Cobra ", this),
+            new CartaPagarSuerte(-2000,true,"Tu companhia de Internet obtiene beneficios. Recibe 2000.", this),
+            new CartaPagarSuerte(1000,true,"Paga 1000 por invitar a todos tus amigos a un viaje a Gondor", this),
+            new CartaPagarSuerte(-500,true,"Devolucion de Hacienda. Cobra 500", this),
+            new CartaMovimientoSuerte(1,false,1,"Retrocede hasta Bag End para comprar antiguedades exoticas", this),
+            new CartaPagarSuerte(200,false,"Alquilas a todos tus amigos una villa en The Shire durante una semana. Paga 200 a cada jugador.", this),
+            new CartaPagarSuerte(-1000,true,"Recibe 1000 de beneficios por alquilar los servicios de tu jet privado.", this),
             new CartaMovimientoSuerte(21,true, 1,"Ve a Fall of Rauros a disfrutar de las vistas. Si pasas por la casilla de Salida, cobra ", this)
     ));
     

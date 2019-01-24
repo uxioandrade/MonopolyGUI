@@ -26,6 +26,6 @@ public class PanelLecturaMapa extends JFrame {
 
     }
     public String getSelectedFile(){
-        return fc.getSelectedFile().getName();
+        return fc.getSelectedFile().getAbsolutePath();
     }
 }
