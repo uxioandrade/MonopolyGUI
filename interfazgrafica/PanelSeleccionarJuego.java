@@ -7,11 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JRadioButton;
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import Ejecucion.Ejecutar;
 
@@ -20,7 +17,9 @@ public class PanelSeleccionarJuego extends JFrame{
 	private JButton editar;
 	private JButton editado;
 	private JButton normal;
+	private Mapa m;
 	private PanelEditarMapa editarMapa;
+	private PanelLecturaMapa panelLecturaMapa;
 	
 	public PanelSeleccionarJuego(PanelEditarMapa editarMapa) {
 		this.editarMapa = editarMapa;
@@ -47,11 +46,12 @@ public class PanelSeleccionarJuego extends JFrame{
 		editado.setAlignmentX(Component.CENTER_ALIGNMENT);
 		editado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				panelLecturaMapa = new PanelLecturaMapa();
+				Mapa m = new Mapa(panelLecturaMapa.getSelectedFile());
 				titulo.setVisible(false);
 				editar.setVisible(false);
 				editado.setVisible(false);
 				normal.setVisible(false);
-
 			}
 		});
 		
@@ -79,5 +79,8 @@ public class PanelSeleccionarJuego extends JFrame{
 			}
 		});
 		this.add(normal);
+	}
+	public Mapa getMapa(){
+		return m;
 	}
 }
