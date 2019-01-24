@@ -33,7 +33,7 @@ public class InterfazGrafica extends JFrame{
 	static final Integer ficha_H = 18;
 
 	public InterfazGrafica(Juego juego) throws IOException {
-		this.setBackground(Color.cyan);
+		//this.setBackground(Color.cyan);
 		this.setLayout(new GridBagLayout());
 		this.setSize(new Dimension(1300, 1000));
 		fichas = new ArrayList<BufferedImage>();
@@ -103,8 +103,8 @@ public class InterfazGrafica extends JFrame{
 
 		this.panelVender = new PanelVender(this,this.juego.getJugadorActual());
 		this.panelVender.setVisible(false);
-		c.gridx=200;
-		c.gridy=200;
+		c.gridx=1500;
+		c.gridy=0;
 		this.add(this.panelVender,c);
 
 		this.panelEdificar = new PanelEdificar(this);

@@ -27,7 +27,7 @@ public class PanelMenu extends JPanel{
 
 	public PanelMenu(InterfazGrafica interfaz) {
 		this.interfaz = interfaz;
-		this.setLayout(new GridLayout(3, 3));
+		this.setLayout(new GridLayout(2, 5));
 		this.setUp();
 		this.addEventHandlers();
 	}
@@ -76,7 +76,7 @@ public class PanelMenu extends JPanel{
 	private void setButtonImage(JButton boton, String path, String nombre){
 		try {
 			BufferedImage img = ImageIO.read(getClass().getResource(path));
-			img = InterfazGrafica.resize( img,30,80);
+			img = InterfazGrafica.resize( img,30,60);
 			//boton.setIcon(new ImageIcon((Image) img));
 			boton.setOpaque(false);
 			boton.setContentAreaFilled(false);

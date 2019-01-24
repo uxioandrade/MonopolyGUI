@@ -674,7 +674,7 @@ public class Juego implements Comando{
 
         public void borrarTrato(String trato){
         int idTrato = Integer.parseInt(trato.substring(5,6));
-        for(Trato t: jugadorActual.getTratosPendientes()){
+        for(Trato t: jugadorActual.getTratosPropuestos()){
             if(t.getId() == idTrato)
                 t.eliminar();
             return;

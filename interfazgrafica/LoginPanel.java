@@ -37,7 +37,7 @@ public class LoginPanel extends JFrame{
 
 	public LoginPanel(InterfazGrafica interfaz) throws IOException {
 		this.setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
-		this.setSize(new Dimension(300, 500));
+		this.setSize(new Dimension(500, 800));
 		this.interfaz = interfaz;
 		this.setUp();
 	}
