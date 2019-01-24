@@ -426,13 +426,17 @@ public class Valor {
 
     public void setPosiscionCartas(){
     	for(Carta c: this.cartasCajaComunidad){
-    		if(c instanceof CartaMovimientoCaja)
-			((CartaMovimientoCaja)c).setPosicion(this.biyeccion[((CartaMovimientoCaja)c).getPosicion()]);
+    		if(c instanceof CartaMovimientoCaja) {
+				if(((CartaMovimientoCaja)c).getPosicion() > 0)
+					((CartaMovimientoCaja) c).setPosicion(this.biyeccion[((CartaMovimientoCaja) c).getPosicion()]);
+			}
 		}
 
 		for(Carta c: this.cartasSuerte){
-			if(c instanceof CartaMovimientoSuerte)
-				((CartaMovimientoSuerte)c).setPosicion(this.biyeccion[((CartaMovimientoSuerte)c).getPosicion()]);
+			if(c instanceof CartaMovimientoSuerte) {
+				if (((CartaMovimientoSuerte) c).getPosicion() > 0)
+					((CartaMovimientoSuerte) c).setPosicion(this.biyeccion[((CartaMovimientoSuerte) c).getPosicion()]);
+			}
 		}
 	}
 

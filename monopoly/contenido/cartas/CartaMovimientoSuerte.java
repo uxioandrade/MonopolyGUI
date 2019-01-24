@@ -111,7 +111,7 @@ public final class CartaMovimientoSuerte extends CartaSuerte{ //Las clases hoja 
         if(this.accionFinanciera && this.posicion <= jugador.getAvatar().getCasilla().getPosicion()) {
             this.actualizarVueltaAvanzado(jugador,operacion.getTablero());
         }
-        jugador.getAvatar().setCasilla(casillasAux.get(this.posicion));
+        jugador.getAvatar().setCasilla(valor.getCasillas().get(this.posicion));
         if(jugador.getAvatar().getCasilla() instanceof Propiedades) {
             casillaComprable = (Propiedades) jugador.getAvatar().getCasilla();
             switch (alquiler) {
