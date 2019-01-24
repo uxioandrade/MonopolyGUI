@@ -26,17 +26,21 @@ public class Tablero {
     private Jugador banca;
     private int vueltas;
     private PanelTexto panelTexto;
-
-    public Tablero(){
+    Valor valor;
+    ArrayList<Casilla> casillasAux;
+    
+    public Tablero(Valor valor){
+    	this.valor = valor;
+    	this.casillasAux = valor.getCasillas();
         this.jugadores = new HashMap<>();
         this.avatares = new HashMap<>();
         this.casillas = new HashMap<>();
-        this.banca = new Jugador();
+        this.banca = new Jugador(valor);
         this.edificios = new ArrayList<>(); //0-> Casas 1-> Hoteles 2->Piscinas 3->Pistas Deportes
         for(int i = 0; i <4 ; i++) {
             this.edificios.add(new ArrayList<Edificios>());
         }
-        for(Casilla cas: Valor.casillas){
+        for(Casilla cas: casillasAux){
             this.casillas.put(cas.getNombre(),cas);
         }
         this.vueltas = 0;
@@ -50,10 +54,10 @@ public class Tablero {
         for(int i = 0; i <4 ; i++) {
             this.edificios.add(new ArrayList<Edificios>());
         }
-        for(Casilla cas: Valor.casillas){
+        for(Casilla cas: casillasAux){
             this.casillas.put(cas.getNombre(),cas);
         }
-        this.banca = new Jugador();
+        this.banca = new Jugador(valor);
         this.vueltas = 0;
     }
 
@@ -182,14 +186,14 @@ public class Tablero {
         StringBuilder aux = new StringBuilder();
         int lenAux;
         String color = "";
-        if(Valor.casillas.get(i) instanceof Solar){
-            Solar solar = (Solar) Valor.casillas.get(i);
+        if(casillasAux.get(i) instanceof Solar){
+            Solar solar = (Solar) casillasAux.get(i);
             color = solar.getGrupo().getColor();
         }
-        System.out.printf("\033[0;1m%s",color + Valor.casillas.get(i).getNombre());
+        System.out.printf("\033[0;1m%s",color + casillasAux.get(i).getNombre());
 
-        aux.append(" " + rellenarCasilla(Valor.casillas.get(i)));
-        lenAux = LONGITUDCASILLA - aux.length() - Valor.casillas.get(i).getNombre().length();
+        aux.append(" " + rellenarCasilla(casillasAux.get(i)));
+        lenAux = LONGITUDCASILLA - aux.length() - casillasAux.get(i).getNombre().length();
         for(int j = 0; j < lenAux ; j++) {
             aux.append(" ");
         }
@@ -270,7 +274,7 @@ public class Tablero {
     }
 
     public void listarPropiedades(){
-        for(Propiedades cas: Valor.getComprables()){
+        for(Propiedades cas: valor.getComprables()){
             if(cas.getPropietario().getNombre().equals("Banca") && cas.getPrecio()>0){
                 Juego.consola.anhadirTexto(cas.toString());
             }
@@ -280,7 +284,7 @@ public class Tablero {
     private String getCasillaMasRentable(){
         double max = 0;
         String aux = "";
-        for(Propiedades c: Valor.getComprables()){
+        for(Propiedades c: valor.getComprables()){
             if(c.getRentabilidad() > max){
                 aux = "[" + c.getNombre();
                 max = c.getRentabilidad();
@@ -316,7 +320,7 @@ public class Tablero {
     private String getCasillaMasFrecuentada(){
         String aux = "";
         double max = 0;
-        for(Casilla c: Valor.casillas){
+        for(Casilla c: casillasAux){
             if(c.numVisitas() > max){
                 aux = "[" + c.getNombre();
                 max = c.numVisitas();

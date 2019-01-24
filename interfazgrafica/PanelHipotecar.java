@@ -72,7 +72,7 @@ public class PanelHipotecar extends JPanel{
     }
 
     public void resetHipotecar(){
-        //this.interfaz.getPanelTexto().setVisible(false);
+        this.interfaz.getPanelTexto().setVisible(false);
         this.interfaz.getPanelMenu().setVisible(false);
         this.interfaz.getPanelBotones().setVisible(false);
         this.interfaz.getPanelJugadores().setVisible(false);

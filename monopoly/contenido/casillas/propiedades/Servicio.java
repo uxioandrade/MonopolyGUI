@@ -12,14 +12,16 @@ public final class Servicio extends Propiedades { //Las clases hoja de una jerar
 
     private static final double MULTIPLICADOR_ALQUILER_SERVICIO = 200;
     private static final double MULTIPLICADOR_PRECIO_SERVICIO = 0.75;
-
-    public Servicio(String nombre, int posicion) {
+    private Valor valor;
+    
+    public Servicio(String nombre, int posicion, Valor valor) {
        super(nombre,posicion);
-       super.setPrecio(MULTIPLICADOR_PRECIO_SERVICIO *Valor.getDineroVuelta());
+       super.setPrecio(MULTIPLICADOR_PRECIO_SERVICIO *valor.getDineroVuelta());
+       this.valor = valor;
     }
 
     public double alquiler(int tirada){
-        return Valor.getDineroVuelta()*tirada/ MULTIPLICADOR_ALQUILER_SERVICIO;
+        return valor.getDineroVuelta()*tirada/ MULTIPLICADOR_ALQUILER_SERVICIO;
     }
 
     public void pagarAlquiler(Jugador jugador, int tirada, Operacion operacion) throws ExcepcionDineroDeuda {

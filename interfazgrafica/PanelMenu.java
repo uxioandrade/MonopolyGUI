@@ -24,15 +24,26 @@ public class PanelMenu extends JPanel{
 	private JButton botonEstadisticas;
     private JButton botonCambiarModo;
     private JButton botonTratos;
+    
 
 	public PanelMenu(InterfazGrafica interfaz) {
 		this.interfaz = interfaz;
+<<<<<<< HEAD
 		this.setLayout(new GridLayout(3,3));
+=======
+		this.setLayout(new GridLayout(2, 4));
+>>>>>>> aace2b0519454ee145cd472c8d81d96d6f9f4063
 		this.setUp();
 		this.addEventHandlers();
 	}
 	
 	private void setUp() {
+		/***
+		 * IMPORTANTE
+		//Importante: para poner las imágenes en los JButton quitar de los constructores del JButton
+		//el texto
+		//es decir, new JButton("Comprar") - > new JButton()**
+		**/
 		botonComprar = new JButton();
 		setButtonImage(botonComprar,"/resources/compra.png","COMPRAR");
 		botonAcabar = new JButton();
@@ -59,9 +70,6 @@ public class PanelMenu extends JPanel{
 		botonTratos = new JButton();
 		setButtonImage(botonTratos,"/resources/trato.png","TRATO");
 
-		botonVender= new JButton();
-		setButtonImage(botonVender,"/resources/vender.png","VENDER");
-
 		this.add(botonComprar);
 		this.add(botonHipotecar);
 		this.add(botonAcabar);
@@ -70,13 +78,16 @@ public class PanelMenu extends JPanel{
 		this.add(botonEstadisticas);
 		this.add(botonTratos);
 		this.add(botonCambiarModo);
-		this.add(botonVender);
 	}
 
 	private void setButtonImage(JButton boton, String path, String nombre){
 		try {
 			BufferedImage img = ImageIO.read(getClass().getResource(path));
+<<<<<<< HEAD
 			img = InterfazGrafica.resize( img,40,80);
+=======
+			img = InterfazGrafica.resize( img,45,90);
+>>>>>>> aace2b0519454ee145cd472c8d81d96d6f9f4063
 			//boton.setIcon(new ImageIcon((Image) img));
 			boton.setOpaque(false);
 			boton.setContentAreaFilled(false);
@@ -130,7 +141,6 @@ public class PanelMenu extends JPanel{
 
 	private void addEventHandlers(){
 		this.botonComprar.addActionListener(new GestionMenu(this.interfaz));
-		this.botonVender.addActionListener(new GestionMenu(this.interfaz));
 		this.botonLanzar.addActionListener(new GestionMenu(this.interfaz));
 		this.botonHipotecar.addActionListener(new GestionMenu(this.interfaz));
 		this.botonEstadisticas.addActionListener(new GestionMenu(this.interfaz));

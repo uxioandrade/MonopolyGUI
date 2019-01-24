@@ -1,6 +1,8 @@
 package interfazgrafica;
 
-import java.awt.*;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -12,15 +14,17 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+
+import monopoly.contenido.casillas.Casilla;
 
 @SuppressWarnings("serial")
 public class LoginPanel extends JFrame{
 	private InterfazGrafica interfaz;
 	private JLabel fotoETSE;
 	private ArrayList<JTextField> fields = new ArrayList<JTextField>();
-	private ArrayList<Choice> choices = new ArrayList<>();
 	private JLabel n1_label;
 	private JLabel n2_label;
 	private JLabel n3_label;
@@ -33,12 +37,13 @@ public class LoginPanel extends JFrame{
 	private JButton comenzar;
 	
 	private static ArrayList<String> nombres = new ArrayList<String>();
-	private static ArrayList<String> avatares= new ArrayList<>();
+	private Casilla salida;
 
-	public LoginPanel(InterfazGrafica interfaz) throws IOException {
+	public LoginPanel(InterfazGrafica interfaz, Casilla salida) throws IOException {
 		this.setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 		this.setSize(new Dimension(300, 500));
 		this.interfaz = interfaz;
+		this.salida = salida;
 		this.setUp();
 	}
 	
@@ -80,32 +85,17 @@ public class LoginPanel extends JFrame{
 		for(int i=0; i<6; i++) {
 			fields.add(new JTextField());
 		}
-		for(int i=0;i<6;i++){
-			Choice lista =new Choice();
-			lista.addItem("Aleatorio");
-			lista.addItem("Coche");
-			lista.addItem("Pelota");
-			lista.addItem("Sombrero");
-			lista.addItem("Esfinge");
-			this.choices.add(lista);
-		}
 		this.add(n1_label);
-		this.add(choices.get(0));
 		this.add(fields.get(0));
 		this.add(n2_label);
-		this.add(choices.get(1));
 		this.add(fields.get(1));
 		this.add(n3_label);
-		this.add(choices.get(2));
 		this.add(fields.get(2));
 		this.add(n4_label);
-		this.add(choices.get(3));
 		this.add(fields.get(3));
 		this.add(n5_label);
-		this.add(choices.get(4));
 		this.add(fields.get(4));
 		this.add(n6_label);
-		this.add(choices.get(5));
 		this.add(fields.get(5));
 		
 		comenzar = new JButton("Comenzar el juego");
@@ -117,15 +107,13 @@ public class LoginPanel extends JFrame{
 						nJugadores = Integer.parseInt(b.getText());
 					}
 				}
-				int isEqual = 0;
 				for(int i=0; i<nJugadores; i++) {
 				    String aux;
 				    if(fields.get(i).getText().length() >= 15)
 				        aux = fields.get(i).getText().substring(0,14);
-                    else if(fields.get(i).getText().equals(""))
-                    	aux= "Jugador"+(i+1);
-				    else
+                    else
                         aux = fields.get(i).getText();
+                    int isEqual = 0;
                     for(String s: nombres){
                         if(aux.equals(s))
                             isEqual++;
@@ -134,11 +122,10 @@ public class LoginPanel extends JFrame{
                         aux = aux + isEqual;
 
                     nombres.add(aux);
-                    avatares.add(choices.get(i).getItem(choices.get(i).getSelectedIndex()));
 				}
 				((JButton) e.getSource()).getParent().setVisible(false);
 				try {
-					interfaz.cargarJugadoresIniciales(nombres,avatares);
+					interfaz.cargarJugadoresIniciales(nombres,nombres,salida);
 					interfaz.cargarFichasIniciales();
 				} catch (IOException e1) {
 					e1.printStackTrace();
@@ -158,12 +145,6 @@ public class LoginPanel extends JFrame{
 	
 	public static Integer getNJugadores() {
 		return nombres.size();
-	}
-	public static ArrayList<String> getAvatares(){
-		if(nombres.isEmpty()) {
-			return null;
-		}
-		return nombres;
 	}
 
 }

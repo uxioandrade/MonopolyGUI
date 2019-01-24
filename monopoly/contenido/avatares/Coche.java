@@ -1,6 +1,7 @@
 package monopoly.contenido.avatares;
 
 import monopoly.contenido.Jugador;
+import monopoly.contenido.casillas.Casilla;
 import monopoly.excepciones.comandos.ExcepcionNumeroPartesComando;
 import monopoly.excepciones.dinero.ExcepcionDineroDeuda;
 import monopoly.excepciones.dinero.ExcepcionDineroVoluntario;
@@ -18,14 +19,14 @@ public final class Coche extends Avatar{  //Las clases hoja de una jerarquía de
 
     private boolean poderComprar;
 
-    public Coche(Jugador jug, Tablero tablero, BufferedImage ficha){
-        super(jug,tablero,ficha);
+    public Coche(Jugador jug, Tablero tablero, BufferedImage ficha, Valor valor, Casilla salida){
+        super(jug,tablero,ficha, valor, salida);
         super.numTiradas = 3;
         this.poderComprar = true;
     }
 
     public void moverEnAvanzado(int valor) throws ExcepcionRestriccionHipotecar, ExcepcionDineroDeuda, ExcepcionRestriccionEdificar, ExcepcionDineroVoluntario, ExcepcionRestriccionComprar {
-        Operacion operacion = new Operacion(this.getTablero());
+        Operacion operacion = new Operacion(this.getTablero(), super.valor);
         if(super.numTiradas > 0) {
             if (valor > 4) {
                 if (super.numTiradas == 1) {
@@ -38,7 +39,7 @@ public final class Coche extends Avatar{  //Las clases hoja de una jerarquía de
                     super.numTiradas--;
                     Juego.consola.anhadirTexto("El coche aún puede realizar " + (super.numTiradas - 1) + " tiradas este turno");
                 }
-                Juego.consola.anhadirTexto("El avatar " + this.getId() + " avanza " + valor + " posiciones, desde " + this.getCasilla().getNombre() + " hasta " + Valor.casillas.get((this.getCasilla().getPosicion() + valor) % 40).getNombre());
+                Juego.consola.anhadirTexto("El avatar " + this.getId() + " avanza " + valor + " posiciones, desde " + this.getCasilla().getNombre() + " hasta " + casillasAux.get((this.getCasilla().getPosicion() + valor) % 40).getNombre());
                 this.moverEnBasico(valor);
                 this.getCasilla().accionCaer(this.getJugador(), valor, operacion);
             } else {

@@ -2,16 +2,19 @@ package interfazgrafica;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 
 import monopoly.contenido.Jugador;
+import monopoly.contenido.casillas.Casilla;
+
 import java.util.ArrayList;
 import monopoly.plataforma.Juego;
+import monopoly.plataforma.Valor;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-@SuppressWarnings("serial")
 public class InterfazGrafica extends JFrame{
 	private PanelTablero panelTablero;
 	private PanelInfo info;
@@ -26,17 +29,21 @@ public class InterfazGrafica extends JFrame{
 	private PanelEdificar panelEdificar;
 	private  PanelVender panelVender;
 	private PanelTratos panelTratos;
+	private Valor valor;
+	private int[] permutacionCasillas;
+
 	static final Integer MAX_CASILLAS = 40;
 	static final Integer MAX_FICHAS = 6;
 	static final Integer ficha_W = 20;
 	static final Integer ficha_H = 18;
 
-	public InterfazGrafica(Juego juego) throws IOException {
-		this.setBackground(Color.cyan);
+	public InterfazGrafica(Juego juego, int[] permutacionCasillas, Valor valor) throws IOException {
 		this.setLayout(new GridBagLayout());
 		this.setSize(new Dimension(1300, 1000));
 		fichas = new ArrayList<BufferedImage>();
 		this.juego = juego;
+		this.valor = valor;
+		this.permutacionCasillas = permutacionCasillas;
 		this.setUp();
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		//this.addEventHandlers();
@@ -50,7 +57,7 @@ public class InterfazGrafica extends JFrame{
 			img = InterfazGrafica.resize(img,  ficha_H,  ficha_W);
 			fichas.add(img);
 		}
-
+		
 		// Hay que crear PanelInfo antes que el panelTablero
 		// NullPointerException otherwise
 		info = new PanelInfo(this);
@@ -60,7 +67,7 @@ public class InterfazGrafica extends JFrame{
 		//c.gridwidth = 1;
 		this.add(info, c);
 
-		panelTablero = new PanelTablero(this);
+		panelTablero = new PanelTablero(this, permutacionCasillas, valor);
 		c.gridx = 500;
 		c.gridy = 0;
 		//c.gridheight = 2;
@@ -96,27 +103,15 @@ public class InterfazGrafica extends JFrame{
 
 		this.panelHipotecar = new PanelHipotecar(this,this.juego.getJugadorActual());
 		this.panelHipotecar.setVisible(false);
-		c.gridx=1500;
-		c.gridy=0;
-		this.add(this.panelHipotecar,c);
-
-		this.panelVender = new PanelVender(this,this.juego.getJugadorActual());
-		this.panelVender.setVisible(false);
 		c.gridx=200;
 		c.gridy=200;
-		this.add(this.panelVender,c);
+		this.add(this.panelHipotecar,c);
 
 		this.panelEdificar = new PanelEdificar(this);
 		this.panelEdificar.setVisible(false);
-		c.gridx=1500;
-		c.gridy=0;
+		c.gridx=200;
+		c.gridy=200;
 		this.add(this.panelEdificar,c);
-
-		this.panelTratos = new PanelTratos(this);
-		this.panelTratos.setVisible(false);
-		c.gridx=1500;
-		c.gridy=0;
-		this.add(this.panelTratos,c);
 	}
 	
 	public PanelTablero getPanelTablero() {
@@ -137,14 +132,8 @@ public class InterfazGrafica extends JFrame{
 
 	public PanelHipotecar getPanelHipotecar(){return this.panelHipotecar;}
 
-	public PanelVender getPanelVender(){ return this.panelVender;}
-
 	public PanelTexto getPanelTexto(){
 		return this.texto;
-	}
-
-	public PanelTratos getPanelTratos(){
-		return this.panelTratos;
 	}
 
 	public PanelBotones getPanelBotones() {
@@ -176,9 +165,9 @@ public class InterfazGrafica extends JFrame{
 		panelTablero.cargarFichasIniciales();
 	}
 	
-	public void cargarJugadoresIniciales(ArrayList<String> nombres, ArrayList<String> avatares) throws IOException{
+	public void cargarJugadoresIniciales(ArrayList<String> nombres, ArrayList<String> avatares, Casilla salida) throws IOException{
 		for(int i=0; i<nombres.size(); i++){
-			Jugador jugadorIntroducir = new Jugador(nombres.get(i), avatares.get(i), this.juego.getTablero(),fichas.get(i));
+			Jugador jugadorIntroducir = new Jugador(nombres.get(i), avatares.get(i), this.juego.getTablero(),fichas.get(i), valor, salida);
 			//Se añade los jugadores al HashMap de tableros
 			this.juego.getTablero().addJugadores(jugadorIntroducir);
 			this.juego.getTurnosJugadores().add(jugadorIntroducir.getNombre());
@@ -187,4 +176,11 @@ public class InterfazGrafica extends JFrame{
 		this.panelJugadores.cargarJugadoresIniciales();
 	}
 
+	public PanelVender getPanelVender() {
+		return this.panelVender;
+	}
+
+	public PanelTratos getPanelTratos() {
+		return this.panelTratos;
+	}
 }

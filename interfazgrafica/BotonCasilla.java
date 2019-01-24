@@ -37,6 +37,10 @@ public class BotonCasilla extends JButton{
 	}
 
 	public Casilla getCasilla(){return this.casilla;}
+	
+	public void setCasilla(Casilla casilla) {
+		this.casilla = casilla;
+	}
 
 	private void setUp() throws IOException{
 		BufferedImage img = ImageIO.read(getClass().getResource(this.url));
