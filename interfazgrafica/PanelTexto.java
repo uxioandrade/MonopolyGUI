@@ -31,6 +31,7 @@ public class PanelTexto extends JPanel{
     }
 
     public void addTexto(String str){
+        if(str!=null && str !="" && !str.equals("null"))
         editor.setText(editor.getText() + "\n->" + str);
     }
 }
