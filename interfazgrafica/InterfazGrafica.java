@@ -25,6 +25,7 @@ public class InterfazGrafica extends JFrame{
 	private PanelHipotecar panelHipotecar;
 	private PanelEdificar panelEdificar;
 	private  PanelVender panelVender;
+	private PanelTratos panelTratos;
 
 	static final Integer MAX_CASILLAS = 40;
 	static final Integer MAX_FICHAS = 6;
@@ -50,7 +51,7 @@ public class InterfazGrafica extends JFrame{
 			img = InterfazGrafica.resize(img,  ficha_H,  ficha_W);
 			fichas.add(img);
 		}
-		
+
 		// Hay que crear PanelInfo antes que el panelTablero
 		// NullPointerException otherwise
 		info = new PanelInfo(this);
@@ -96,8 +97,8 @@ public class InterfazGrafica extends JFrame{
 
 		this.panelHipotecar = new PanelHipotecar(this,this.juego.getJugadorActual());
 		this.panelHipotecar.setVisible(false);
-		c.gridx=200;
-		c.gridy=200;
+		c.gridx=1500;
+		c.gridy=0;
 		this.add(this.panelHipotecar,c);
 
 		this.panelVender = new PanelVender(this,this.juego.getJugadorActual());
@@ -108,9 +109,15 @@ public class InterfazGrafica extends JFrame{
 
 		this.panelEdificar = new PanelEdificar(this);
 		this.panelEdificar.setVisible(false);
-		c.gridx=200;
-		c.gridy=200;
+		c.gridx=1500;
+		c.gridy=0;
 		this.add(this.panelEdificar,c);
+
+		this.panelTratos = new PanelTratos(this);
+		this.panelTratos.setVisible(false);
+		c.gridx=1500;
+		c.gridy=0;
+		this.add(this.panelTratos,c);
 	}
 	
 	public PanelTablero getPanelTablero() {
@@ -135,6 +142,10 @@ public class InterfazGrafica extends JFrame{
 
 	public PanelTexto getPanelTexto(){
 		return this.texto;
+	}
+
+	public PanelTratos getPanelTratos(){
+		return this.panelTratos;
 	}
 
 	public PanelBotones getPanelBotones() {

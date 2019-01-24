@@ -25,6 +25,7 @@ public class Trato {
         this.id = Valor.getTratos();
         Valor.incrementarTratos();
         this.descripcion = descripcion;
+        this.descripcion = descripcion + "(" + ofertada.getNombre() + ", " + recibida + ")";
         Juego.consola.anhadirTexto(this.receptor.getNombre() + ", ¿te doy " + ofertada.getNombre() + " y tú me das " + recibida.getNombre() + "?");
     }
 
@@ -38,6 +39,7 @@ public class Trato {
         this.id = Valor.getTratos();
         Valor.incrementarTratos();
         this.descripcion = descripcion;
+        this.descripcion = descripcion + "(" + cantidadOfertada + "€, " + propiedadRecibida + ")";
         Juego.consola.anhadirTexto(this.receptor.getNombre() + ", ¿te doy " + cantidadOfertada + "€ y tú me das " + propiedadRecibida.getNombre() + "?");
     }
     public Trato(double cantidadRecibida,Jugador receptor, Propiedades propiedadOfertada,String descripcion){ //Propiedad x cantidad
@@ -50,7 +52,7 @@ public class Trato {
         this.cantidad = cantidadRecibida;
         this.id = Valor.getTratos();
         Valor.incrementarTratos();
-        this.descripcion = descripcion;
+        this.descripcion = descripcion + "(" + propiedadOfertada.getNombre() + ", " + cantidadRecibida + "€)";
         Juego.consola.anhadirTexto(this.receptor.getNombre() + ", ¿te doy " + propiedadOfertada.getNombre() + " y tú me das " + cantidadRecibida*-1 + "€?");
     }
 
@@ -65,6 +67,7 @@ public class Trato {
         this.id = Valor.getTratos();
         Valor.incrementarTratos();
         this.descripcion = descripcion;
+        this.descripcion = descripcion + "(" + propiedadOfertada.getNombre() + ", " + cantidad + "€ " + "y " + propiedadRecibida.getNombre() + ")";
         Juego.consola.anhadirTexto(this.receptor.getNombre() + ", ¿te doy " + propiedadOfertada.getNombre() + " y tú me das " + propiedadRecibida.getNombre() + " y " + cantidad + "€?");
     }
 
@@ -82,6 +85,7 @@ public class Trato {
             this.turnos = turnos;
         propiedadNoAlquiler.anhadirJugadorExcluido(this.ofertor,this.turnos);
         this.descripcion = descripcion;
+        this.descripcion = descripcion + "(" + propiedadOfertada.getNombre() + ", " + propiedadRecibida.getNombre() + ")" + " y noalquiler ("+ propiedadNoAlquiler.getNombre() + ", " + turnos;
         Juego.consola.anhadirTexto(this.receptor.getNombre() + ", ¿te doy " + propiedadOfertada.getNombre() + " y tú me das " + propiedadRecibida.getNombre() + " y no pago alquiler en " + propiedadNoAlquiler.getNombre()  + "?");
     }
 

@@ -87,7 +87,7 @@ public class GestionMenu implements ActionListener {
                     this.interfazGrafica.getPanelTexto().addTexto("El jugador no verifica las condiciones para edificar");
                     return;
                 }
-                this.interfazGrafica.getPanelTexto().setVisible(false);
+                //this.interfazGrafica.getPanelTexto().setVisible(false);
                 this.interfazGrafica.getPanelMenu().setVisible(false);
                 this.interfazGrafica.getPanelBotones().setVisible(false);
                 this.interfazGrafica.getPanelJugadores().setVisible(false);
@@ -103,7 +103,13 @@ public class GestionMenu implements ActionListener {
             }catch(Exception ex){
                 this.interfazGrafica.getPanelTexto().addTexto(ex.getMessage());
             }
+        }else if(evento.getSource().equals(this.interfazGrafica.getPanelMenu().getBotonTratos())){
+            try{
+                this.interfazGrafica.getPanelTratos().setVisible(true);
+                this.interfazGrafica.getPanelTratos().resetTratos();
+            }catch(Exception ex) {
+                this.interfazGrafica.getPanelTexto().addTexto(ex.getMessage());
+            }
         }
     }
-
 }

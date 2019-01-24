@@ -33,12 +33,6 @@ public class PanelMenu extends JPanel{
 	}
 	
 	private void setUp() {
-		/***
-		 * IMPORTANTE
-		//Importante: para poner las imágenes en los JButton quitar de los constructores del JButton
-		//el texto
-		//es decir, new JButton("Comprar") - > new JButton()**
-		**/
 		botonComprar = new JButton();
 		setButtonImage(botonComprar,"/resources/compra.png","COMPRAR");
 		botonAcabar = new JButton();
@@ -82,7 +76,7 @@ public class PanelMenu extends JPanel{
 	private void setButtonImage(JButton boton, String path, String nombre){
 		try {
 			BufferedImage img = ImageIO.read(getClass().getResource(path));
-			img = InterfazGrafica.resize( img,45,90);
+			img = InterfazGrafica.resize( img,30,80);
 			//boton.setIcon(new ImageIcon((Image) img));
 			boton.setOpaque(false);
 			boton.setContentAreaFilled(false);
