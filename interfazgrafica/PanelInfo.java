@@ -26,7 +26,7 @@ public class PanelInfo extends JPanel{
 		this.interfaz = interfaz;
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
-		Image img = ImageIO.read(getClass().getResource("/resources/salida.jpg"));
+		Image img = ImageIO.read(getClass().getResource("/resources/0.jpg"));
 		img = img.getScaledInstance(IMG_H, IMG_W, Image.SCALE_SMOOTH);
 		casilla = new JLabel();
 		casilla.setIcon(new ImageIcon(img));

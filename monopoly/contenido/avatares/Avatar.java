@@ -1,5 +1,6 @@
 package monopoly.contenido.avatares;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 import java.awt.image.*;
@@ -26,13 +27,17 @@ public abstract class Avatar {  //La clase raíz de una jerarquía no se deberí
     protected int encarcelado;
     protected boolean modoAvanzado;
     protected int numTiradas;
+    protected Valor valor;
+    protected ArrayList<Casilla> casillasAux;
 
-    public Avatar(Jugador jug, Tablero tablero, BufferedImage ficha){
+    public Avatar(Jugador jug, Tablero tablero, BufferedImage ficha, Valor valor, Casilla salida){
         //Inicializamos el tipo a un valor arbitrario
         this.jugador = jug;
         this.tablero = tablero;
         this.ficha = ficha;
-        this.casilla = Valor.casillas.get(0);
+        this.valor = valor;
+        this.casillasAux = valor.getCasillas();
+        this.casilla = salida;
         asignarId();
         this.tablero.getAvatares().put(this.id,this);
         this.encarcelado = 0;
@@ -154,9 +159,9 @@ public abstract class Avatar {  //La clase raíz de una jerarquía no se deberí
     public void retrocederCasillas(int valor){
         this.getCasilla().quitarAvatar(this);
         if(this.getCasilla().getPosicion() - valor < 0){
-            this.setCasilla(Valor.casillas.get(40 + this.getCasilla().getPosicion() - valor));
+            this.setCasilla(casillasAux.get(40 + this.getCasilla().getPosicion() - valor));
         }else{
-            this.setCasilla(Valor.casillas.get(this.getCasilla().getPosicion() - valor));
+            this.setCasilla(casillasAux.get(this.getCasilla().getPosicion() - valor));
         }
         this.getCasilla().anhadirAvatar(this);
     }
@@ -165,12 +170,12 @@ public abstract class Avatar {  //La clase raíz de una jerarquía no se deberí
             this.casilla.quitarAvatar(this);
             //Caso en el que el movimiento suponga completar una vuelta
             if(this.casilla.getPosicion() + valor > 39){
-                this.casilla= Valor.casillas.get(this.casilla.getPosicion() + valor - 40);
+                this.casilla= casillasAux.get(this.casilla.getPosicion() + valor - 40);
                 //Se le ingresa al jugador el dinero correspondiente a completar la vuelta
-                this.jugador.modificarDinero(Valor.getDineroVuelta());
-                this.jugador.modificarPasarPorCasilla(Valor.getDineroVuelta());
+                this.jugador.modificarDinero(this.valor.getDineroVuelta());
+                this.jugador.modificarPasarPorCasilla(this.valor.getDineroVuelta());
                 this.numVueltas++;
-                Juego.consola.anhadirTexto("El jugador " + this.jugador.getNombre() + " recibe " + Valor.getDineroVuelta() + "€ por haber cruzado la salida.");
+                Juego.consola.anhadirTexto("El jugador " + this.jugador.getNombre() + " recibe " + this.valor.getDineroVuelta() + "€ por haber cruzado la salida.");
                 //Se recorren los avatares para comprobar si es necesario actualizar el dinero de pasar por la casilla de salida
                 Iterator<Avatar> avatar_i = this.tablero.getAvatares().values().iterator();
                 while(avatar_i.hasNext()) {
@@ -180,9 +185,9 @@ public abstract class Avatar {  //La clase raíz de una jerarquía no se deberí
                     }
                 }
                 this.tablero.modificarVueltas(4);
-                Valor.actualizarVuelta();
+                this.valor.actualizarVuelta();
             }else{
-                this.casilla= Valor.casillas.get(this.casilla.getPosicion() + valor);
+                this.casilla= casillasAux.get(this.casilla.getPosicion() + valor);
             }
             this.casilla.anhadirAvatar(this);
     }

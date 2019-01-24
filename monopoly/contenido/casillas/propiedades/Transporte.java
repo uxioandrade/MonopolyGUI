@@ -12,20 +12,23 @@ import monopoly.plataforma.Valor;
 public final class Transporte extends Propiedades { //Las clases hoja de una jerarquía deberían ser finales
 
     private static final double MULTIPLICADOR_ALQUILER_TRANSPORTE = 0.25;
+    
+    private Valor valor;
 
-    public Transporte(String nombre, int posicion) {
+    public Transporte(String nombre, int posicion, Valor valor) {
         super(nombre,posicion);
-        super.setPrecio(Valor.getDineroVuelta());
+        super.setPrecio(valor.getDineroVuelta());
+        this.valor = valor;
     }
 
     public double alquiler(int tirada){
-        if(super.getPropietario().getNombre().contains("Banca")) return Valor.getDineroVuelta()* MULTIPLICADOR_ALQUILER_TRANSPORTE;
+        if(super.getPropietario().getNombre().contains("Banca")) return valor.getDineroVuelta()* MULTIPLICADOR_ALQUILER_TRANSPORTE;
         int count = 0;
         for(Casilla c : super.getPropietario().getPropiedades()){
             if(c instanceof Transporte)
                 count++;
         }
-            return Valor.getDineroVuelta()* MULTIPLICADOR_ALQUILER_TRANSPORTE *count;
+            return valor.getDineroVuelta()* MULTIPLICADOR_ALQUILER_TRANSPORTE *count;
     }
 
     public void pagarAlquiler(Jugador jugador, int tirada, Operacion operacion) throws ExcepcionDineroDeuda {
@@ -52,7 +55,7 @@ public final class Transporte extends Propiedades { //Las clases hoja de una jer
         aux += "Tipo: " + "Transporte" + "\n" +
                 "Precio: " +  Valor.df2.format(((Transporte) this).getPrecio()) + "€\n" +
                 "Uso Transporte Actual: " +  Valor.df2.format(((Transporte) this).alquiler(1)) + "€\n" +
-                "Uso Transporte Básico: " +  Valor.df2.format(Valor.getDineroVuelta() * 0.25) + "€\n" +
+                "Uso Transporte Básico: " +  Valor.df2.format(valor.getDineroVuelta() * 0.25) + "€\n" +
                 "Hipoteca: " +  Valor.df2.format(((Transporte) this).getHipoteca()) + "€\n";
         if(!super.getPropietario().getNombre().equals("Banca"))
             aux += "Propietario: " + super.getPropietario().getNombre() + "\n";

@@ -1,6 +1,7 @@
 package monopoly.contenido.avatares;
 
 import monopoly.contenido.Jugador;
+import monopoly.contenido.casillas.Casilla;
 import monopoly.contenido.casillas.propiedades.Propiedades;
 import monopoly.excepciones.comandos.ExcepcionNumeroPartesComando;
 import monopoly.excepciones.dinero.ExcepcionDineroDeuda;
@@ -11,18 +12,19 @@ import monopoly.excepciones.restricciones.ExcepcionRestriccionHipotecar;
 import monopoly.plataforma.Operacion;
 import monopoly.plataforma.Juego;
 import monopoly.plataforma.Tablero;
+import monopoly.plataforma.Valor;
 
 import java.awt.image.BufferedImage;
 
 public final class Pelota extends Avatar{ //Las clases hoja de una jerarquía deberían ser finales
 
-    public Pelota(Jugador jug, Tablero tablero, BufferedImage ficha){
-        super(jug,tablero,ficha);
+    public Pelota(Jugador jug, Tablero tablero, BufferedImage ficha, Valor valor, Casilla salida){
+        super(jug,tablero,ficha, valor, salida);
         super.numTiradas = 1;
     }
 
     private void accionRebote(int valor) throws ExcepcionRestriccionHipotecar, ExcepcionDineroDeuda, ExcepcionRestriccionEdificar, ExcepcionDineroVoluntario, ExcepcionRestriccionComprar {
-        Operacion operacion = new Operacion(this.getTablero());
+        Operacion operacion = new Operacion(this.getTablero(), super.valor);
         Juego.consola.anhadirTexto("El jugador " + this.getJugador().getNombre() + " ha rebotado a " + this.getCasilla().getNombre());
         super.getTablero().imprimirTablero();
         this.getCasilla().accionCaer(this.getJugador(),valor, operacion);

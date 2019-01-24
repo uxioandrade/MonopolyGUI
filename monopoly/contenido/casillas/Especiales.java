@@ -6,9 +6,11 @@ import monopoly.plataforma.Operacion;
 import monopoly.plataforma.Valor;
 
 public final class Especiales extends Casilla{ //Las clases hoja de una jerarquía deberían ser finales
-
-    public Especiales(String nombre, int posicion) {
+	private Valor valor;
+	
+    public Especiales(String nombre, int posicion, Valor valor) {
         super(nombre, posicion);
+        this.valor = valor;
     }
 
     public void accionCaer(Jugador jugador, int tirada, Operacion operacion){
@@ -20,7 +22,7 @@ public final class Especiales extends Casilla{ //Las clases hoja de una jerarqu�
     public String toString() {
         String aux = super.toString().substring(0, super.toString().length() - 2);
         if (this.posicion == 10) {
-            aux += "salir: " + Valor.getDineroSalirCarcel() + "\n" +
+            aux += "salir: " + valor.getDineroSalirCarcel() + "\n" +
                     "Jugadores:";
             for (Avatar a : avatares) {
                 if (a.getEncarcelado() > 0)

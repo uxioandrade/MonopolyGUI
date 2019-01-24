@@ -30,13 +30,17 @@ public class Jugador {
     private int vecesDados;
     private ArrayList<Trato> tratosPendientes;
     private ArrayList<Trato> tratosPropuestos;
+    private Valor valor;
+    private ArrayList<Casilla> casillasAux;
 
-    public Jugador(){
+    public Jugador(Valor valor){
+    	this.valor = valor;
+    	this.casillasAux = valor.getCasillas();
         this.avatar = null;
         this.nombre = "Banca";
         this.dinero = Double.POSITIVE_INFINITY;
         this.propiedades = new ArrayList<>();
-        for(Casilla c : Valor.casillas){
+        for(Casilla c : casillasAux){
             if(c instanceof Propiedades)
                 this.propiedades.add((Propiedades)c);
         }
@@ -47,36 +51,38 @@ public class Jugador {
         this.tratosPropuestos = new ArrayList<>();
     }
 
-    public Jugador(String nombre, String tipo, Tablero tablero, BufferedImage ficha){
-        this.avatar = generarAvatar(tipo,tablero,ficha);
-        this.dinero = Valor.FORTUNA_INICIAL;
+    public Jugador(String nombre, String tipo, Tablero tablero, BufferedImage ficha, Valor valor, Casilla salida){
+    	this.valor = valor;
+    	this.avatar = generarAvatar(tipo,tablero,ficha, salida);
+    	this.casillasAux = valor.getCasillas();
+        this.dinero = valor.FORTUNA_INICIAL;
         this.propiedades = new ArrayList<>();
         this.nombre = nombre;
         this.tratosPendientes = new ArrayList<>();
         this.tratosPropuestos = new ArrayList<>();
     }
 
-    private Avatar generarAvatar(String tipo, Tablero tablero,BufferedImage ficha){
+    private Avatar generarAvatar(String tipo, Tablero tablero,BufferedImage ficha, Casilla salida){
         Avatar avatar;
         switch (tipo){
             case "Coche":
             case "coche":
-                avatar = new Coche(this,tablero,ficha);
+                avatar = new Coche(this,tablero,ficha, valor, salida);
                 break;
             case "esfinge":
             case "Esfinge":
-                avatar = new Esfinge(this,tablero,ficha);
+                avatar = new Esfinge(this,tablero,ficha, valor, salida);
                 break;
             case "pelota":
             case "Pelota":
-                avatar = new Pelota(this,tablero,ficha);
+                avatar = new Pelota(this,tablero,ficha, valor, salida);
                 break;
             case "sombrero":
             case "Sombrero":
-                avatar = new Sombrero(this,tablero,ficha);
+                avatar = new Sombrero(this,tablero,ficha, valor, salida);
                 break;
             default:
-                avatar = generarAvatar(asignarTipoAleatorio(),tablero,ficha);
+                avatar = generarAvatar(asignarTipoAleatorio(),tablero,ficha, salida);
         }
         return avatar;
     }
@@ -284,12 +290,10 @@ public class Jugador {
         Juego.consola.anhadirTexto(aux);
     }
 
-    public String listarTratosPendientes(){
-        String aux = "";
+    public void listarTratosPendientes(){
         for(Trato t: this.tratosPendientes){
-            aux += "trato" + t.getId() + ":{\n" + t + "\n},\n";
+            Juego.consola.anhadirTexto("trato" + t.getId() + ":{\n" + t + "\n},\n");
         }
-        return aux;
     }
 
     public void listarTratosPropuestos(){
