@@ -18,9 +18,9 @@ public class GestionSalirCarcel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent evento) {
         if(this.interfazGrafica.getJuego().getJugadorActual().getAvatar().getEncarcelado()>0) {
-            if(this.interfazGrafica.getJuego().getJugadorActual().getDinero()>=Valor.getDineroSalirCarcel()) {
+            if(this.interfazGrafica.getJuego().getJugadorActual().getDinero()>=this.interfazGrafica.getValor().getDineroSalirCarcel()) {
                 try {
-                    JOptionPane.showMessageDialog(this.interfazGrafica, "Pagas " + Valor.getDineroSalirCarcel() + " y sales de la carcel");
+                    JOptionPane.showMessageDialog(this.interfazGrafica, "Pagas " + this.interfazGrafica.getValor().getDineroSalirCarcel() + " y sales de la carcel");
                     this.interfazGrafica.getJuego().getOperacion().salirCarcel(this.interfazGrafica.getJuego().getJugadorActual());
                 } catch (Exception ex) {
                     this.interfazGrafica.getPanelTexto().addTexto(ex.getMessage());

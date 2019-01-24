@@ -188,6 +188,10 @@ public class InterfazGrafica extends JFrame{
 		this.panelJugadores.cargarJugadoresIniciales();
 	}
 
+	public Valor getValor(){
+		return this.valor;
+	}
+
 	public PanelVender getPanelVender() {
 		return this.panelVender;
 	}

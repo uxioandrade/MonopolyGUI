@@ -227,7 +227,7 @@ public class Operacion {
             cas.setPropietario(this.tablero.getBanca());
             cas.setHipotecado(false);
         }
-        Valor.casillas.get(jugador.getAvatar().getCasilla().getPosicion()).quitarAvatar(jugador.getAvatar());
+        this.valor.getCasillas().get(jugador.getAvatar().getCasilla().getPosicion()).quitarAvatar(jugador.getAvatar());
         this.tablero.getAvatares().remove(jugador.getAvatar().getId());
         this.tablero.getJugadores().remove(jugador.getNombre());
         return false;
