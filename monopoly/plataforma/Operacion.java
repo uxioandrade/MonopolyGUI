@@ -3,6 +3,7 @@ package monopoly.plataforma;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import interfazgrafica.InterfazGrafica;
 import monopoly.contenido.*;
 import monopoly.contenido.avatares.Coche;
 import monopoly.contenido.avatares.Esfinge;
@@ -23,6 +24,7 @@ import javax.swing.*;
 public class Operacion {
     private Tablero tablero;
     private Valor valor;
+    private InterfazGrafica interfazGrafica;
     private ArrayList<Casilla> casillasAux;
 
     public Operacion(Tablero tablero, Valor valor) {
@@ -87,6 +89,14 @@ public class Operacion {
         }
 
     }*/
+
+    public void setInterfazGrafica(InterfazGrafica interfaz){
+        this.interfazGrafica = interfaz;
+    }
+
+    public InterfazGrafica getInterfazGrafica(){
+        return this.interfazGrafica;
+    }
 
     public void comprar(Jugador jugador) throws ExcepcionDineroVoluntario, ExcepcionRestriccionComprar {
         Propiedades comprable;
@@ -216,21 +226,13 @@ public class Operacion {
     public boolean menuHipotecar(Jugador jugador,Tablero tablero, double deuda) throws ExcepcionRestriccionHipotecar, ExcepcionRestriccionEdificar{ //Devuelve true si el jugador ya ha afrontado su deuda
         Juego.consola.anhadirTexto("El jugador " + jugador.getNombre() + " no tiene dinero suficiente");
         Juego.consola.anhadirTexto("Serás declarado en banca rota y eliminado de la partida");
-        Propiedades comprable;
-        for (Propiedades cas : jugador.getPropiedades()) {
-            if (cas instanceof Solar) {
-                for (Edificios ed : ((Solar) cas).getConstrucciones()) {
-                    this.tablero.borrarEdificio(ed);
-                    ((Solar) cas).getConstrucciones().remove(ed);
-                }
-            }
-            cas.setPropietario(this.tablero.getBanca());
-            cas.setHipotecado(false);
-        }
-        this.valor.getCasillas().get(jugador.getAvatar().getCasilla().getPosicion()).quitarAvatar(jugador.getAvatar());
-        this.tablero.getAvatares().remove(jugador.getAvatar().getId());
-        this.tablero.getJugadores().remove(jugador.getNombre());
-        return false;
+
+        this.interfazGrafica.getPanelTablero().setVisible(false);
+        this.interfazGrafica.getPanelJugadores().setVisible(false);
+        this.interfazGrafica.getPanelBotones().setVisible(false);
+        this.interfazGrafica.getPanelInfo().setVisible(false);
+        this.interfazGrafica.getPanelMenu().setVisible(false);
+        this.interfazGrafica.getPanelBancarrota().setVisible(true);
         /*
         Juego.consola.anhadirTexto(jugador.getNombre() + " entró en el menú hipotecar");
         Operacion operacion = new Operacion(tablero, valor);
@@ -300,6 +302,10 @@ public class Operacion {
             }
         }
         */
+        while(this.getInterfazGrafica().getJuego().getJugadorActual().getDinero() < 100){
+            return false;
+        }
+        return false;
     }
 
     public void salirCarcel(Jugador jugador) throws ExcepcionRestriccionHipotecar, ExcepcionRestriccionEdificar, ExcepcionDineroVoluntario, ExcepcionesDinamicaEncarcelamiento {

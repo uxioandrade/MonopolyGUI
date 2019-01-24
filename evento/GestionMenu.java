@@ -59,6 +59,8 @@ public class GestionMenu implements ActionListener {
             }
         }else if(evento.getSource().equals(this.interfazGrafica.getPanelMenu().getBotonVender())){
             try{
+                this.interfazGrafica.getJuego().getJugadorActual().setDinero(5);
+                this.interfazGrafica.getJuego().getJugadorActual().getAvatar().setCasilla(this.interfazGrafica.getValor().getCasillas().get(38));
                 this.interfazGrafica.getPanelTexto().setVisible(false);
                 this.interfazGrafica.getPanelMenu().setVisible(false);
                 this.interfazGrafica.getPanelBotones().setVisible(false);

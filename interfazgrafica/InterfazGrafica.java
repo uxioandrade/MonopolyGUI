@@ -29,6 +29,7 @@ public class InterfazGrafica extends JFrame{
 	private PanelEdificar panelEdificar;
 	private  PanelVender panelVender;
 	private PanelTratos panelTratos;
+	private PanelBancarrota panelBancarrota;
 	private Valor valor;
 	private int[] permutacionCasillas;
 
@@ -107,6 +108,12 @@ public class InterfazGrafica extends JFrame{
 		c.gridy=0;
 		this.add(this.panelHipotecar,c);
 
+		this.panelBancarrota = new PanelBancarrota(this,this.panelHipotecar);
+		this.panelBancarrota.setVisible(false);
+		c.gridx = 2000;
+		c.gridy = 0;
+		this.add(this.panelBancarrota,c);
+
 		this.panelVender = new PanelVender(this,this.juego.getJugadorActual());
 		this.panelVender.setVisible(false);
 		c.gridx=1500;
@@ -124,6 +131,8 @@ public class InterfazGrafica extends JFrame{
 		c.gridx=1500;
 		c.gridy=0;
 		this.add(this.panelTratos,c);
+
+		this.getJuego().getOperacion().setInterfazGrafica(this);
 	}
 	
 	public PanelTablero getPanelTablero() {
@@ -133,7 +142,11 @@ public class InterfazGrafica extends JFrame{
 	public PanelInfo getPanelInfo() {
 		return info;
 	}
-	
+
+	public PanelBancarrota getPanelBancarrota(){
+		return this.panelBancarrota;
+	}
+
 	public PanelMenu getPanelMenu() {
 		return menu;
 	}

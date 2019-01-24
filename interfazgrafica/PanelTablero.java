@@ -101,6 +101,10 @@ public class PanelTablero extends JPanel{
 		casillas.get(jugador.getAvatar().getCasilla().getPosicion()).actualizarCasilla();
 	}
 
+	public ArrayList<BotonCasilla> getCasillas(){
+		return this.casillas;
+	}
+
 	@Override
 	public void paintComponent(Graphics g) {
 		g.drawImage(this.backgroundImg, 50, 50, null);
