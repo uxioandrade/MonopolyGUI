@@ -20,17 +20,20 @@ public class Mapa {
         this.valorGrupo=valorGrupo;
     }
     public Mapa(String path){
+        enteros=new ArrayList<>();
+        valorGrupo=new ArrayList<>();
         String linea = "";
-        String separador = ",";
-        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+        //String separador = ",";
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(path));
             int i=0;
             while ((linea = br.readLine()) != null) {
-                String[] descripcion = linea.split(separador);
+                //String[] descripcion = linea.split(separador);
                 if(i<40) {
-                    enteros.add(Integer.valueOf(descripcion[0]));
+                    enteros.add(Integer.valueOf(linea));
                     i++;
                 }else {
-                    valorGrupo.add(Double.valueOf(descripcion[0]));
+                    valorGrupo.add(Double.valueOf(linea));
                 }
             }
         } catch (IOException e) {
@@ -54,7 +57,7 @@ public class Mapa {
         FileWriter fw = null;
         PrintWriter pw=null;
         try {
-            fw=new FileWriter("/home/nombre.csv");
+            fw=new FileWriter(nombre+".csv");
             pw= new PrintWriter(fw);
             for(Integer i : enteros){
                 pw.write(i.toString()+'\n');
