@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class PanelLecturaMapa extends JFrame {
+
     private JFileChooser fc;
     public PanelLecturaMapa(){
         super("Escoge un mapa");

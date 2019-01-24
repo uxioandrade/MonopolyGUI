@@ -90,6 +90,7 @@ public class PanelTablero extends JPanel{
 		casillas.get(valor.getPosicionSalida()).actualizarCasilla();
 		this.valor.setPosiscionCartas();
 
+
 	}
 
 	public void actualizarFicha(int posInicial, Jugador jugador){

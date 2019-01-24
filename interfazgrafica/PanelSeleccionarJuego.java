@@ -12,7 +12,11 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import Ejecucion.Ejecutar;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class PanelSeleccionarJuego extends JFrame{
+
 	private JLabel titulo;
 	private JButton editar;
 	private JButton editado;
@@ -35,10 +39,12 @@ public class PanelSeleccionarJuego extends JFrame{
 		this.add(titulo);
 		editar = new JButton("Editar mi propio mapa");
 		editar.setAlignmentX(Component.CENTER_ALIGNMENT);
+		Mapa map = this.m;
 		editar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				((JButton) e.getSource()).getParent().setVisible(false);
 				editarMapa.setVisible(true);
+				editarMapa.setMap(map);
 			}
 		});
 		this.add(editar);
@@ -52,6 +58,20 @@ public class PanelSeleccionarJuego extends JFrame{
 				editar.setVisible(false);
 				editado.setVisible(false);
 				normal.setVisible(false);
+				ArrayList<Double> precios = m.getValorGrupo();
+				ArrayList<Integer> perm = m.getEnteros();
+				double [] prize = new double[8];
+				int[] p = new int[40];
+				for(int i = 0; i < 40;i++)
+					p[i] = perm.get(i);
+				for(int i = 0; i < 8;i++){
+					prize[i] = precios.get(i);
+				}
+				try {
+					Ejecutar.ejecucion(p, prize);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		

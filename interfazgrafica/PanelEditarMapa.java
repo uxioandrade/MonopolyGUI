@@ -43,6 +43,7 @@ public class PanelEditarMapa extends JFrame{
 	private int[] permutacionCasillas;
 	private double[] precios;
 	private JButton botonListo;
+	private Mapa map;
 	
 	private static final Integer IMG_W = 230;
 	private static final Integer IMG_H = 200;
@@ -67,7 +68,11 @@ public class PanelEditarMapa extends JFrame{
 			System.out.println(ex.getMessage());
 		}
 	}
-	
+
+	public void setMap(Mapa map) {
+		this.map = map;
+	}
+
 	public JButton getBotonSeleccionar(){
 		return this.botonSeleccionar;
 	}
@@ -83,7 +88,7 @@ public class PanelEditarMapa extends JFrame{
 		fotoCasilla.setAlignmentX(Component.CENTER_ALIGNMENT);
 		this.add(fotoCasilla);
 		JFrame myFrame = this;
-		descripcion = new JLabel("Introduzca la posición deseada de la casilla mostrada (1-40)");
+		descripcion = new JLabel("Introduzca la posiciï¿½n deseada de la casilla mostrada (1-40)");
 		this.add(descripcion);
 		this.add(scrollPane);
 		this.add(botonSeleccionar);
@@ -218,6 +223,7 @@ public class PanelEditarMapa extends JFrame{
 		}
 		try {
 			Ejecutar.ejecucion(permutacionCasillas, this.precios);
+			this.map.imprimir("/com.company/test.csv");
 			return;
 		}catch(IOException e) {
 			e.printStackTrace();
