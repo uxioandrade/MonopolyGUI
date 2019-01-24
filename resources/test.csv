@@ -1,0 +1,2 @@
+this.split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT)
+this.split.setLeftComponent(comp)

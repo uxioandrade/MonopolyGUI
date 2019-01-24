@@ -32,8 +32,12 @@ public class LecturaDatos {
     }
 
     public static boolean ImprimirCSV(String archivo, ArrayList<Casilla> casillas) {
+        FileWriter fw = null;
+        PrintWriter pw=null;
         try {
-            PrintWriter pw = new PrintWriter(new File(archivo));
+            fw=new FileWriter("/home/jp/Documentos/monopolyGrafica/src/com/company/tes.csv");
+            pw= new PrintWriter(fw);
+            System.out.println("HIII");
             for(Casilla c : casillas){
                 StringBuilder sb = new StringBuilder();
                 if(c instanceof Accion) {
@@ -52,11 +56,12 @@ public class LecturaDatos {
                 sb.append(c.getPosicion());
                 sb.append('\n');
                 pw.write(sb.toString());
+                System.out.println(sb.toString());
             }
             pw.close();
         }
         catch (Exception e){
-            return false;
+            e.printStackTrace();
         }
         return true;
     }
