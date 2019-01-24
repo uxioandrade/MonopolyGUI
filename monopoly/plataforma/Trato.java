@@ -52,7 +52,7 @@ public class Trato {
         this.cantidad = cantidadRecibida;
         this.id = Valor.getTratos();
         Valor.incrementarTratos();
-        this.descripcion = descripcion + "(" + propiedadOfertada.getNombre() + ", " + cantidadRecibida + "€)";
+        this.descripcion = descripcion + "(" + propiedadOfertada.getNombre() + ", " + cantidadRecibida*-1 + "€)";
         Juego.consola.anhadirTexto(this.receptor.getNombre() + ", ¿te doy " + propiedadOfertada.getNombre() + " y tú me das " + cantidadRecibida*-1 + "€?");
     }
 

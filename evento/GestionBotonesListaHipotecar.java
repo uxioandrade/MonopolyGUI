@@ -28,6 +28,8 @@ public class GestionBotonesListaHipotecar implements ActionListener {
             this.interfazGrafica.getPanelBotones().setVisible(true);
             this.interfazGrafica.getPanelJugadores().setVisible(true);
             this.panelHipotecar.setVisible(false);
+        }else if(evento.getSource().equals(this.panelHipotecar.getBotonDeshipotecar())){
+            panelHipotecar.desHipotecarElemento();
         }
     }
 

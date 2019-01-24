@@ -15,18 +15,18 @@ public class PanelBotones extends JPanel{
 
 	public PanelBotones(InterfazGrafica interfaz) {
 		this.interfaz = interfaz;
-		this.setLayout(new GridLayout(0,1));
+		this.setLayout(new GridLayout(2,1));
 		this.initComponents();
 		this.setUp();
 		this.addEventHandlers();
 	}
 
 	private void initComponents(){
-		botonSalir = new JButton();
-		setButtonImage(this.botonSalir,"/resources/salir.png/","SALIR");
+		botonSalir = new JButton("Salir");
+		//setButtonImage(this.botonSalir,"/resources/salir.png/","SALIR");
 
-		botonOtro = new JButton();
-		setButtonImage(this.botonOtro,"/resources/otro.png/","otro");
+		botonOtro = new JButton("Otro");
+		//setButtonImage(this.botonOtro,"/resources/otro.png/","otro");
 	}
 
 	private void setUp() {
@@ -36,7 +36,7 @@ public class PanelBotones extends JPanel{
 	public void setButtonImage(JButton boton, String path, String nombre){
 		try {
 			BufferedImage img = ImageIO.read(getClass().getResource(path));
-			img = InterfazGrafica.resize( img,45,90);
+			img = InterfazGrafica.resize( img,20,50);
 			//boton.setIcon(new ImageIcon((Image) img));
 			boton.setOpaque(false);
 			boton.setContentAreaFilled(false);
@@ -46,7 +46,7 @@ public class PanelBotones extends JPanel{
 		} catch (Exception ex) {
 			//System.out.println(ex);
 			boton = new JButton(nombre);
-			boton.setMaximumSize(new Dimension(40,80));
+			boton.setMaximumSize(new Dimension(50,20));
 		}
 	}
 
