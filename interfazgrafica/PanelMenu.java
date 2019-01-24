@@ -14,7 +14,7 @@ import javax.swing.ImageIcon;
 @SuppressWarnings("serial")
 public class PanelMenu extends JPanel{
 	private InterfazGrafica interfaz;
-	
+
 	private JButton botonComprar;
 	private JButton botonHipotecar;
 	private JButton botonEdificar;
@@ -22,9 +22,8 @@ public class PanelMenu extends JPanel{
 	private JButton botonVender;
 	private JButton botonLanzar;
 	private JButton botonEstadisticas;
-    private JButton botonCambiarModo;
-    private JButton botonTratos;
-    
+	private JButton botonCambiarModo;
+	private JButton botonTratos;
 
 	public PanelMenu(InterfazGrafica interfaz) {
 		this.interfaz = interfaz;
@@ -32,14 +31,8 @@ public class PanelMenu extends JPanel{
 		this.setUp();
 		this.addEventHandlers();
 	}
-	
+
 	private void setUp() {
-		/***
-		 * IMPORTANTE
-		//Importante: para poner las imágenes en los JButton quitar de los constructores del JButton
-		//el texto
-		//es decir, new JButton("Comprar") - > new JButton()**
-		**/
 		botonComprar = new JButton();
 		setButtonImage(botonComprar,"/resources/compra.png","COMPRAR");
 		botonAcabar = new JButton();
@@ -60,11 +53,14 @@ public class PanelMenu extends JPanel{
 		setButtonImage(botonEstadisticas,"/resources/estadisticas.png","ESTADISTICAS");
 		//setButtonImage(botonEstadisticas,"/resources/estadisticas.png");
 
-        botonCambiarModo = new JButton();
+		botonCambiarModo = new JButton();
 		setButtonImage(botonCambiarModo,"/resources/modo.png","MODO");
 
 		botonTratos = new JButton();
 		setButtonImage(botonTratos,"/resources/trato.png","TRATO");
+
+		botonVender= new JButton();
+		setButtonImage(botonVender,"/resources/vender.png","VENDER");
 
 		this.add(botonComprar);
 		this.add(botonHipotecar);
@@ -74,6 +70,7 @@ public class PanelMenu extends JPanel{
 		this.add(botonEstadisticas);
 		this.add(botonTratos);
 		this.add(botonCambiarModo);
+		this.add(botonVender);
 	}
 
 	private void setButtonImage(JButton boton, String path, String nombre){
@@ -116,14 +113,14 @@ public class PanelMenu extends JPanel{
 	public JButton getBotonAcabar() { return this.botonAcabar; }
 
 	public JButton getBotonCambiarModo(){
-	    return this.botonCambiarModo;
-    }
+		return this.botonCambiarModo;
+	}
 
-    public JButton getBotonTratos() {
-        return this.botonTratos;
-    }
+	public JButton getBotonTratos() {
+		return this.botonTratos;
+	}
 
-    public JButton getBotonLanzar(){
+	public JButton getBotonLanzar(){
 		return this.botonLanzar;
 	}
 
@@ -133,12 +130,13 @@ public class PanelMenu extends JPanel{
 
 	private void addEventHandlers(){
 		this.botonComprar.addActionListener(new GestionMenu(this.interfaz));
+		this.botonVender.addActionListener(new GestionMenu(this.interfaz));
 		this.botonLanzar.addActionListener(new GestionMenu(this.interfaz));
 		this.botonHipotecar.addActionListener(new GestionMenu(this.interfaz));
 		this.botonEstadisticas.addActionListener(new GestionMenu(this.interfaz));
 		this.botonAcabar.addActionListener(new GestionMenu(this.interfaz));
-        this.botonCambiarModo.addActionListener(new GestionMenu(this.interfaz));
-        this.botonTratos.addActionListener(new GestionMenu(this.interfaz));
+		this.botonCambiarModo.addActionListener(new GestionMenu(this.interfaz));
+		this.botonTratos.addActionListener(new GestionMenu(this.interfaz));
 		this.botonEdificar.addActionListener(new GestionMenu(this.interfaz));
 		//this.botonHipotecar.addActionListener(new GestionMenu(this.interfaz));
 	}

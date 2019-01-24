@@ -45,7 +45,15 @@ public class PanelSeleccionarJuego extends JFrame{
 		this.add(editar);
 		editado = new JButton("Jugar con mapa ya editado");
 		editado.setAlignmentX(Component.CENTER_ALIGNMENT);
-		
+		editado.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				titulo.setVisible(false);
+				editar.setVisible(false);
+				editado.setVisible(false);
+				normal.setVisible(false);
+
+			}
+		});
 		
 		// 	FALTA LEER DE UN FICHERO LOS DATOS DE UN MAPA YA EDITADO
 		// AQUI IRIA EL EVENT HANDLER DE DICHO BOTON
